@@ -1,0 +1,37 @@
+{
+  "profile": {
+    "nama": "Akhmad Fadil Mubarok",
+    "nip": "200103212023021002"
+  },
+  "periods": [
+    {
+      "id": "924e92ed-086a-45ce-a959-af569eb53f06",
+      "month": "2026-05",
+      "label": "Mei 2026",
+      "activities": [
+        {
+          "id": "f332c6c2-aacb-46e5-9fdd-36aa3e2ae46b",
+          "kegiatan": "Melakukan Pembuatan Aplikasi TimCare",
+          "waktu": "12 Mei 2026",
+          "catatan": "",
+          "createdAt": "2026-05-15T07:31:16.080Z",
+          "evidence": {
+            "driveLinks": [],
+            "driveFiles": [],
+            "selectedDriveIds": [],
+            "manualFiles": []
+          },
+          "generatedPdfs": []
+        }
+      ],
+      "createdAt": "2026-05-15T07:30:33.122Z"
+    },
+    {
+      "id": "7cfa95ec-e387-45a2-9691-5994e872b893",
+      "month": "2026-01",
+      "label": "Januari 2026",
+      "activities": [],
+      "createdAt": "2026-05-15T07:32:59.162Z"
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard Bukti CKP</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">CKP Evidence</p>
+        <h1>Dashboard Bukti Dukung</h1>
+      </div>
+      <form id="profileForm" class="profile-form">
+        <label>Nama
+          <input id="namaInput" name="nama" required placeholder="Nama pegawai" />
+        </label>
+        <label>NIP
+          <input id="nipInput" name="nip" required placeholder="NIP" />
+        </label>
+        <button type="submit">Simpan</button>
+      </form>
+    </header>
+
+    <section class="workspace">
+      <aside class="period-panel">
+        <form id="periodForm" class="period-form">
+          <label>Periode CKP
+            <input id="periodMonth" name="month" type="month" required />
+          </label>
+          <button type="submit">Tambah Periode</button>
+        </form>
+        <div id="periodList" class="period-list"></div>
+      </aside>
+
+      <section class="main-panel">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">Periode aktif</p>
+            <h2 id="currentPeriodTitle">Belum ada periode</h2>
+          </div>
+          <p id="periodSummary" class="muted"></p>
+        </div>
+
+        <form id="activityForm" class="activity-form hidden">
+          <div class="field-row">
+            <label>Nama Kegiatan
+              <textarea id="activityKegiatan" name="kegiatan" rows="2" required placeholder="Tulis kegiatan CKP"></textarea>
+            </label>
+            <label>Waktu
+              <input id="activityWaktu" name="waktu" placeholder="Contoh: Minggu II / 12 Mei 2026" />
+            </label>
+          </div>
+          <label>Catatan
+            <input id="activityCatatan" name="catatan" placeholder="Opsional" />
+          </label>
+          <button type="submit">Tambah Kegiatan</button>
+        </form>
+
+        <div id="emptyState" class="empty-state">Buat atau pilih periode untuk mulai menyusun daftar kegiatan.</div>
+        <div id="activityList" class="activity-list"></div>
+      </section>
+    </section>
+
+    <section id="evidencePanel" class="evidence-panel hidden">
+      <div class="panel-head">
+        <div>
+          <p class="eyebrow">Bukti kegiatan</p>
+          <h2 id="evidenceTitle">Pilih kegiatan</h2>
+        </div>
+        <button id="closeEvidenceBtn" type="button" class="ghost">Tutup</button>
+      </div>
+
+      <div class="evidence-grid">
+        <form id="driveForm" class="evidence-box">
+          <h3>Google Drive</h3>
+          <label>Link file/folder
+            <textarea id="driveLinks" rows="4" placeholder="Tempel satu atau beberapa link Drive"></textarea>
+          </label>
+          <div class="button-row">
+            <button id="previewBtn" type="button" class="secondary">Cek File</button>
+            <button id="saveDriveBtn" type="submit">Simpan Pilihan</button>
+          </div>
+          <div id="drivePicker" class="drive-picker hidden">
+            <div class="picker-head">
+              <strong>File Drive</strong>
+              <div>
+                <button type="button" class="mini" id="selectAllBtn">Pilih semua</button>
+                <button type="button" class="mini secondary-mini" id="clearAllBtn">Kosongkan</button>
+              </div>
+            </div>
+            <div id="driveList" class="drive-list"></div>
+          </div>
+        </form>
+
+        <form id="manualForm" class="evidence-box">
+          <h3>Upload Manual</h3>
+          <label>Gambar/PDF
+            <input id="manualFiles" type="file" name="manualFiles" multiple accept="image/*,.pdf,application/pdf" />
+          </label>
+          <button type="submit">Upload Bukti</button>
+          <div id="manualList" class="file-list"></div>
+        </form>
+      </div>
+    </section>
+
+    <p id="status" class="status"></p>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

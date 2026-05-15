@@ -1,0 +1,30 @@
+{
+  "name": "ckp-evidence-app",
+  "version": "1.0.0",
+  "description": "Website pembuat dokumen PDF bukti dukung CKP dari Google Drive, PDF, dan upload manual.",
+  "main": "server/index.js",
+  "engines": {
+    "node": "22.x"
+  },
+  "scripts": {
+    "dev": "nodemon server/index.js",
+    "start": "node server/index.js"
+  },
+  "dependencies": {
+    "@napi-rs/canvas": "latest",
+    "@vercel/blob": "^2.3.3",
+    "cors": "latest",
+    "dotenv": "latest",
+    "express": "latest",
+    "googleapis": "latest",
+    "mime-types": "latest",
+    "multer": "latest",
+    "pdfjs-dist": "latest",
+    "pdfkit": "latest",
+    "sharp": "latest",
+    "uuid": "latest"
+  },
+  "devDependencies": {
+    "nodemon": "latest"
+  }
+}
