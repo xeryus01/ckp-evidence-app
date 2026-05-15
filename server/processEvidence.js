@@ -1,10 +1,22 @@
 const fs = require('fs/promises');
 const path = require('path');
 const sharp = require('sharp');
+const convert = require('heic-convert');
 const pdfjsLib = require('pdfjs-dist/legacy/build/pdf.mjs');
 const { createCanvas } = require('@napi-rs/canvas');
 
-const IMAGE_MIMES = ['.jpg', '.jpeg', '.png', '.webp', '.tif', '.tiff', '.bmp'];
+const IMAGE_MIMES = ['.jpg', '.jpeg', '.png', '.webp', '.tif', '.tiff', '.bmp', '.heic', '.heif'];
+
+async function convertHeicToJpg(inputPath, outputPath) {
+  const inputBuffer = await fs.readFile(inputPath);
+  const outputBuffer = await convert({
+    buffer: inputBuffer,
+    format: 'JPEG',
+    quality: 0.9
+  });
+  await fs.writeFile(outputPath, outputBuffer);
+  return outputPath;
+}
 
 async function compressImage(inputPath, outputDir, index) {
   const out = path.join(outputDir, `evidence-${String(index).padStart(3, '0')}.jpg`);
@@ -47,8 +59,21 @@ async function normalizeEvidence(files, outputDir) {
       imagePaths.push(...pages);
       idx += pages.length;
     } else if (IMAGE_MIMES.includes(ext) || file.mimetype?.startsWith('image/') || file.mimeType?.startsWith('image/')) {
-      const img = await compressImage(filePath, outputDir, idx++);
+      let processedPath = filePath;
+      
+      // Convert HEIC/HEIF to JPG first
+      if (ext === '.heic' || ext === '.heif' || file.mimetype === 'image/heic' || file.mimetype === 'image/heif') {
+        const jpgPath = path.join(outputDir, `heic-converted-${idx}.jpg`);
+        processedPath = await convertHeicToJpg(filePath, jpgPath);
+      }
+      
+      const img = await compressImage(processedPath, outputDir, idx++);
       imagePaths.push(img);
+      
+      // Clean up temporary converted file if it was created
+      if (processedPath !== filePath) {
+        await fs.rm(processedPath, { force: true });
+      }
     }
   }
   return imagePaths;

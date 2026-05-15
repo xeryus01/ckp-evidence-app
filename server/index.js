@@ -55,6 +55,17 @@ function monthLabel(month) {
     .format(new Date(year, monthNumber - 1, 1));
 }
 
+function activityTimeLabel(value) {
+  const raw = String(value || '').trim();
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(raw)) return raw;
+  const [year, month, day] = raw.split('-').map(Number);
+  return new Intl.DateTimeFormat('id-ID', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  }).format(new Date(year, month - 1, day));
+}
+
 function defaultEvidence() {
   return { driveLinks: [], driveFiles: [], selectedDriveIds: [], manualFiles: [] };
 }
@@ -281,7 +292,7 @@ app.post('/api/generate', upload.array('manualFiles', 100), async (req, res) => 
 
     const safeName = `${nama || 'CKP'}-${nip || 'NIP'}`.replace(/[^a-zA-Z0-9-_]/g, '_');
     const outputPath = path.join(OUTPUT_DIR, `Bukti_CKP_${safeName}_${Date.now()}.pdf`);
-    await generatePdf({ nama, nip, periode, waktu, kegiatan, imagePaths, outputPath });
+    await generatePdf({ nama, nip, periode, waktu: activityTimeLabel(waktu), kegiatan, imagePaths, outputPath });
 
     res.download(outputPath, path.basename(outputPath), async (err) => {
       await cleanup();
@@ -330,7 +341,7 @@ app.post('/api/periods/:periodId/activities/:activityId/generate', async (req, r
       nama: profile.nama,
       nip: profile.nip,
       periode: period.label || monthLabel(period.month),
-      waktu: activity.waktu,
+      waktu: activityTimeLabel(activity.waktu),
       kegiatan: activity.kegiatan,
       imagePaths,
       outputPath

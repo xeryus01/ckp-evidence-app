@@ -39,6 +39,30 @@ Project ini sudah disiapkan untuk Vercel melalui `api/index.js` dan `vercel.json
 5. Tambahkan environment variable `GOOGLE_SERVICE_ACCOUNT_JSON` berisi JSON service account Google dalam satu baris.
 6. Deploy.
 
+### Deploy Lewat CLI
+
+Project ini punya helper CLI agar upload ke Vercel lebih aman:
+
+```bash
+npm run vercel:setup
+npm run vercel:check
+npm run upload:vercel
+```
+
+Untuk production:
+
+```bash
+npm run deploy:prod
+```
+
+Jika ingin menambahkan service account dari file lokal ke Vercel:
+
+```bash
+npm run vercel:env:google
+```
+
+CLI akan menjalankan urutan ini: cek file project, link Vercel jika belum ada, pull env, cek `BLOB_READ_WRITE_TOKEN` dan `GOOGLE_SERVICE_ACCOUNT_JSON`, `vercel build`, `vercel deploy --prebuilt`, lalu tes `/api/health`.
+
 Catatan penting:
 
 - Jangan upload `.env` atau `service-account.json` ke Vercel. File tersebut sudah masuk `.vercelignore`.

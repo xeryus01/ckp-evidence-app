@@ -8,7 +8,13 @@
   },
   "scripts": {
     "dev": "nodemon server/index.js",
-    "start": "node server/index.js"
+    "start": "node server/index.js",
+    "vercel:setup": "node scripts/vercel-cli.js setup",
+    "vercel:check": "node scripts/vercel-cli.js check",
+    "vercel:env:google": "node scripts/vercel-cli.js env:google",
+    "upload:vercel": "node scripts/vercel-cli.js deploy --preview",
+    "deploy:preview": "node scripts/vercel-cli.js deploy --preview",
+    "deploy:prod": "node scripts/vercel-cli.js deploy --prod"
   },
   "dependencies": {
     "@napi-rs/canvas": "latest",
@@ -17,6 +23,8 @@
     "dotenv": "latest",
     "express": "latest",
     "googleapis": "latest",
+    "heic-convert": "^2.1.0",
+    "heic2any": "^0.0.4",
     "mime-types": "latest",
     "multer": "latest",
     "pdfjs-dist": "latest",

@@ -30,7 +30,524 @@
       "id": "7cfa95ec-e387-45a2-9691-5994e872b893",
       "month": "2026-01",
       "label": "Januari 2026",
-      "activities": [],
+      "activities": [
+        {
+          "id": "a066b59c-dc08-4859-81f5-17579cda05e8",
+          "kegiatan": "Mengikuti Apel Senin",
+          "waktu": "2026-01-26",
+          "catatan": "",
+          "createdAt": "2026-05-15T08:07:42.872Z",
+          "evidence": {
+            "driveLinks": [
+              "https://drive.google.com/drive/folders/1iGoXdJHHGpwuJul_67VoydDtx51eWTWD?usp=drive_link"
+            ],
+            "driveFiles": [
+              {
+                "id": "18VwAmFld3f2SbBkxrbwTEtGs_OWNkF-K",
+                "name": "DSC04850.JPG",
+                "mimeType": "image/jpeg",
+                "size": "8929272",
+                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBO7njPOQLbRAx3iq-IBOhK8CkUXSvFDVKduW3CKj-jSMTYi2l154NSjBcZPaOTW16B2Ye6kSfgcT8lfpvo9u3AnQpffC9cBNayNYRKg9SMpv-VCWg=s220",
+                "webViewLink": "https://drive.google.com/file/d/18VwAmFld3f2SbBkxrbwTEtGs_OWNkF-K/view?usp=drivesdk",
+                "type": "Gambar"
+              },
+              {
+                "id": "1MC12R8FpalshZ-N1e0gRo5RkrXU7Oof1",
+                "name": "DSC04895.JPG",
+                "mimeType": "image/jpeg",
+                "size": "8071559",
+                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBPe1843jyAXgqlHMclv2Ml3BCEHgwiskw6ASSkDl2ZR37aX0RYVmGH11utejsTT0xA4_AhG3jN6XcXyZaSWOw9S6o3W7r8BPhVDMkqMzTz5yrz8cw=s220",
+                "webViewLink": "https://drive.google.com/file/d/1MC12R8FpalshZ-N1e0gRo5RkrXU7Oof1/view?usp=drivesdk",
+                "type": "Gambar"
+              },
+              {
+                "id": "16LqU8F2guee0lgZyzlWn1c8yNaHze1Tv",
+                "name": "DSC04892.JPG",
+                "mimeType": "image/jpeg",
+                "size": "8786495",
+                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBNHYqDURjkKVc8Az21xiJA8cQ3e3nL142kI1jhmSMfeGYzyvtXyjSfe7y6Q74t3Ka_5a2kSudaXsrZyIKIIJxGg5roKiQhnp66Ww8iiwZVWsP6NbA=s220",
+                "webViewLink": "https://drive.google.com/file/d/16LqU8F2guee0lgZyzlWn1c8yNaHze1Tv/view?usp=drivesdk",
+                "type": "Gambar"
+              },
+              {
+                "id": "11CAqrvHC8x1EmYIpbVbEtyl893_8Bbi7",
+                "name": "DSC04884.JPG",
+                "mimeType": "image/jpeg",
+                "size": "9084142",
+                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBMySktCrem8W7AO3Vwg7wzu4nbyfKW5U8D3zq6LRyiHzonpAkTka3YUFMC1mS2iOyBh2IVqM_K5YM0D4jpiGCHqD_j3O9xQYX3uSDAFzeYyCtU7WA=s220",
+                "webViewLink": "https://drive.google.com/file/d/11CAqrvHC8x1EmYIpbVbEtyl893_8Bbi7/view?usp=drivesdk",
+                "type": "Gambar"
+              },
+              {
+                "id": "1dD6wcNlUjLXxW1IBcCRCr9fFP2ZQHIaL",
+                "name": "DSC04880.JPG",
+                "mimeType": "image/jpeg",
+                "size": "10613390",
+                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBOHR6VBf7z1vQPDnOfhQyTAVlzY-cGuO1QcnVsgt1JrQOvvkgtEVLPpTGX3gfJ_160vd19GAXknH1uoC7eVl-rAulXVI67Q9YDptnXmriCzj5ucmQ=s220",
+                "webViewLink": "https://drive.google.com/file/d/1dD6wcNlUjLXxW1IBcCRCr9fFP2ZQHIaL/view?usp=drivesdk",
+                "type": "Gambar"
+              },
+              {
+                "id": "19FYmXvhTku0Y8kEmQuJRBR9pG5sYMzrJ",
+                "name": "DSC04872.JPG",
+                "mimeType": "image/jpeg",
+                "size": "13365849",
+                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBMIw-gB6CJNqu6ktyXknc5GS6S6yW_KZGN0JAJHMl0JViYvcPThyreMCjzvyvPfwWIefu1p-Vo-84RJmA6WrCFk6Tqq3-zLoGvl82ZVk16RBNCHsg=s220",
+                "webViewLink": "https://drive.google.com/file/d/19FYmXvhTku0Y8kEmQuJRBR9pG5sYMzrJ/view?usp=drivesdk",
+                "type": "Gambar"
+              }
+            ],
+            "selectedDriveIds": [
+              "18VwAmFld3f2SbBkxrbwTEtGs_OWNkF-K",
+              "1MC12R8FpalshZ-N1e0gRo5RkrXU7Oof1",
+              "16LqU8F2guee0lgZyzlWn1c8yNaHze1Tv",
+              "11CAqrvHC8x1EmYIpbVbEtyl893_8Bbi7",
+              "1dD6wcNlUjLXxW1IBcCRCr9fFP2ZQHIaL",
+              "19FYmXvhTku0Y8kEmQuJRBR9pG5sYMzrJ"
+            ],
+            "manualFiles": []
+          },
+          "generatedPdfs": [
+            {
+              "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778833933748.pdf",
+              "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778833933748.pdf",
+              "generatedAt": "2026-05-15T08:32:14.032Z"
+            }
+          ],
+          "updatedAt": "2026-05-15T08:30:50.103Z"
+        },
+        {
+          "id": "055862cf-2541-446a-abe7-7fb23d6e80ab",
+          "kegiatan": "Mengikuti RAT Koperasi Arima",
+          "waktu": "2026-01-23",
+          "catatan": "",
+          "createdAt": "2026-05-15T08:06:57.014Z",
+          "evidence": {
+            "driveLinks": [
+              "https://drive.google.com/drive/folders/11e-WvsuMdI9K00kQlD3FnrSVsC3Cqm65?usp=drive_link"
+            ],
+            "driveFiles": [
+              {
+                "id": "1h76CC9KkAXw0MaIujnPNr7UT47eiFSkO",
+                "name": "DSC04828.JPG",
+                "mimeType": "image/jpeg",
+                "size": "7768900",
+                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBMbZttUtB0Qb7CCuwt5LP_bV8PqpMv7AXBC4Zi-gaX38QqNSJbcSKOS6y6loBjdnVs50t6-WP1dNzxhmhC8ULY45p4CK_UXbgl-mUGNMVNiVnDkWks=s220",
+                "webViewLink": "https://drive.google.com/file/d/1h76CC9KkAXw0MaIujnPNr7UT47eiFSkO/view?usp=drivesdk",
+                "type": "Gambar"
+              },
+              {
+                "id": "155rCL4kobCDGopy4ZpvR_ge3VYvbbXPw",
+                "name": "DSC04790.JPG",
+                "mimeType": "image/jpeg",
+                "size": "9246174",
+                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBPP5G0O-uNXBoWwTD8HZWn14LslENUFW8Is1KxDCXIWWvSzsiYDOa-G3cqzobaz16X5N-qPpwJOB1cJJxK3zNBy7Fupp8ooo5k0AwmJ1GUOpFOgFro=s220",
+                "webViewLink": "https://drive.google.com/file/d/155rCL4kobCDGopy4ZpvR_ge3VYvbbXPw/view?usp=drivesdk",
+                "type": "Gambar"
+              },
+              {
+                "id": "1f0-fwxs-HJ3jmW1wsjQeaJOMCU2NknV0",
+                "name": "DSC04789.JPG",
+                "mimeType": "image/jpeg",
+                "size": "9151028",
+                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBOrTijIngz_WAJbc9lFEJMhRAUODnQTSrDteaoZLuADtOQ5FAoSu9DxmyZVV2hqTpNOFe38ps3IBkyhC7sOC9Dr48z7nAK1purYyN_TXL8a_onQh3c=s220",
+                "webViewLink": "https://drive.google.com/file/d/1f0-fwxs-HJ3jmW1wsjQeaJOMCU2NknV0/view?usp=drivesdk",
+                "type": "Gambar"
+              },
+              {
+                "id": "1RbLUnPDI0AFPJ72R2sh__8Zw8oOXykc9",
+                "name": "DSC04787.JPG",
+                "mimeType": "image/jpeg",
+                "size": "9057664",
+                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBMY0qX_woWzyU_11EvI8EAHxZnIQYlEGIUaoMHas45KVqu1rRHfqxaNSCY3cWDEeFnY6vw4kODsBjfybSjFCronMdn30tcbKcGg6koz18FDBCtpAew=s220",
+                "webViewLink": "https://drive.google.com/file/d/1RbLUnPDI0AFPJ72R2sh__8Zw8oOXykc9/view?usp=drivesdk",
+                "type": "Gambar"
+              },
+              {
+                "id": "1DzB_0xq9_-3U3AqhrqerjOKJ58pBDLKo",
+                "name": "DSC04785.JPG",
+                "mimeType": "image/jpeg",
+                "size": "8766278",
+                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBPDH6DD_Pbiqsx9U02ZdGTaeuN6uQ_zyLa_kFh9hMRygO4pQ34JQeleo1cLunw7OpmiIiSQIbX8X25-c2LhrEA-ZgirbUOD9-o3lrYWSutqOeFjwQU=s220",
+                "webViewLink": "https://drive.google.com/file/d/1DzB_0xq9_-3U3AqhrqerjOKJ58pBDLKo/view?usp=drivesdk",
+                "type": "Gambar"
+              },
+              {
+                "id": "1Jh3AITDVMj-tZW2ta8lO002kALivpHpO",
+                "name": "DSC04759.JPG",
+                "mimeType": "image/jpeg",
+                "size": "4695607",
+                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBO1MGzor3TUYRhh2s8wmSqy-lDIoIXlyWGIQerJUNFeetTcybJqDOy9o6qLiVjBu1QrR3XSlHYvrxyZ6lXK4IgNVWiOZ0tr2CfeH9wfpYTPbvg-NgI=s220",
+                "webViewLink": "https://drive.google.com/file/d/1Jh3AITDVMj-tZW2ta8lO002kALivpHpO/view?usp=drivesdk",
+                "type": "Gambar"
+              }
+            ],
+            "selectedDriveIds": [
+              "1h76CC9KkAXw0MaIujnPNr7UT47eiFSkO",
+              "155rCL4kobCDGopy4ZpvR_ge3VYvbbXPw",
+              "1f0-fwxs-HJ3jmW1wsjQeaJOMCU2NknV0",
+              "1RbLUnPDI0AFPJ72R2sh__8Zw8oOXykc9",
+              "1DzB_0xq9_-3U3AqhrqerjOKJ58pBDLKo",
+              "1Jh3AITDVMj-tZW2ta8lO002kALivpHpO"
+            ],
+            "manualFiles": []
+          },
+          "generatedPdfs": [
+            {
+              "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778834791173.pdf",
+              "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778834791173.pdf",
+              "generatedAt": "2026-05-15T08:46:31.371Z"
+            }
+          ],
+          "updatedAt": "2026-05-15T08:46:01.759Z"
+        },
+        {
+          "id": "452ec3ae-f94e-4118-933d-c2b82e7b1d60",
+          "kegiatan": "Mengikuti rapat awal tahun Tim Humas",
+          "waktu": "2026-01-23",
+          "catatan": "",
+          "createdAt": "2026-05-15T08:06:16.150Z",
+          "evidence": {
+            "driveLinks": [
+              "https://drive.google.com/drive/folders/1h-W8NzmidsVeslt3-uM7axn07pCXY22t?usp=drive_link"
+            ],
+            "driveFiles": [
+              {
+                "id": "1mnC_roqa3lGd7-0j96MoSgW99p1NDBr0",
+                "name": "IMG_8731.HEIC",
+                "mimeType": "image/heif",
+                "size": "2874460",
+                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBM_rR3b92YpbfcCt1WP8m-tZSx9UB78OJaa7suv7Bxta5XuVDnjoOK9GvEltDQVLfNtPU-dX8qfS3MbjkCW_rSNPgWFKQAg8Zn02adhvt8ubb53Ng=s220",
+                "webViewLink": "https://drive.google.com/file/d/1mnC_roqa3lGd7-0j96MoSgW99p1NDBr0/view?usp=drivesdk",
+                "type": "Gambar"
+              },
+              {
+                "id": "14dK08T7UeZYmcNpR10jZPm8Wskh53Qik",
+                "name": "IMG_8733.HEIC",
+                "mimeType": "image/heif",
+                "size": "2570488",
+                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBMbVWO05zKwiIYX01CMQ_Q1e8NRdupkpualHyacYO837iBwe7QvEoVxwrQqBlJJmHcgRI4P6kERs18QkoheXcRyKe-sJRlwFqYO0_gMZ6tDQICssg=s220",
+                "webViewLink": "https://drive.google.com/file/d/14dK08T7UeZYmcNpR10jZPm8Wskh53Qik/view?usp=drivesdk",
+                "type": "Gambar"
+              },
+              {
+                "id": "18cV4n0clsAqUzenDnX2gZgGA8Z_n6ZN9",
+                "name": "IMG_8735.HEIC",
+                "mimeType": "image/heif",
+                "size": "2411662",
+                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBOj6tbbIW45dOM_fzlCw0lfd9NXyFqHVbGjbowgzE_r7TBn8XSU2-3sEnwcz5WrwkaGNZF7V0wxKS3gQDGJjguH14xLFt_Ntqy3aN6iD4A7dMcYuQ=s220",
+                "webViewLink": "https://drive.google.com/file/d/18cV4n0clsAqUzenDnX2gZgGA8Z_n6ZN9/view?usp=drivesdk",
+                "type": "Gambar"
+              },
+              {
+                "id": "1OG_BNgqgZl57ODqEP0NPa0pZgN0dMK8-",
+                "name": "IMG_8720.HEIC",
+                "mimeType": "image/heif",
+                "size": "2815557",
+                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBN2GexRDPerOq0N_loiirUFsc46ItaGzoj1o91XFIvG7-bm4MNa7ddmlxmyHIuHBa-McCGcGkEuBw0EhiYoh6Z2gBuPMuxTMymqPyM8iDHQjrgvNw=s220",
+                "webViewLink": "https://drive.google.com/file/d/1OG_BNgqgZl57ODqEP0NPa0pZgN0dMK8-/view?usp=drivesdk",
+                "type": "Gambar"
+              },
+              {
+                "id": "115K22Gb96ytLGbDjXGtz2vTqmbBjIKcy",
+                "name": "IMG_8712.HEIC",
+                "mimeType": "image/heif",
+                "size": "2661039",
+                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBMqy5gF2uFqxJDLxCTYtwbldvzAvz0d1gXDdM2zsaphDU2zGXlJB5nYuwBcw2XAomfozWKP4ZZglsqkXkKpburt2CkUKOIhj9o9dD3dvlE94_vWUg=s220",
+                "webViewLink": "https://drive.google.com/file/d/115K22Gb96ytLGbDjXGtz2vTqmbBjIKcy/view?usp=drivesdk",
+                "type": "Gambar"
+              },
+              {
+                "id": "1b7iKjvedxVDIc8aenJqRR9DjmNW2quji",
+                "name": "IMG_8721.HEIC",
+                "mimeType": "image/heif",
+                "size": "2249169",
+                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBOC5pMzA8jDVTZXrJz5FY9aLxUucaoXozv3N4GTny9ys-PjfBgUFXW-M9YOnC35TLplec4qlYXdDbukoUrj0oPfaa61GZliMh1i-d_288wWXUBCDYs=s220",
+                "webViewLink": "https://drive.google.com/file/d/1b7iKjvedxVDIc8aenJqRR9DjmNW2quji/view?usp=drivesdk",
+                "type": "Gambar"
+              },
+              {
+                "id": "1iNtah96mhxoTJZuxBMdnDfrId1lOkJmE",
+                "name": "IMG_8719.HEIC",
+                "mimeType": "image/heif",
+                "size": "2194272",
+                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBNYA4HMiJTn9t8J0pysYVOjLGYdRc6VwIm_NYqR0QhiNny04g8v0TpO3Y04EnwzQtb68tOj9nHuzHH5LQcmsABGrUf3qbmJGfxizt5TMd2dLwgUH18=s220",
+                "webViewLink": "https://drive.google.com/file/d/1iNtah96mhxoTJZuxBMdnDfrId1lOkJmE/view?usp=drivesdk",
+                "type": "Gambar"
+              }
+            ],
+            "selectedDriveIds": [
+              "1mnC_roqa3lGd7-0j96MoSgW99p1NDBr0",
+              "14dK08T7UeZYmcNpR10jZPm8Wskh53Qik",
+              "18cV4n0clsAqUzenDnX2gZgGA8Z_n6ZN9",
+              "1OG_BNgqgZl57ODqEP0NPa0pZgN0dMK8-",
+              "115K22Gb96ytLGbDjXGtz2vTqmbBjIKcy",
+              "1b7iKjvedxVDIc8aenJqRR9DjmNW2quji",
+              "1iNtah96mhxoTJZuxBMdnDfrId1lOkJmE"
+            ],
+            "manualFiles": []
+          },
+          "generatedPdfs": [],
+          "updatedAt": "2026-05-15T09:01:16.770Z"
+        },
+        {
+          "id": "02d982d4-e3f3-4dea-b5c7-85cdb2760806",
+          "kegiatan": "Melakukan maintenance dan flash data perangkat TI Kepala BPS",
+          "waktu": "2026-01-29",
+          "catatan": "",
+          "createdAt": "2026-05-15T08:05:47.505Z",
+          "evidence": {
+            "driveLinks": [],
+            "driveFiles": [],
+            "selectedDriveIds": [],
+            "manualFiles": [
+              {
+                "id": "685fcea4-9aef-4193-ba28-4b273c47c780",
+                "name": "IMG_20260129_095639.jpg",
+                "filename": "1778835751870-IMG_20260129_095639.jpg",
+                "path": "storage\\evidence\\7cfa95ec-e387-45a2-9691-5994e872b893\\02d982d4-e3f3-4dea-b5c7-85cdb2760806\\1778835751870-IMG_20260129_095639.jpg",
+                "mimetype": "image/jpeg",
+                "size": 1998377,
+                "uploadedAt": "2026-05-15T09:02:31.887Z"
+              },
+              {
+                "id": "b3c6d002-9f73-445a-b899-0dab3aa969d0",
+                "name": "IMG_20260129_095748.jpg",
+                "filename": "1778835751871-IMG_20260129_095748.jpg",
+                "path": "storage\\evidence\\7cfa95ec-e387-45a2-9691-5994e872b893\\02d982d4-e3f3-4dea-b5c7-85cdb2760806\\1778835751871-IMG_20260129_095748.jpg",
+                "mimetype": "image/jpeg",
+                "size": 1699312,
+                "uploadedAt": "2026-05-15T09:02:31.887Z"
+              },
+              {
+                "id": "43af8fe5-2272-462a-911b-dc8ad4e08e31",
+                "name": "IMG_20260129_095815.jpg",
+                "filename": "1778835751871-IMG_20260129_095815.jpg",
+                "path": "storage\\evidence\\7cfa95ec-e387-45a2-9691-5994e872b893\\02d982d4-e3f3-4dea-b5c7-85cdb2760806\\1778835751871-IMG_20260129_095815.jpg",
+                "mimetype": "image/jpeg",
+                "size": 1863090,
+                "uploadedAt": "2026-05-15T09:02:31.887Z"
+              }
+            ]
+          },
+          "generatedPdfs": [
+            {
+              "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778835766056.pdf",
+              "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778835766056.pdf",
+              "generatedAt": "2026-05-15T09:02:46.256Z"
+            }
+          ],
+          "updatedAt": "2026-05-15T09:02:31.887Z"
+        },
+        {
+          "id": "ee82aee9-2650-410d-83e9-74f050559998",
+          "kegiatan": "Melakukan entri GC Prelist SE 2026 Desa Riding Panjang di Matchapro",
+          "waktu": "2026-01-28",
+          "catatan": "",
+          "createdAt": "2026-05-15T08:05:27.519Z",
+          "evidence": {
+            "driveLinks": [],
+            "driveFiles": [],
+            "selectedDriveIds": [],
+            "manualFiles": []
+          },
+          "generatedPdfs": []
+        },
+        {
+          "id": "5b6c4b24-e4fc-48e7-8a70-09a0cab8fb70",
+          "kegiatan": "Melakukan GC Prelist SE 2026 di Desa Riding Panjang",
+          "waktu": "2026-01-28",
+          "catatan": "",
+          "createdAt": "2026-05-15T08:05:15.417Z",
+          "evidence": {
+            "driveLinks": [],
+            "driveFiles": [],
+            "selectedDriveIds": [],
+            "manualFiles": []
+          },
+          "generatedPdfs": []
+        },
+        {
+          "id": "7cf9203a-4f6d-45e8-89f3-ac21d14cf581",
+          "kegiatan": "Melakukan pengecekan dan perbaikan perangkat TI",
+          "waktu": "2026-01-22",
+          "catatan": "",
+          "createdAt": "2026-05-15T08:04:44.350Z",
+          "evidence": {
+            "driveLinks": [],
+            "driveFiles": [],
+            "selectedDriveIds": [],
+            "manualFiles": []
+          },
+          "generatedPdfs": []
+        },
+        {
+          "id": "b6106d26-d021-48bd-9faa-04671e3b4725",
+          "kegiatan": "Melakukan entri GC Prelist SE 2026 Desa Pagarawan di Matchapro",
+          "waktu": "2026-01-21",
+          "catatan": "",
+          "createdAt": "2026-05-15T08:03:41.800Z",
+          "evidence": {
+            "driveLinks": [],
+            "driveFiles": [],
+            "selectedDriveIds": [],
+            "manualFiles": []
+          },
+          "generatedPdfs": []
+        },
+        {
+          "id": "8e66c7e2-dc50-4712-bc58-d7ada7aacf15",
+          "kegiatan": "Melakukan GC Prelist SE 2026 di Desa Pagarawan",
+          "waktu": "2026-01-21",
+          "catatan": "",
+          "createdAt": "2026-05-15T08:03:17.684Z",
+          "evidence": {
+            "driveLinks": [],
+            "driveFiles": [],
+            "selectedDriveIds": [],
+            "manualFiles": [
+              {
+                "id": "656b9455-b80c-493e-a66a-0ec92453ae5f",
+                "name": "WhatsApp Image 2026-05-15 at 15.24.12 (2).jpeg",
+                "filename": "1778833520408-WhatsApp Image 2026-05-15 at 15.24.12 (2).jpeg",
+                "path": "storage\\evidence\\7cfa95ec-e387-45a2-9691-5994e872b893\\8e66c7e2-dc50-4712-bc58-d7ada7aacf15\\1778833520408-WhatsApp Image 2026-05-15 at 15.24.12 (2).jpeg",
+                "mimetype": "image/jpeg",
+                "size": 76842,
+                "uploadedAt": "2026-05-15T08:25:20.442Z"
+              },
+              {
+                "id": "5bb22a37-adb1-426b-a971-0d65a7ac952d",
+                "name": "WhatsApp Image 2026-05-15 at 15.24.12 (1).jpeg",
+                "filename": "1778833520410-WhatsApp Image 2026-05-15 at 15.24.12 (1).jpeg",
+                "path": "storage\\evidence\\7cfa95ec-e387-45a2-9691-5994e872b893\\8e66c7e2-dc50-4712-bc58-d7ada7aacf15\\1778833520410-WhatsApp Image 2026-05-15 at 15.24.12 (1).jpeg",
+                "mimetype": "image/jpeg",
+                "size": 96124,
+                "uploadedAt": "2026-05-15T08:25:20.438Z"
+              },
+              {
+                "id": "348c9f07-438b-4167-89c1-c88cffffe041",
+                "name": "WhatsApp Image 2026-05-15 at 15.24.12.jpeg",
+                "filename": "1778833520412-WhatsApp Image 2026-05-15 at 15.24.12.jpeg",
+                "path": "storage\\evidence\\7cfa95ec-e387-45a2-9691-5994e872b893\\8e66c7e2-dc50-4712-bc58-d7ada7aacf15\\1778833520412-WhatsApp Image 2026-05-15 at 15.24.12.jpeg",
+                "mimetype": "image/jpeg",
+                "size": 98886,
+                "uploadedAt": "2026-05-15T08:25:20.438Z"
+              },
+              {
+                "id": "5975e156-cc4d-4d06-b5be-44c66be5b4ee",
+                "name": "WhatsApp Image 2026-05-15 at 15.24.11 (1).jpeg",
+                "filename": "1778833520412-WhatsApp Image 2026-05-15 at 15.24.11 (1).jpeg",
+                "path": "storage\\evidence\\7cfa95ec-e387-45a2-9691-5994e872b893\\8e66c7e2-dc50-4712-bc58-d7ada7aacf15\\1778833520412-WhatsApp Image 2026-05-15 at 15.24.11 (1).jpeg",
+                "mimetype": "image/jpeg",
+                "size": 94413,
+                "uploadedAt": "2026-05-15T08:25:20.442Z"
+              },
+              {
+                "id": "9a152a16-4a75-4109-999a-75d8db5514a3",
+                "name": "WhatsApp Image 2026-05-15 at 15.24.11.jpeg",
+                "filename": "1778833520413-WhatsApp Image 2026-05-15 at 15.24.11.jpeg",
+                "path": "storage\\evidence\\7cfa95ec-e387-45a2-9691-5994e872b893\\8e66c7e2-dc50-4712-bc58-d7ada7aacf15\\1778833520413-WhatsApp Image 2026-05-15 at 15.24.11.jpeg",
+                "mimetype": "image/jpeg",
+                "size": 316153,
+                "uploadedAt": "2026-05-15T08:25:20.440Z"
+              }
+            ]
+          },
+          "generatedPdfs": [
+            {
+              "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778833557780.pdf",
+              "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778833557780.pdf",
+              "generatedAt": "2026-05-15T08:25:58.080Z"
+            }
+          ],
+          "updatedAt": "2026-05-15T08:25:20.442Z"
+        },
+        {
+          "id": "4cb1c3c3-6fda-46cc-a034-2abbf5c1166d",
+          "kegiatan": "Mengikuti Rakorda SNLIK",
+          "waktu": "2026-01-19",
+          "catatan": "",
+          "createdAt": "2026-05-15T08:02:16.630Z",
+          "evidence": {
+            "driveLinks": [
+              "https://drive.google.com/drive/folders/1Wn2DwMGguidIPxWcEijnKAK5nvW5Gc6O?usp=drive_link"
+            ],
+            "driveFiles": [
+              {
+                "id": "18eDfaJuEEK50Shnp8v8Jx4R_OV8sKlFk",
+                "name": "DSC04482.JPG",
+                "mimeType": "image/jpeg",
+                "size": "8746620",
+                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBPjsF62H5vLXd5-HXQh7xjvY4gtAqZU9JIy783veNaZHxn3D4DUGn5_jvHsJZLFfBZPc6HpueU8yF-twoPd08MICQi40Qwt7IrU4nvNq4Q7CL4P4m4=s220",
+                "webViewLink": "https://drive.google.com/file/d/18eDfaJuEEK50Shnp8v8Jx4R_OV8sKlFk/view?usp=drivesdk",
+                "type": "Gambar"
+              },
+              {
+                "id": "1zYM1wXU2MQnEWvh5K7hEeZgYa91HHKoS",
+                "name": "DSC04471.JPG",
+                "mimeType": "image/jpeg",
+                "size": "7103489",
+                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBOwFhmdJmXiHa-QDxKi1XdGAo8KfUplYh0MX_3rFzfpAStj2V-jmiJ351xX7BunIvQlCG2HFZg7TcPs8HNydqrwIp4nANb20OC2YH7I-qlbpdMqKgI=s220",
+                "webViewLink": "https://drive.google.com/file/d/1zYM1wXU2MQnEWvh5K7hEeZgYa91HHKoS/view?usp=drivesdk",
+                "type": "Gambar"
+              },
+              {
+                "id": "1kBly66I2fIDtjYvPX5gBbIKuXlHLmXZG",
+                "name": "DSC04432.JPG",
+                "mimeType": "image/jpeg",
+                "size": "6606239",
+                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBNta4Nj6khKJC57g-3vTtiwN6MKCogUgp42uQ4ZXm_7TGxEd4pe9kerqBJ2gBPK4p3oTK13MxalMZjiXY2gGS_bYBl4ovW2GTjfXqaR5UMLtvqZ4w4=s220",
+                "webViewLink": "https://drive.google.com/file/d/1kBly66I2fIDtjYvPX5gBbIKuXlHLmXZG/view?usp=drivesdk",
+                "type": "Gambar"
+              },
+              {
+                "id": "1Mpm-nTji7ARChkydzWvEsX5Did1C49FC",
+                "name": "DSC04425.JPG",
+                "mimeType": "image/jpeg",
+                "size": "7384084",
+                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBOL_36_UEDrZwfZQDTyTRy5cGhsjNXgdqvrRfxj2t-pfFA5f4J4IaNna_TwWRxmxtICtLhVBJ0bRQeFKpi48e2sn1J284J4Dp6wtS5BEgZxm3Qnifk=s220",
+                "webViewLink": "https://drive.google.com/file/d/1Mpm-nTji7ARChkydzWvEsX5Did1C49FC/view?usp=drivesdk",
+                "type": "Gambar"
+              },
+              {
+                "id": "1TZiCTu2g-FOMF8V8hWz9JmMoSLZ8Hsa3",
+                "name": "DSC04400.JPG",
+                "mimeType": "image/jpeg",
+                "size": "8341882",
+                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBP4Rk98JgltF614qmuPHQjPt9PjAc15-DEr5R0Gw24ru6uF-GVYn12gl5jU1JNKqkjmTda_E3-f_c5Ed8IP-iUQwqy49EBfBzWGuvLQtfxGUBtq0Bo=s220",
+                "webViewLink": "https://drive.google.com/file/d/1TZiCTu2g-FOMF8V8hWz9JmMoSLZ8Hsa3/view?usp=drivesdk",
+                "type": "Gambar"
+              },
+              {
+                "id": "1GNytbl8rTVjiCkZgd3i0WzV-shrhgcb_",
+                "name": "DSC04398.JPG",
+                "mimeType": "image/jpeg",
+                "size": "7900761",
+                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBPQa6Nm7wO_atu3OBiQQSXCjuxvKUirl5Uc10ZgFyqjVYjCanXluvSnycjVaMkutlFoZnelprXEKlo4d2HnrvQ81xFkt4Q7ryhsXrGEGUgOI9CwOOE=s220",
+                "webViewLink": "https://drive.google.com/file/d/1GNytbl8rTVjiCkZgd3i0WzV-shrhgcb_/view?usp=drivesdk",
+                "type": "Gambar"
+              }
+            ],
+            "selectedDriveIds": [
+              "18eDfaJuEEK50Shnp8v8Jx4R_OV8sKlFk",
+              "1zYM1wXU2MQnEWvh5K7hEeZgYa91HHKoS",
+              "1kBly66I2fIDtjYvPX5gBbIKuXlHLmXZG",
+              "1Mpm-nTji7ARChkydzWvEsX5Did1C49FC",
+              "1TZiCTu2g-FOMF8V8hWz9JmMoSLZ8Hsa3",
+              "1GNytbl8rTVjiCkZgd3i0WzV-shrhgcb_"
+            ],
+            "manualFiles": []
+          },
+          "generatedPdfs": [
+            {
+              "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778833206856.pdf",
+              "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778833206856.pdf",
+              "generatedAt": "2026-05-15T08:20:07.332Z"
+            }
+          ],
+          "updatedAt": "2026-05-15T08:19:24.540Z"
+        }
+      ],
       "createdAt": "2026-05-15T07:32:59.162Z"
     }
   ]

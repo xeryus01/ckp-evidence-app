@@ -63,6 +63,28 @@ function todayMonth() {
   return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
 }
 
+function dateBoundsForMonth(month) {
+  if (!/^\d{4}-\d{2}$/.test(String(month || ''))) return { min: '', max: '' };
+  const [year, monthNumber] = month.split('-').map(Number);
+  const lastDay = new Date(year, monthNumber, 0).getDate();
+  return {
+    min: `${month}-01`,
+    max: `${month}-${String(lastDay).padStart(2, '0')}`
+  };
+}
+
+function formatActivityTime(value) {
+  if (!value) return 'Waktu belum diisi';
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
+
+  const [year, month, day] = value.split('-').map(Number);
+  return new Intl.DateTimeFormat('id-ID', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  }).format(new Date(year, month - 1, day));
+}
+
 function activePeriod() {
   return state.periods.find(period => period.id === activePeriodId) || null;
 }
@@ -106,9 +128,29 @@ function renderDriveFiles(files, selectedIds = []) {
     thumb.className = 'drive-thumb';
     if (file.mimeType?.startsWith('image/')) {
       const img = document.createElement('img');
-      img.src = `/api/drive-thumbnail/${file.id}`;
       img.alt = `Preview ${file.name}`;
       img.loading = 'lazy';
+      
+      // Handle HEIC images
+      if (file.mimeType === 'image/heic' || file.mimeType === 'image/heif' || file.name.toLowerCase().endsWith('.heic') || file.name.toLowerCase().endsWith('.heif')) {
+        // For HEIC images, fetch the blob and convert to JPEG
+        fetch(`/api/drive-thumbnail/${file.id}`)
+          .then(response => response.blob())
+          .then(blob => {
+            return heic2any({ blob, toType: 'image/jpeg', quality: 0.8 });
+          })
+          .then(convertedBlob => {
+            img.src = URL.createObjectURL(convertedBlob);
+          })
+          .catch(err => {
+            console.warn('HEIC conversion failed, using original URL:', err);
+            img.src = `/api/drive-thumbnail/${file.id}`;
+          });
+      } else {
+        // Regular images
+        img.src = `/api/drive-thumbnail/${file.id}`;
+      }
+      
       thumb.appendChild(img);
     } else {
       const pdf = document.createElement('div');
@@ -199,11 +241,16 @@ function renderActivities() {
   if (!period) {
     els.currentPeriodTitle.textContent = 'Belum ada periode';
     els.periodSummary.textContent = '';
+    els.activityWaktu.min = '';
+    els.activityWaktu.max = '';
     return;
   }
 
   els.currentPeriodTitle.textContent = period.label || period.month;
   els.periodSummary.textContent = `${period.activities.length} kegiatan`;
+  const { min, max } = dateBoundsForMonth(period.month);
+  els.activityWaktu.min = min;
+  els.activityWaktu.max = max;
 
   period.activities.forEach((activity) => {
     const count = evidenceCount(activity);
@@ -218,7 +265,7 @@ function renderActivities() {
     const meta = document.createElement('div');
     meta.className = 'activity-meta';
     const time = document.createElement('span');
-    time.textContent = activity.waktu || 'Waktu belum diisi';
+    time.textContent = formatActivityTime(activity.waktu);
     const status = document.createElement('span');
     status.className = `pill ${count ? '' : 'pending'}`;
     status.textContent = count ? `${count} bukti siap` : 'Menunggu bukti';

@@ -7,3 +7,6 @@ storage/tmp/
 storage/output/
 storage/evidence/
 npm-debug.log*
+
+.vercel
+.env*.local
