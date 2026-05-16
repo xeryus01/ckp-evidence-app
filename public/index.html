@@ -14,6 +14,12 @@
         <h1>Dashboard Bukti Dukung</h1>
       </div>
       <form id="profileForm" class="profile-form">
+        <div class="profile-select-row">
+          <label>Profil
+            <select id="profileSelect"></select>
+          </label>
+          <button type="button" id="newProfileBtn" class="secondary mini">Profil Baru</button>
+        </div>
         <label>Nama
           <input id="namaInput" name="nama" required placeholder="Nama pegawai" />
         </label>
@@ -41,7 +47,10 @@
             <p class="eyebrow">Periode aktif</p>
             <h2 id="currentPeriodTitle">Belum ada periode</h2>
           </div>
-          <p id="periodSummary" class="muted"></p>
+          <div class="panel-actions">
+            <p id="periodSummary" class="muted"></p>
+            <button type="button" id="exportExcelBtn" class="secondary hidden">Ekspor Excel</button>
+          </div>
         </div>
 
         <form id="activityForm" class="activity-form hidden">
@@ -56,8 +65,22 @@
           <label>Catatan
             <input id="activityCatatan" name="catatan" placeholder="Opsional" />
           </label>
-          <button type="submit">Tambah Kegiatan</button>
+          <div class="button-row">
+            <button type="submit" id="activitySubmitBtn">Tambah Kegiatan</button>
+            <button type="button" id="activityCancelBtn" class="secondary hidden">Batal</button>
+          </div>
         </form>
+
+        <div id="calendarPanel" class="calendar-panel hidden">
+          <div class="calendar-head">
+            <div>
+              <p class="eyebrow">Kalender Periode</p>
+              <h3 id="calendarTitle">Hari Kosong</h3>
+            </div>
+            <p id="calendarSummary" class="muted"></p>
+          </div>
+          <div id="calendarGrid" class="calendar-grid"></div>
+        </div>
 
         <div id="emptyState" class="empty-state">Buat atau pilih periode untuk mulai menyusun daftar kegiatan.</div>
         <div id="activityList" class="activity-list"></div>
@@ -108,7 +131,6 @@
 
     <p id="status" class="status"></p>
   </main>
-  <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

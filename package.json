@@ -30,7 +30,8 @@
     "pdfjs-dist": "latest",
     "pdfkit": "latest",
     "sharp": "latest",
-    "uuid": "latest"
+    "uuid": "latest",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "nodemon": "latest"

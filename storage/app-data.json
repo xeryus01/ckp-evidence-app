@@ -1,554 +1,1623 @@
 {
-  "profile": {
-    "nama": "Akhmad Fadil Mubarok",
-    "nip": "200103212023021002"
-  },
-  "periods": [
+  "profiles": [
     {
-      "id": "924e92ed-086a-45ce-a959-af569eb53f06",
-      "month": "2026-05",
-      "label": "Mei 2026",
-      "activities": [
-        {
-          "id": "f332c6c2-aacb-46e5-9fdd-36aa3e2ae46b",
-          "kegiatan": "Melakukan Pembuatan Aplikasi TimCare",
-          "waktu": "12 Mei 2026",
-          "catatan": "",
-          "createdAt": "2026-05-15T07:31:16.080Z",
-          "evidence": {
-            "driveLinks": [],
-            "driveFiles": [],
-            "selectedDriveIds": [],
-            "manualFiles": []
-          },
-          "generatedPdfs": []
-        }
-      ],
-      "createdAt": "2026-05-15T07:30:33.122Z"
+      "id": "55277dbb-ce17-4199-8734-a03a6cae70ea",
+      "nama": "Fahrunnisa Maharani S.Tr.Stat.",
+      "nip": "200011102023022001",
+      "periods": [],
+      "createdAt": "2026-05-15T13:34:57.028Z",
+      "updatedAt": "2026-05-15T13:34:57.029Z"
     },
     {
-      "id": "7cfa95ec-e387-45a2-9691-5994e872b893",
-      "month": "2026-01",
-      "label": "Januari 2026",
-      "activities": [
+      "id": "6ee7cdc9-4f55-48c0-b965-616c4d1f82db",
+      "nama": "Akhmad Fadil Mubarok, S.Tr.Stat",
+      "nip": "200103212023021002",
+      "periods": [
         {
-          "id": "a066b59c-dc08-4859-81f5-17579cda05e8",
-          "kegiatan": "Mengikuti Apel Senin",
-          "waktu": "2026-01-26",
-          "catatan": "",
-          "createdAt": "2026-05-15T08:07:42.872Z",
-          "evidence": {
-            "driveLinks": [
-              "https://drive.google.com/drive/folders/1iGoXdJHHGpwuJul_67VoydDtx51eWTWD?usp=drive_link"
-            ],
-            "driveFiles": [
-              {
-                "id": "18VwAmFld3f2SbBkxrbwTEtGs_OWNkF-K",
-                "name": "DSC04850.JPG",
-                "mimeType": "image/jpeg",
-                "size": "8929272",
-                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBO7njPOQLbRAx3iq-IBOhK8CkUXSvFDVKduW3CKj-jSMTYi2l154NSjBcZPaOTW16B2Ye6kSfgcT8lfpvo9u3AnQpffC9cBNayNYRKg9SMpv-VCWg=s220",
-                "webViewLink": "https://drive.google.com/file/d/18VwAmFld3f2SbBkxrbwTEtGs_OWNkF-K/view?usp=drivesdk",
-                "type": "Gambar"
-              },
-              {
-                "id": "1MC12R8FpalshZ-N1e0gRo5RkrXU7Oof1",
-                "name": "DSC04895.JPG",
-                "mimeType": "image/jpeg",
-                "size": "8071559",
-                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBPe1843jyAXgqlHMclv2Ml3BCEHgwiskw6ASSkDl2ZR37aX0RYVmGH11utejsTT0xA4_AhG3jN6XcXyZaSWOw9S6o3W7r8BPhVDMkqMzTz5yrz8cw=s220",
-                "webViewLink": "https://drive.google.com/file/d/1MC12R8FpalshZ-N1e0gRo5RkrXU7Oof1/view?usp=drivesdk",
-                "type": "Gambar"
-              },
-              {
-                "id": "16LqU8F2guee0lgZyzlWn1c8yNaHze1Tv",
-                "name": "DSC04892.JPG",
-                "mimeType": "image/jpeg",
-                "size": "8786495",
-                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBNHYqDURjkKVc8Az21xiJA8cQ3e3nL142kI1jhmSMfeGYzyvtXyjSfe7y6Q74t3Ka_5a2kSudaXsrZyIKIIJxGg5roKiQhnp66Ww8iiwZVWsP6NbA=s220",
-                "webViewLink": "https://drive.google.com/file/d/16LqU8F2guee0lgZyzlWn1c8yNaHze1Tv/view?usp=drivesdk",
-                "type": "Gambar"
-              },
-              {
-                "id": "11CAqrvHC8x1EmYIpbVbEtyl893_8Bbi7",
-                "name": "DSC04884.JPG",
-                "mimeType": "image/jpeg",
-                "size": "9084142",
-                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBMySktCrem8W7AO3Vwg7wzu4nbyfKW5U8D3zq6LRyiHzonpAkTka3YUFMC1mS2iOyBh2IVqM_K5YM0D4jpiGCHqD_j3O9xQYX3uSDAFzeYyCtU7WA=s220",
-                "webViewLink": "https://drive.google.com/file/d/11CAqrvHC8x1EmYIpbVbEtyl893_8Bbi7/view?usp=drivesdk",
-                "type": "Gambar"
-              },
-              {
-                "id": "1dD6wcNlUjLXxW1IBcCRCr9fFP2ZQHIaL",
-                "name": "DSC04880.JPG",
-                "mimeType": "image/jpeg",
-                "size": "10613390",
-                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBOHR6VBf7z1vQPDnOfhQyTAVlzY-cGuO1QcnVsgt1JrQOvvkgtEVLPpTGX3gfJ_160vd19GAXknH1uoC7eVl-rAulXVI67Q9YDptnXmriCzj5ucmQ=s220",
-                "webViewLink": "https://drive.google.com/file/d/1dD6wcNlUjLXxW1IBcCRCr9fFP2ZQHIaL/view?usp=drivesdk",
-                "type": "Gambar"
-              },
-              {
-                "id": "19FYmXvhTku0Y8kEmQuJRBR9pG5sYMzrJ",
-                "name": "DSC04872.JPG",
-                "mimeType": "image/jpeg",
-                "size": "13365849",
-                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBMIw-gB6CJNqu6ktyXknc5GS6S6yW_KZGN0JAJHMl0JViYvcPThyreMCjzvyvPfwWIefu1p-Vo-84RJmA6WrCFk6Tqq3-zLoGvl82ZVk16RBNCHsg=s220",
-                "webViewLink": "https://drive.google.com/file/d/19FYmXvhTku0Y8kEmQuJRBR9pG5sYMzrJ/view?usp=drivesdk",
-                "type": "Gambar"
-              }
-            ],
-            "selectedDriveIds": [
-              "18VwAmFld3f2SbBkxrbwTEtGs_OWNkF-K",
-              "1MC12R8FpalshZ-N1e0gRo5RkrXU7Oof1",
-              "16LqU8F2guee0lgZyzlWn1c8yNaHze1Tv",
-              "11CAqrvHC8x1EmYIpbVbEtyl893_8Bbi7",
-              "1dD6wcNlUjLXxW1IBcCRCr9fFP2ZQHIaL",
-              "19FYmXvhTku0Y8kEmQuJRBR9pG5sYMzrJ"
-            ],
-            "manualFiles": []
-          },
-          "generatedPdfs": [
+          "id": "924e92ed-086a-45ce-a959-af569eb53f06",
+          "month": "2026-05",
+          "label": "Mei 2026",
+          "activities": [],
+          "createdAt": "2026-05-15T07:30:33.122Z"
+        },
+        {
+          "id": "1b0cdcf6-cc65-4b6b-8256-f4f14b9d0030",
+          "month": "2026-04",
+          "label": "April 2026",
+          "activities": [
             {
-              "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778833933748.pdf",
-              "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778833933748.pdf",
-              "generatedAt": "2026-05-15T08:32:14.032Z"
+              "id": "ae8dc330-dc58-400a-be2f-3be847c352f5",
+              "kegiatan": "Melakukan tugas jaga dan memberikan pelayanan PST",
+              "waktu": "2026-04-17",
+              "catatan": "",
+              "createdAt": "2026-05-15T15:21:59.430Z",
+              "updatedAt": "2026-05-15T15:21:59.430Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "896080de-2ea8-48ed-a634-ea7ff7eb148e",
+              "kegiatan": "Melakukan tugas jaga dan memberikan pelayanan PST",
+              "waktu": "2026-04-14",
+              "catatan": "",
+              "createdAt": "2026-05-15T15:21:54.339Z",
+              "updatedAt": "2026-05-15T15:21:54.339Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "52c69b89-dd65-4e53-9386-e5004463d638",
+              "kegiatan": "Melakukan tugas jaga dan memberikan pelayanan PST",
+              "waktu": "2026-04-07",
+              "catatan": "",
+              "createdAt": "2026-05-15T15:21:47.818Z",
+              "updatedAt": "2026-05-15T15:21:47.818Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
             }
           ],
-          "updatedAt": "2026-05-15T08:30:50.103Z"
+          "createdAt": "2026-05-15T13:28:36.672Z"
         },
         {
-          "id": "055862cf-2541-446a-abe7-7fb23d6e80ab",
-          "kegiatan": "Mengikuti RAT Koperasi Arima",
-          "waktu": "2026-01-23",
-          "catatan": "",
-          "createdAt": "2026-05-15T08:06:57.014Z",
-          "evidence": {
-            "driveLinks": [
-              "https://drive.google.com/drive/folders/11e-WvsuMdI9K00kQlD3FnrSVsC3Cqm65?usp=drive_link"
-            ],
-            "driveFiles": [
-              {
-                "id": "1h76CC9KkAXw0MaIujnPNr7UT47eiFSkO",
-                "name": "DSC04828.JPG",
-                "mimeType": "image/jpeg",
-                "size": "7768900",
-                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBMbZttUtB0Qb7CCuwt5LP_bV8PqpMv7AXBC4Zi-gaX38QqNSJbcSKOS6y6loBjdnVs50t6-WP1dNzxhmhC8ULY45p4CK_UXbgl-mUGNMVNiVnDkWks=s220",
-                "webViewLink": "https://drive.google.com/file/d/1h76CC9KkAXw0MaIujnPNr7UT47eiFSkO/view?usp=drivesdk",
-                "type": "Gambar"
-              },
-              {
-                "id": "155rCL4kobCDGopy4ZpvR_ge3VYvbbXPw",
-                "name": "DSC04790.JPG",
-                "mimeType": "image/jpeg",
-                "size": "9246174",
-                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBPP5G0O-uNXBoWwTD8HZWn14LslENUFW8Is1KxDCXIWWvSzsiYDOa-G3cqzobaz16X5N-qPpwJOB1cJJxK3zNBy7Fupp8ooo5k0AwmJ1GUOpFOgFro=s220",
-                "webViewLink": "https://drive.google.com/file/d/155rCL4kobCDGopy4ZpvR_ge3VYvbbXPw/view?usp=drivesdk",
-                "type": "Gambar"
-              },
-              {
-                "id": "1f0-fwxs-HJ3jmW1wsjQeaJOMCU2NknV0",
-                "name": "DSC04789.JPG",
-                "mimeType": "image/jpeg",
-                "size": "9151028",
-                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBOrTijIngz_WAJbc9lFEJMhRAUODnQTSrDteaoZLuADtOQ5FAoSu9DxmyZVV2hqTpNOFe38ps3IBkyhC7sOC9Dr48z7nAK1purYyN_TXL8a_onQh3c=s220",
-                "webViewLink": "https://drive.google.com/file/d/1f0-fwxs-HJ3jmW1wsjQeaJOMCU2NknV0/view?usp=drivesdk",
-                "type": "Gambar"
-              },
-              {
-                "id": "1RbLUnPDI0AFPJ72R2sh__8Zw8oOXykc9",
-                "name": "DSC04787.JPG",
-                "mimeType": "image/jpeg",
-                "size": "9057664",
-                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBMY0qX_woWzyU_11EvI8EAHxZnIQYlEGIUaoMHas45KVqu1rRHfqxaNSCY3cWDEeFnY6vw4kODsBjfybSjFCronMdn30tcbKcGg6koz18FDBCtpAew=s220",
-                "webViewLink": "https://drive.google.com/file/d/1RbLUnPDI0AFPJ72R2sh__8Zw8oOXykc9/view?usp=drivesdk",
-                "type": "Gambar"
-              },
-              {
-                "id": "1DzB_0xq9_-3U3AqhrqerjOKJ58pBDLKo",
-                "name": "DSC04785.JPG",
-                "mimeType": "image/jpeg",
-                "size": "8766278",
-                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBPDH6DD_Pbiqsx9U02ZdGTaeuN6uQ_zyLa_kFh9hMRygO4pQ34JQeleo1cLunw7OpmiIiSQIbX8X25-c2LhrEA-ZgirbUOD9-o3lrYWSutqOeFjwQU=s220",
-                "webViewLink": "https://drive.google.com/file/d/1DzB_0xq9_-3U3AqhrqerjOKJ58pBDLKo/view?usp=drivesdk",
-                "type": "Gambar"
-              },
-              {
-                "id": "1Jh3AITDVMj-tZW2ta8lO002kALivpHpO",
-                "name": "DSC04759.JPG",
-                "mimeType": "image/jpeg",
-                "size": "4695607",
-                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBO1MGzor3TUYRhh2s8wmSqy-lDIoIXlyWGIQerJUNFeetTcybJqDOy9o6qLiVjBu1QrR3XSlHYvrxyZ6lXK4IgNVWiOZ0tr2CfeH9wfpYTPbvg-NgI=s220",
-                "webViewLink": "https://drive.google.com/file/d/1Jh3AITDVMj-tZW2ta8lO002kALivpHpO/view?usp=drivesdk",
-                "type": "Gambar"
-              }
-            ],
-            "selectedDriveIds": [
-              "1h76CC9KkAXw0MaIujnPNr7UT47eiFSkO",
-              "155rCL4kobCDGopy4ZpvR_ge3VYvbbXPw",
-              "1f0-fwxs-HJ3jmW1wsjQeaJOMCU2NknV0",
-              "1RbLUnPDI0AFPJ72R2sh__8Zw8oOXykc9",
-              "1DzB_0xq9_-3U3AqhrqerjOKJ58pBDLKo",
-              "1Jh3AITDVMj-tZW2ta8lO002kALivpHpO"
-            ],
-            "manualFiles": []
-          },
-          "generatedPdfs": [
+          "id": "7b5b4058-da3d-4ba2-8d44-c8de61540160",
+          "month": "2026-03",
+          "label": "Maret 2026",
+          "activities": [
             {
-              "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778834791173.pdf",
-              "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778834791173.pdf",
-              "generatedAt": "2026-05-15T08:46:31.371Z"
+              "id": "d2cf748b-5b0c-46a2-945b-cc57af89223f",
+              "kegiatan": "Mengikuti Silaturahmi dan Konsolidasi Pegawai BPS Seluruh Indonesia",
+              "waktu": "2026-03-31",
+              "catatan": "",
+              "createdAt": "2026-05-15T13:59:50.894Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "9f1d9749-3edd-414a-970a-869591f7ce32",
+              "kegiatan": "Melakukan Halal Bi Halal pegawai BPS Babel",
+              "waktu": "2026-03-30",
+              "catatan": "",
+              "createdAt": "2026-05-15T14:56:01.489Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "9f56fc10-85f9-4e7f-9896-71447c3f1313",
+              "kegiatan": "Melakukan pemeriksaan dan upload publikasi \"Potret Perekonomian Makro Provinsi Kepulauan Bangka Belitung Triwulan IV-2025\"",
+              "waktu": "2026-03-25",
+              "catatan": "",
+              "createdAt": "2026-05-15T15:41:54.037Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "5862fd2a-fc27-44e5-add3-84b5e086e313",
+              "kegiatan": "Membuat konten Promosi Statistik \"Mudik Bangka Belitung itu Beda\" untuk instagram BPS Babel",
+              "waktu": "2026-03-16",
+              "catatan": "https://www.instagram.com/p/DV8Pqf8kTQ4/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+              "createdAt": "2026-05-15T15:02:54.444Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "459ccbb9-7d95-49d3-8f99-8199e5ca5443",
+              "kegiatan": "Mengikuti Rapat Perdana Tim PEKPPP",
+              "waktu": "2026-03-13",
+              "catatan": "",
+              "createdAt": "2026-05-15T14:59:51.411Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "7360c33f-d2c7-4bc4-879d-ed389987ce95",
+              "kegiatan": "Melakukan pembuatan flyer pengumuman pelayanan online selama libur idul fitri",
+              "waktu": "2026-03-13",
+              "catatan": "",
+              "createdAt": "2026-05-15T15:07:45.738Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "8abf83cb-80ad-432f-be27-abf95754caa9",
+              "kegiatan": "Melakukan tugas jaga dan memberikan pelayanan PST",
+              "waktu": "2026-03-13",
+              "catatan": "",
+              "createdAt": "2026-05-15T15:13:37.937Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "a18191b3-e7ce-4dbf-a892-88c82ede780b",
+              "kegiatan": "Mengikuti Coaching Clinic Sertifikasi Sistem Manajemen Mutu ISO 9001:2015 - Audit Internal",
+              "waktu": "2026-03-12",
+              "catatan": "",
+              "createdAt": "2026-05-15T14:57:38.362Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "4f917843-49ca-409d-bb9c-2216cce0d486",
+              "kegiatan": "Mengikuti Kopi Manis Seri 21 \"Pemanfaatan Fata Podes dengan R Studio\"",
+              "waktu": "2026-03-12",
+              "catatan": "",
+              "createdAt": "2026-05-15T15:06:04.685Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "ecdab694-2918-456a-ac5e-dd4281c601a0",
+              "kegiatan": "Mengikuti rapat koordinasi Tim SPBE dan Bagian Umum",
+              "waktu": "2026-03-11",
+              "catatan": "",
+              "createdAt": "2026-05-15T13:58:17.603Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "fa82216c-4236-4f7f-a2e9-211b5c80f5be",
+              "kegiatan": "Melakukan dokumentasi Kepala BPS Babel menjadi narasumber di TVRI",
+              "waktu": "2026-03-10",
+              "catatan": "",
+              "createdAt": "2026-05-15T13:56:48.462Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "f551e57d-44c1-4cd7-ab56-e425fc014b16",
+              "kegiatan": "Mengikuti Sharing Knowledge Pembangunan ZI untuk Meraih WBK/WBBM oleh BPS Kota Pekalongan",
+              "waktu": "2026-03-09",
+              "catatan": "",
+              "createdAt": "2026-05-15T13:55:57.353Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "d48556f0-16f4-43fa-8707-bbe4f866b218",
+              "kegiatan": "Mengikuti kegiatan Buka Bersama BPS Babel",
+              "waktu": "2026-03-06",
+              "catatan": "",
+              "createdAt": "2026-05-15T13:53:34.701Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "5ae06e6c-e56e-4da9-96db-f55a47d1007e",
+              "kegiatan": "Mengikuti Rapat Standar Pelayanan PST",
+              "waktu": "2026-03-06",
+              "catatan": "",
+              "createdAt": "2026-05-15T13:54:23.623Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "84a395d8-4db0-48f3-a57b-08f27a9d9374",
+              "kegiatan": "Mengikuti Pembinaan dan Evaluasi Petugas PST BPS Provinsi Kepulauan Bangka Belitung",
+              "waktu": "2026-03-06",
+              "catatan": "",
+              "createdAt": "2026-05-15T14:45:34.577Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "32bf7894-56d5-49b1-b51d-9d70e41d4642",
+              "kegiatan": "Mengikuti kegiatan edukasi Zakat dari Yakesma",
+              "waktu": "2026-03-05",
+              "catatan": "",
+              "createdAt": "2026-05-15T14:53:24.863Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "62808c1e-f02a-43ff-8d32-787f034c4742",
+              "kegiatan": "Mengikuti internalisasi Budaya Organisasi",
+              "waktu": "2026-03-04",
+              "catatan": "",
+              "createdAt": "2026-05-15T13:50:03.937Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "e43b1377-ae12-43e7-9139-0dd0e7051a7e",
+              "kegiatan": "Melakukan tugas jaga dan memberikan pelayanan PST",
+              "waktu": "2026-03-04",
+              "catatan": "",
+              "createdAt": "2026-05-15T15:13:26.117Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "26acc897-7520-44e7-8ecb-0dca52d78c03",
+              "kegiatan": "Mengikuti Rapat Pembentukan Anggota Tim Pengelolaan Sistem Manajemen Mutu Pelayanan Statistik Terpadu BPS Prov",
+              "waktu": "2026-03-03",
+              "catatan": "",
+              "createdAt": "2026-05-15T14:42:15.774Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "45498351-01ac-43d3-87a9-08839a74c723",
+              "kegiatan": "Mengikuti Rapat Monitoring Capaian Sasaran Mutu, Penetapan Sasaran Mutu Baru, Penyusunan Identifikasi Konteks",
+              "waktu": "2026-03-03",
+              "catatan": "",
+              "createdAt": "2026-05-15T14:42:50.665Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "2cd71a1b-f2b6-4f86-b62a-e73d643fa390",
+              "kegiatan": "Mengikuti dan menjadi panitia Rilis Berita Resmi Statistik 2 Maret 2026",
+              "waktu": "2026-03-02",
+              "catatan": "",
+              "createdAt": "2026-05-15T13:42:34.783Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": [],
+              "updatedAt": "2026-05-15T13:52:55.186Z"
             }
           ],
-          "updatedAt": "2026-05-15T08:46:01.759Z"
+          "createdAt": "2026-05-15T13:28:45.519Z"
         },
         {
-          "id": "452ec3ae-f94e-4118-933d-c2b82e7b1d60",
-          "kegiatan": "Mengikuti rapat awal tahun Tim Humas",
-          "waktu": "2026-01-23",
-          "catatan": "",
-          "createdAt": "2026-05-15T08:06:16.150Z",
-          "evidence": {
-            "driveLinks": [
-              "https://drive.google.com/drive/folders/1h-W8NzmidsVeslt3-uM7axn07pCXY22t?usp=drive_link"
-            ],
-            "driveFiles": [
-              {
-                "id": "1mnC_roqa3lGd7-0j96MoSgW99p1NDBr0",
-                "name": "IMG_8731.HEIC",
-                "mimeType": "image/heif",
-                "size": "2874460",
-                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBM_rR3b92YpbfcCt1WP8m-tZSx9UB78OJaa7suv7Bxta5XuVDnjoOK9GvEltDQVLfNtPU-dX8qfS3MbjkCW_rSNPgWFKQAg8Zn02adhvt8ubb53Ng=s220",
-                "webViewLink": "https://drive.google.com/file/d/1mnC_roqa3lGd7-0j96MoSgW99p1NDBr0/view?usp=drivesdk",
-                "type": "Gambar"
-              },
-              {
-                "id": "14dK08T7UeZYmcNpR10jZPm8Wskh53Qik",
-                "name": "IMG_8733.HEIC",
-                "mimeType": "image/heif",
-                "size": "2570488",
-                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBMbVWO05zKwiIYX01CMQ_Q1e8NRdupkpualHyacYO837iBwe7QvEoVxwrQqBlJJmHcgRI4P6kERs18QkoheXcRyKe-sJRlwFqYO0_gMZ6tDQICssg=s220",
-                "webViewLink": "https://drive.google.com/file/d/14dK08T7UeZYmcNpR10jZPm8Wskh53Qik/view?usp=drivesdk",
-                "type": "Gambar"
-              },
-              {
-                "id": "18cV4n0clsAqUzenDnX2gZgGA8Z_n6ZN9",
-                "name": "IMG_8735.HEIC",
-                "mimeType": "image/heif",
-                "size": "2411662",
-                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBOj6tbbIW45dOM_fzlCw0lfd9NXyFqHVbGjbowgzE_r7TBn8XSU2-3sEnwcz5WrwkaGNZF7V0wxKS3gQDGJjguH14xLFt_Ntqy3aN6iD4A7dMcYuQ=s220",
-                "webViewLink": "https://drive.google.com/file/d/18cV4n0clsAqUzenDnX2gZgGA8Z_n6ZN9/view?usp=drivesdk",
-                "type": "Gambar"
-              },
-              {
-                "id": "1OG_BNgqgZl57ODqEP0NPa0pZgN0dMK8-",
-                "name": "IMG_8720.HEIC",
-                "mimeType": "image/heif",
-                "size": "2815557",
-                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBN2GexRDPerOq0N_loiirUFsc46ItaGzoj1o91XFIvG7-bm4MNa7ddmlxmyHIuHBa-McCGcGkEuBw0EhiYoh6Z2gBuPMuxTMymqPyM8iDHQjrgvNw=s220",
-                "webViewLink": "https://drive.google.com/file/d/1OG_BNgqgZl57ODqEP0NPa0pZgN0dMK8-/view?usp=drivesdk",
-                "type": "Gambar"
-              },
-              {
-                "id": "115K22Gb96ytLGbDjXGtz2vTqmbBjIKcy",
-                "name": "IMG_8712.HEIC",
-                "mimeType": "image/heif",
-                "size": "2661039",
-                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBMqy5gF2uFqxJDLxCTYtwbldvzAvz0d1gXDdM2zsaphDU2zGXlJB5nYuwBcw2XAomfozWKP4ZZglsqkXkKpburt2CkUKOIhj9o9dD3dvlE94_vWUg=s220",
-                "webViewLink": "https://drive.google.com/file/d/115K22Gb96ytLGbDjXGtz2vTqmbBjIKcy/view?usp=drivesdk",
-                "type": "Gambar"
-              },
-              {
-                "id": "1b7iKjvedxVDIc8aenJqRR9DjmNW2quji",
-                "name": "IMG_8721.HEIC",
-                "mimeType": "image/heif",
-                "size": "2249169",
-                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBOC5pMzA8jDVTZXrJz5FY9aLxUucaoXozv3N4GTny9ys-PjfBgUFXW-M9YOnC35TLplec4qlYXdDbukoUrj0oPfaa61GZliMh1i-d_288wWXUBCDYs=s220",
-                "webViewLink": "https://drive.google.com/file/d/1b7iKjvedxVDIc8aenJqRR9DjmNW2quji/view?usp=drivesdk",
-                "type": "Gambar"
-              },
-              {
-                "id": "1iNtah96mhxoTJZuxBMdnDfrId1lOkJmE",
-                "name": "IMG_8719.HEIC",
-                "mimeType": "image/heif",
-                "size": "2194272",
-                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBNYA4HMiJTn9t8J0pysYVOjLGYdRc6VwIm_NYqR0QhiNny04g8v0TpO3Y04EnwzQtb68tOj9nHuzHH5LQcmsABGrUf3qbmJGfxizt5TMd2dLwgUH18=s220",
-                "webViewLink": "https://drive.google.com/file/d/1iNtah96mhxoTJZuxBMdnDfrId1lOkJmE/view?usp=drivesdk",
-                "type": "Gambar"
-              }
-            ],
-            "selectedDriveIds": [
-              "1mnC_roqa3lGd7-0j96MoSgW99p1NDBr0",
-              "14dK08T7UeZYmcNpR10jZPm8Wskh53Qik",
-              "18cV4n0clsAqUzenDnX2gZgGA8Z_n6ZN9",
-              "1OG_BNgqgZl57ODqEP0NPa0pZgN0dMK8-",
-              "115K22Gb96ytLGbDjXGtz2vTqmbBjIKcy",
-              "1b7iKjvedxVDIc8aenJqRR9DjmNW2quji",
-              "1iNtah96mhxoTJZuxBMdnDfrId1lOkJmE"
-            ],
-            "manualFiles": []
-          },
-          "generatedPdfs": [],
-          "updatedAt": "2026-05-15T09:01:16.770Z"
-        },
-        {
-          "id": "02d982d4-e3f3-4dea-b5c7-85cdb2760806",
-          "kegiatan": "Melakukan maintenance dan flash data perangkat TI Kepala BPS",
-          "waktu": "2026-01-29",
-          "catatan": "",
-          "createdAt": "2026-05-15T08:05:47.505Z",
-          "evidence": {
-            "driveLinks": [],
-            "driveFiles": [],
-            "selectedDriveIds": [],
-            "manualFiles": [
-              {
-                "id": "685fcea4-9aef-4193-ba28-4b273c47c780",
-                "name": "IMG_20260129_095639.jpg",
-                "filename": "1778835751870-IMG_20260129_095639.jpg",
-                "path": "storage\\evidence\\7cfa95ec-e387-45a2-9691-5994e872b893\\02d982d4-e3f3-4dea-b5c7-85cdb2760806\\1778835751870-IMG_20260129_095639.jpg",
-                "mimetype": "image/jpeg",
-                "size": 1998377,
-                "uploadedAt": "2026-05-15T09:02:31.887Z"
-              },
-              {
-                "id": "b3c6d002-9f73-445a-b899-0dab3aa969d0",
-                "name": "IMG_20260129_095748.jpg",
-                "filename": "1778835751871-IMG_20260129_095748.jpg",
-                "path": "storage\\evidence\\7cfa95ec-e387-45a2-9691-5994e872b893\\02d982d4-e3f3-4dea-b5c7-85cdb2760806\\1778835751871-IMG_20260129_095748.jpg",
-                "mimetype": "image/jpeg",
-                "size": 1699312,
-                "uploadedAt": "2026-05-15T09:02:31.887Z"
-              },
-              {
-                "id": "43af8fe5-2272-462a-911b-dc8ad4e08e31",
-                "name": "IMG_20260129_095815.jpg",
-                "filename": "1778835751871-IMG_20260129_095815.jpg",
-                "path": "storage\\evidence\\7cfa95ec-e387-45a2-9691-5994e872b893\\02d982d4-e3f3-4dea-b5c7-85cdb2760806\\1778835751871-IMG_20260129_095815.jpg",
-                "mimetype": "image/jpeg",
-                "size": 1863090,
-                "uploadedAt": "2026-05-15T09:02:31.887Z"
-              }
-            ]
-          },
-          "generatedPdfs": [
+          "id": "cc875932-1d10-4821-a349-6338c46ceae7",
+          "month": "2026-02",
+          "label": "Februari 2026",
+          "activities": [
             {
-              "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778835766056.pdf",
-              "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778835766056.pdf",
-              "generatedAt": "2026-05-15T09:02:46.256Z"
+              "id": "84ac9cb3-52fb-48c0-be02-17bd7c478476",
+              "kegiatan": "Mengikuti Coaching Clinic Sertifikasi ISO 9001:2015 - Mengenal Klausul ISO/Pedoman Mutu",
+              "waktu": "2026-02-26",
+              "catatan": "",
+              "createdAt": "2026-05-15T15:46:27.761Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "77ce3e7d-7923-4295-873a-0da4fdbe7664",
+              "kegiatan": "Melakukan updating dan penambahan inovasi Pelayanan Publik",
+              "waktu": "2026-02-26",
+              "catatan": "",
+              "createdAt": "2026-05-15T15:47:40.126Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "6d21a23e-45c4-4574-8f9d-2d0918b53331",
+              "kegiatan": "Melakukan pembuatan konten edukasi stop gratifikasi untuk instagram BPS Babel",
+              "waktu": "2026-02-23",
+              "catatan": "",
+              "createdAt": "2026-05-15T15:33:42.882Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "47ccc263-2970-446f-8f53-ac2248519b08",
+              "kegiatan": "Mengikuti kegiatan musala (Utsman 1 : Sejarah Shalat)",
+              "waktu": "2026-02-23",
+              "catatan": "",
+              "createdAt": "2026-05-15T15:46:02.802Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "e571bbe5-21d1-4f9c-adf4-c6aaf60f3a0a",
+              "kegiatan": "Melakukan tugas jaga dan memberikan pelayanan PST",
+              "waktu": "2026-02-19",
+              "catatan": "",
+              "createdAt": "2026-05-15T15:14:39.562Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "b525df31-cbf4-48a4-b0c9-52f2fb25b988",
+              "kegiatan": "Melakukan tugas jaga dan memberikan pelayanan PST",
+              "waktu": "2026-02-13",
+              "catatan": "",
+              "createdAt": "2026-05-15T15:14:34.570Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "c1d9eaa9-9aec-4405-8afd-ef657eaddce9",
+              "kegiatan": "Melakukan ekspor raw perkembangan pendataan SNLIK",
+              "waktu": "2026-02-13",
+              "catatan": "",
+              "createdAt": "2026-05-15T15:44:18.839Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "a1872112-7ae8-4127-8191-1b39ebb4f445",
+              "kegiatan": "Melakukan DL Supervisi SNLIK di Kabupaten Bangka",
+              "waktu": "2026-02-12",
+              "catatan": "",
+              "createdAt": "2026-05-15T15:36:33.536Z",
+              "updatedAt": "2026-05-15T15:36:48.002Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "d05255a3-5a19-49b9-962e-8a64e315e40e",
+              "kegiatan": "Membuat reels Audiensi Pj. Sekda Babel",
+              "waktu": "2026-02-10",
+              "catatan": "",
+              "createdAt": "2026-05-15T15:31:11.948Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "95e717b5-f3af-4964-a153-3827b1e7a7c3",
+              "kegiatan": "Mengikuti kegiatan Pisah Sambut Kepala BPS Prov Kep Babel",
+              "waktu": "2026-02-10",
+              "catatan": "",
+              "createdAt": "2026-05-15T15:32:16.759Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "c593780d-3b50-4ef1-be14-b382a44e58f7",
+              "kegiatan": "Melakukan DL Supervisi SNLIK di Kota Pangkal Pinang",
+              "waktu": "2026-02-06",
+              "catatan": "",
+              "createdAt": "2026-05-15T15:27:13.155Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "9fd0a1b2-b742-446c-a931-12fdb9fc7403",
+              "kegiatan": "Mengikuti dan menjadi panitia Rilis Berita Resmi Statistik Kemiskinan dan PDRB 5 Februari 2026",
+              "waktu": "2026-02-05",
+              "catatan": "",
+              "createdAt": "2026-05-15T15:25:21.918Z",
+              "updatedAt": "2026-05-15T15:25:44.038Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "979a9def-f80a-4235-bcc6-e3b9b255c01d",
+              "kegiatan": "Mengikuti Internalisasi Pojok Statistik dan IKU EPS 2026",
+              "waktu": "2026-02-05",
+              "catatan": "",
+              "createdAt": "2026-05-15T15:45:21.411Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "02cdf4db-5cdc-4f48-889e-8fb4536a0727",
+              "kegiatan": "Mengikuti Rapat Internal Awal Tahun BPS Babel",
+              "waktu": "2026-02-04",
+              "catatan": "",
+              "createdAt": "2026-05-15T15:21:15.164Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "3f0ec201-816f-4412-83af-7185b3966b34",
+              "kegiatan": "Melakukan tugas jaga dan memberikan pelayanan PST",
+              "waktu": "2026-02-03",
+              "catatan": "",
+              "createdAt": "2026-05-15T15:14:29.230Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "add6f91e-af92-4bda-8699-f9c0811a08a0",
+              "kegiatan": "Mengikuti pembahasan draft perjanjian kerahasiaan data antara BPS Provinsi Babel dan PT.PLN",
+              "waktu": "2026-02-03",
+              "catatan": "",
+              "createdAt": "2026-05-15T15:44:58.642Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "326403f9-058c-4e19-989d-8b6c97a86a6c",
+              "kegiatan": "Mengikuti dan menjadi panitia Rilis Berita Resmi Statistik 2 Februari 2026",
+              "waktu": "2026-02-02",
+              "catatan": "",
+              "createdAt": "2026-05-15T15:18:42.757Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
             }
           ],
-          "updatedAt": "2026-05-15T09:02:31.887Z"
+          "createdAt": "2026-05-15T13:28:49.373Z"
         },
         {
-          "id": "ee82aee9-2650-410d-83e9-74f050559998",
-          "kegiatan": "Melakukan entri GC Prelist SE 2026 Desa Riding Panjang di Matchapro",
-          "waktu": "2026-01-28",
-          "catatan": "",
-          "createdAt": "2026-05-15T08:05:27.519Z",
-          "evidence": {
-            "driveLinks": [],
-            "driveFiles": [],
-            "selectedDriveIds": [],
-            "manualFiles": []
-          },
-          "generatedPdfs": []
-        },
-        {
-          "id": "5b6c4b24-e4fc-48e7-8a70-09a0cab8fb70",
-          "kegiatan": "Melakukan GC Prelist SE 2026 di Desa Riding Panjang",
-          "waktu": "2026-01-28",
-          "catatan": "",
-          "createdAt": "2026-05-15T08:05:15.417Z",
-          "evidence": {
-            "driveLinks": [],
-            "driveFiles": [],
-            "selectedDriveIds": [],
-            "manualFiles": []
-          },
-          "generatedPdfs": []
-        },
-        {
-          "id": "7cf9203a-4f6d-45e8-89f3-ac21d14cf581",
-          "kegiatan": "Melakukan pengecekan dan perbaikan perangkat TI",
-          "waktu": "2026-01-22",
-          "catatan": "",
-          "createdAt": "2026-05-15T08:04:44.350Z",
-          "evidence": {
-            "driveLinks": [],
-            "driveFiles": [],
-            "selectedDriveIds": [],
-            "manualFiles": []
-          },
-          "generatedPdfs": []
-        },
-        {
-          "id": "b6106d26-d021-48bd-9faa-04671e3b4725",
-          "kegiatan": "Melakukan entri GC Prelist SE 2026 Desa Pagarawan di Matchapro",
-          "waktu": "2026-01-21",
-          "catatan": "",
-          "createdAt": "2026-05-15T08:03:41.800Z",
-          "evidence": {
-            "driveLinks": [],
-            "driveFiles": [],
-            "selectedDriveIds": [],
-            "manualFiles": []
-          },
-          "generatedPdfs": []
-        },
-        {
-          "id": "8e66c7e2-dc50-4712-bc58-d7ada7aacf15",
-          "kegiatan": "Melakukan GC Prelist SE 2026 di Desa Pagarawan",
-          "waktu": "2026-01-21",
-          "catatan": "",
-          "createdAt": "2026-05-15T08:03:17.684Z",
-          "evidence": {
-            "driveLinks": [],
-            "driveFiles": [],
-            "selectedDriveIds": [],
-            "manualFiles": [
-              {
-                "id": "656b9455-b80c-493e-a66a-0ec92453ae5f",
-                "name": "WhatsApp Image 2026-05-15 at 15.24.12 (2).jpeg",
-                "filename": "1778833520408-WhatsApp Image 2026-05-15 at 15.24.12 (2).jpeg",
-                "path": "storage\\evidence\\7cfa95ec-e387-45a2-9691-5994e872b893\\8e66c7e2-dc50-4712-bc58-d7ada7aacf15\\1778833520408-WhatsApp Image 2026-05-15 at 15.24.12 (2).jpeg",
-                "mimetype": "image/jpeg",
-                "size": 76842,
-                "uploadedAt": "2026-05-15T08:25:20.442Z"
-              },
-              {
-                "id": "5bb22a37-adb1-426b-a971-0d65a7ac952d",
-                "name": "WhatsApp Image 2026-05-15 at 15.24.12 (1).jpeg",
-                "filename": "1778833520410-WhatsApp Image 2026-05-15 at 15.24.12 (1).jpeg",
-                "path": "storage\\evidence\\7cfa95ec-e387-45a2-9691-5994e872b893\\8e66c7e2-dc50-4712-bc58-d7ada7aacf15\\1778833520410-WhatsApp Image 2026-05-15 at 15.24.12 (1).jpeg",
-                "mimetype": "image/jpeg",
-                "size": 96124,
-                "uploadedAt": "2026-05-15T08:25:20.438Z"
-              },
-              {
-                "id": "348c9f07-438b-4167-89c1-c88cffffe041",
-                "name": "WhatsApp Image 2026-05-15 at 15.24.12.jpeg",
-                "filename": "1778833520412-WhatsApp Image 2026-05-15 at 15.24.12.jpeg",
-                "path": "storage\\evidence\\7cfa95ec-e387-45a2-9691-5994e872b893\\8e66c7e2-dc50-4712-bc58-d7ada7aacf15\\1778833520412-WhatsApp Image 2026-05-15 at 15.24.12.jpeg",
-                "mimetype": "image/jpeg",
-                "size": 98886,
-                "uploadedAt": "2026-05-15T08:25:20.438Z"
-              },
-              {
-                "id": "5975e156-cc4d-4d06-b5be-44c66be5b4ee",
-                "name": "WhatsApp Image 2026-05-15 at 15.24.11 (1).jpeg",
-                "filename": "1778833520412-WhatsApp Image 2026-05-15 at 15.24.11 (1).jpeg",
-                "path": "storage\\evidence\\7cfa95ec-e387-45a2-9691-5994e872b893\\8e66c7e2-dc50-4712-bc58-d7ada7aacf15\\1778833520412-WhatsApp Image 2026-05-15 at 15.24.11 (1).jpeg",
-                "mimetype": "image/jpeg",
-                "size": 94413,
-                "uploadedAt": "2026-05-15T08:25:20.442Z"
-              },
-              {
-                "id": "9a152a16-4a75-4109-999a-75d8db5514a3",
-                "name": "WhatsApp Image 2026-05-15 at 15.24.11.jpeg",
-                "filename": "1778833520413-WhatsApp Image 2026-05-15 at 15.24.11.jpeg",
-                "path": "storage\\evidence\\7cfa95ec-e387-45a2-9691-5994e872b893\\8e66c7e2-dc50-4712-bc58-d7ada7aacf15\\1778833520413-WhatsApp Image 2026-05-15 at 15.24.11.jpeg",
-                "mimetype": "image/jpeg",
-                "size": 316153,
-                "uploadedAt": "2026-05-15T08:25:20.440Z"
-              }
-            ]
-          },
-          "generatedPdfs": [
+          "id": "7cfa95ec-e387-45a2-9691-5994e872b893",
+          "month": "2026-01",
+          "label": "Januari 2026",
+          "activities": [
             {
-              "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778833557780.pdf",
-              "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778833557780.pdf",
-              "generatedAt": "2026-05-15T08:25:58.080Z"
+              "id": "2d8c130c-0fb1-48cd-873e-07aee24229e0",
+              "kegiatan": "Mengikuti rapat konsolidasi tim humas dan perkenalan anggota baru",
+              "waktu": "2026-01-30",
+              "catatan": "",
+              "createdAt": "2026-05-15T14:40:20.514Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "2dac2d6b-a015-45c6-93c7-cb564e76e25f",
+              "kegiatan": "Melakukan tugas jaga dan memberikan pelayanan PST",
+              "waktu": "2026-01-30",
+              "catatan": "",
+              "createdAt": "2026-05-15T15:12:28.385Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "02d982d4-e3f3-4dea-b5c7-85cdb2760806",
+              "kegiatan": "Melakukan maintenance dan flash data perangkat TI Kepala BPS",
+              "waktu": "2026-01-29",
+              "catatan": "",
+              "createdAt": "2026-05-15T08:05:47.505Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": [
+                  {
+                    "id": "685fcea4-9aef-4193-ba28-4b273c47c780",
+                    "name": "IMG_20260129_095639.jpg",
+                    "filename": "1778835751870-IMG_20260129_095639.jpg",
+                    "path": "storage\\evidence\\7cfa95ec-e387-45a2-9691-5994e872b893\\02d982d4-e3f3-4dea-b5c7-85cdb2760806\\1778835751870-IMG_20260129_095639.jpg",
+                    "mimetype": "image/jpeg",
+                    "size": 1998377,
+                    "uploadedAt": "2026-05-15T09:02:31.887Z"
+                  },
+                  {
+                    "id": "b3c6d002-9f73-445a-b899-0dab3aa969d0",
+                    "name": "IMG_20260129_095748.jpg",
+                    "filename": "1778835751871-IMG_20260129_095748.jpg",
+                    "path": "storage\\evidence\\7cfa95ec-e387-45a2-9691-5994e872b893\\02d982d4-e3f3-4dea-b5c7-85cdb2760806\\1778835751871-IMG_20260129_095748.jpg",
+                    "mimetype": "image/jpeg",
+                    "size": 1699312,
+                    "uploadedAt": "2026-05-15T09:02:31.887Z"
+                  },
+                  {
+                    "id": "43af8fe5-2272-462a-911b-dc8ad4e08e31",
+                    "name": "IMG_20260129_095815.jpg",
+                    "filename": "1778835751871-IMG_20260129_095815.jpg",
+                    "path": "storage\\evidence\\7cfa95ec-e387-45a2-9691-5994e872b893\\02d982d4-e3f3-4dea-b5c7-85cdb2760806\\1778835751871-IMG_20260129_095815.jpg",
+                    "mimetype": "image/jpeg",
+                    "size": 1863090,
+                    "uploadedAt": "2026-05-15T09:02:31.887Z"
+                  }
+                ]
+              },
+              "generatedPdfs": [
+                {
+                  "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778852625776.pdf",
+                  "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778852625776.pdf",
+                  "generatedAt": "2026-05-15T13:43:46.036Z"
+                },
+                {
+                  "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778835766056.pdf",
+                  "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778835766056.pdf",
+                  "generatedAt": "2026-05-15T09:02:46.256Z"
+                }
+              ],
+              "updatedAt": "2026-05-15T09:02:31.887Z"
+            },
+            {
+              "id": "ee82aee9-2650-410d-83e9-74f050559998",
+              "kegiatan": "Melakukan entri GC Prelist SE 2026 Desa Riding Panjang di Matchapro",
+              "waktu": "2026-01-28",
+              "catatan": "",
+              "createdAt": "2026-05-15T08:05:27.519Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": [
+                  {
+                    "id": "08949595-d1a0-42e6-b252-5e52a6b05fb8",
+                    "name": "WhatsApp Image 2026-05-15 at 20.19.36.jpeg",
+                    "filename": "1778851257914-WhatsApp Image 2026-05-15 at 20.19.36.jpeg",
+                    "path": "storage\\evidence\\7cfa95ec-e387-45a2-9691-5994e872b893\\ee82aee9-2650-410d-83e9-74f050559998\\1778851257914-WhatsApp Image 2026-05-15 at 20.19.36.jpeg",
+                    "mimetype": "image/jpeg",
+                    "size": 55158,
+                    "uploadedAt": "2026-05-15T13:20:57.917Z"
+                  }
+                ]
+              },
+              "generatedPdfs": [
+                {
+                  "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778852633457.pdf",
+                  "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778852633457.pdf",
+                  "generatedAt": "2026-05-15T13:43:53.642Z"
+                },
+                {
+                  "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778852081289.pdf",
+                  "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778852081289.pdf",
+                  "generatedAt": "2026-05-15T13:34:41.482Z"
+                },
+                {
+                  "filename": "Bukti_CKP_CKP-NIP-2026-01_1778851986499.pdf",
+                  "url": "/api/output/Bukti_CKP_CKP-NIP-2026-01_1778851986499.pdf",
+                  "generatedAt": "2026-05-15T13:33:06.745Z"
+                },
+                {
+                  "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778851264745.pdf",
+                  "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778851264745.pdf",
+                  "generatedAt": "2026-05-15T13:21:04.883Z"
+                }
+              ],
+              "updatedAt": "2026-05-15T13:20:57.917Z"
+            },
+            {
+              "id": "5b6c4b24-e4fc-48e7-8a70-09a0cab8fb70",
+              "kegiatan": "Melakukan GC Prelist SE 2026 di Desa Riding Panjang",
+              "waktu": "2026-01-28",
+              "catatan": "",
+              "createdAt": "2026-05-15T08:05:15.417Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": [
+                  {
+                    "id": "59de77c7-1441-4ea0-bc7c-38d4f7808e93",
+                    "name": "WhatsApp Image 2026-05-15 at 20.10.46 (2).jpeg",
+                    "filename": "1778850763309-WhatsApp Image 2026-05-15 at 20.10.46 (2).jpeg",
+                    "path": "storage\\evidence\\7cfa95ec-e387-45a2-9691-5994e872b893\\5b6c4b24-e4fc-48e7-8a70-09a0cab8fb70\\1778850763309-WhatsApp Image 2026-05-15 at 20.10.46 (2).jpeg",
+                    "mimetype": "image/jpeg",
+                    "size": 131582,
+                    "uploadedAt": "2026-05-15T13:12:43.316Z"
+                  },
+                  {
+                    "id": "64240d4c-2e0a-49f2-aafc-19a2bbed2cfb",
+                    "name": "WhatsApp Image 2026-05-15 at 20.10.46 (1).jpeg",
+                    "filename": "1778850763310-WhatsApp Image 2026-05-15 at 20.10.46 (1).jpeg",
+                    "path": "storage\\evidence\\7cfa95ec-e387-45a2-9691-5994e872b893\\5b6c4b24-e4fc-48e7-8a70-09a0cab8fb70\\1778850763310-WhatsApp Image 2026-05-15 at 20.10.46 (1).jpeg",
+                    "mimetype": "image/jpeg",
+                    "size": 129531,
+                    "uploadedAt": "2026-05-15T13:12:43.317Z"
+                  },
+                  {
+                    "id": "88e7b3a6-9778-481e-a202-5c92739abc90",
+                    "name": "WhatsApp Image 2026-05-15 at 20.10.46.jpeg",
+                    "filename": "1778850763310-WhatsApp Image 2026-05-15 at 20.10.46.jpeg",
+                    "path": "storage\\evidence\\7cfa95ec-e387-45a2-9691-5994e872b893\\5b6c4b24-e4fc-48e7-8a70-09a0cab8fb70\\1778850763310-WhatsApp Image 2026-05-15 at 20.10.46.jpeg",
+                    "mimetype": "image/jpeg",
+                    "size": 121305,
+                    "uploadedAt": "2026-05-15T13:12:43.317Z"
+                  },
+                  {
+                    "id": "ef939d30-5176-462c-94f7-13a8f0c44ea9",
+                    "name": "WhatsApp Image 2026-05-15 at 20.10.45.jpeg",
+                    "filename": "1778850763310-WhatsApp Image 2026-05-15 at 20.10.45.jpeg",
+                    "path": "storage\\evidence\\7cfa95ec-e387-45a2-9691-5994e872b893\\5b6c4b24-e4fc-48e7-8a70-09a0cab8fb70\\1778850763310-WhatsApp Image 2026-05-15 at 20.10.45.jpeg",
+                    "mimetype": "image/jpeg",
+                    "size": 293492,
+                    "uploadedAt": "2026-05-15T13:12:43.317Z"
+                  }
+                ]
+              },
+              "generatedPdfs": [
+                {
+                  "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778852823603.pdf",
+                  "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778852823603.pdf",
+                  "generatedAt": "2026-05-15T13:47:03.813Z"
+                },
+                {
+                  "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778850769805.pdf",
+                  "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778850769805.pdf",
+                  "generatedAt": "2026-05-15T13:12:49.903Z"
+                }
+              ],
+              "updatedAt": "2026-05-15T13:12:43.317Z"
+            },
+            {
+              "id": "2d8cc3f0-5d1e-4c72-908f-90c64bc84042",
+              "kegiatan": "Mengikuti Kopi Manis Session Seri 19 2026 \"Pengenalan dan Analisis Data Kuantitatif dengan R-Studio\"",
+              "waktu": "2026-01-28",
+              "catatan": "",
+              "createdAt": "2026-05-15T14:09:52.986Z",
+              "evidence": {
+                "driveLinks": [
+                  "https://drive.google.com/drive/folders/1IleCSKJ4uKWyxNhBuuXsdX8gnAJsD76F?usp=drive_link"
+                ],
+                "driveFiles": [
+                  {
+                    "id": "1aPMHyQBuG0l9OXO6UFw3v8x-xOpNxtqt",
+                    "name": "Screenshot 2026-01-28 093335.png",
+                    "mimeType": "image/png",
+                    "size": "1012086",
+                    "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBMOFXYr15jzuDgVPmfKePp2lSFSCtk4NndCI4OjBwqT5Zcc5cZEI2VswLH7oZjJt2fvP-wZNKCo7PDSMAGKmLC0EP7r07hklzlNaEx1BvXOfcxlSA=s220",
+                    "webViewLink": "https://drive.google.com/file/d/1aPMHyQBuG0l9OXO6UFw3v8x-xOpNxtqt/view?usp=drivesdk",
+                    "type": "Gambar"
+                  },
+                  {
+                    "id": "1QBZxIzZYLdQDBS9wUWuuXmI0jyawAdox",
+                    "name": "Screenshot 2026-01-28 092804.png",
+                    "mimeType": "image/png",
+                    "size": "1141074",
+                    "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBNOTib2GCO9BhMYC7kPG_MCYjQFl5jpCrniUy7erMndrXc7tnKfmkXkCK2pbSAeO7KUbMKdzzn71qFaKJ13wHg24xL_aRaAc1dSbRnM0ROQ1RZ-mw=s220",
+                    "webViewLink": "https://drive.google.com/file/d/1QBZxIzZYLdQDBS9wUWuuXmI0jyawAdox/view?usp=drivesdk",
+                    "type": "Gambar"
+                  },
+                  {
+                    "id": "1dKwwgFNc5vyrdtl7g7AxnsQtPgkLnL3O",
+                    "name": "Screenshot 2026-01-28 092558.png",
+                    "mimeType": "image/png",
+                    "size": "850590",
+                    "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBOsVyw0LAIlLlxLKtVD-chYPXkDKKnhqbDNqa-WCX7IDvkIqrIDmDMXoAuV3ZbWRYKekFXw5gBRy1II9KNetvahys30y3Eq6DMEx8Yzf9mPMS_3Sw=s220",
+                    "webViewLink": "https://drive.google.com/file/d/1dKwwgFNc5vyrdtl7g7AxnsQtPgkLnL3O/view?usp=drivesdk",
+                    "type": "Gambar"
+                  },
+                  {
+                    "id": "1BGwl-SGZOcw2fsq_pLF6nNE3aE0RNZ7A",
+                    "name": "Screenshot 2026-01-28 092207.png",
+                    "mimeType": "image/png",
+                    "size": "931372",
+                    "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBNpVcOOBEH2rr5WIXppKLJm4QnEp9DIZ9wpgTqRCZiU7qy2rHVTiE18p6B3btRNcZfFFM0yg5MtIvkpLlMGGIVWyB7ue4c9TKYGWOfrS7iIJkwDEw=s220",
+                    "webViewLink": "https://drive.google.com/file/d/1BGwl-SGZOcw2fsq_pLF6nNE3aE0RNZ7A/view?usp=drivesdk",
+                    "type": "Gambar"
+                  }
+                ],
+                "selectedDriveIds": [
+                  "1aPMHyQBuG0l9OXO6UFw3v8x-xOpNxtqt",
+                  "1QBZxIzZYLdQDBS9wUWuuXmI0jyawAdox",
+                  "1dKwwgFNc5vyrdtl7g7AxnsQtPgkLnL3O",
+                  "1BGwl-SGZOcw2fsq_pLF6nNE3aE0RNZ7A"
+                ],
+                "manualFiles": [
+                  {
+                    "id": "c3af2cc1-cb39-485a-aec1-ae80698de2c2",
+                    "name": "Respon Kopi Manis Session Seri 19 2026 _ Pengenalan dan Analisis Data Kuantitatif dengan R-Studio_.pdf",
+                    "filename": "1778860403981-Respon Kopi Manis Session Seri 19 2026 _ Pengenalan dan Analisis Data Kuantitatif dengan R-Studio_.pdf",
+                    "path": "storage\\evidence\\7cfa95ec-e387-45a2-9691-5994e872b893\\2d8cc3f0-5d1e-4c72-908f-90c64bc84042\\1778860403981-Respon Kopi Manis Session Seri 19 2026 _ Pengenalan dan Analisis Data Kuantitatif dengan R-Studio_.pdf",
+                    "mimetype": "application/pdf",
+                    "size": 630442,
+                    "uploadedAt": "2026-05-15T15:53:23.986Z"
+                  }
+                ]
+              },
+              "generatedPdfs": [
+                {
+                  "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778860395156.pdf",
+                  "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778860395156.pdf",
+                  "generatedAt": "2026-05-15T15:53:15.301Z"
+                },
+                {
+                  "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778856548190.pdf",
+                  "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778856548190.pdf",
+                  "generatedAt": "2026-05-15T14:49:08.276Z"
+                }
+              ],
+              "updatedAt": "2026-05-15T15:53:23.986Z"
+            },
+            {
+              "id": "7f00e371-4b23-4474-9be3-9d47c31fc5e4",
+              "kegiatan": "Melakukan tugas jaga dan memberikan pelayanan PST",
+              "waktu": "2026-01-28",
+              "catatan": "",
+              "createdAt": "2026-05-15T15:12:21.776Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "b2e374ec-2cf8-44c6-9517-422231cd2764",
+              "kegiatan": "Mengikuti Rapat Penilaian Petugas PST BPS Provinsi Kepulauan Bangka Belitung Triwulan IV Tahun 2025",
+              "waktu": "2026-01-27",
+              "catatan": "",
+              "createdAt": "2026-05-15T14:09:08.122Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": [
+                  {
+                    "id": "67bfdba9-ec9a-475f-b2c4-e43d0d293670",
+                    "name": "screencapture-daftarhadir-web-bps-go-id-2026-05-15-21_21_58.pdf",
+                    "filename": "1778855217212-screencapture-daftarhadir-web-bps-go-id-2026-05-15-21_21_58.pdf",
+                    "path": "storage\\evidence\\7cfa95ec-e387-45a2-9691-5994e872b893\\b2e374ec-2cf8-44c6-9517-422231cd2764\\1778855217212-screencapture-daftarhadir-web-bps-go-id-2026-05-15-21_21_58.pdf",
+                    "mimetype": "application/pdf",
+                    "size": 431049,
+                    "uploadedAt": "2026-05-15T14:26:57.220Z"
+                  }
+                ]
+              },
+              "generatedPdfs": [
+                {
+                  "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778860373342.pdf",
+                  "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778860373342.pdf",
+                  "generatedAt": "2026-05-15T15:52:53.455Z"
+                },
+                {
+                  "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778855224477.pdf",
+                  "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778855224477.pdf",
+                  "generatedAt": "2026-05-15T14:27:04.738Z"
+                },
+                {
+                  "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778855192966.pdf",
+                  "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778855192966.pdf",
+                  "generatedAt": "2026-05-15T14:26:33.199Z"
+                },
+                {
+                  "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778855012123.pdf",
+                  "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778855012123.pdf",
+                  "generatedAt": "2026-05-15T14:23:32.327Z"
+                }
+              ],
+              "updatedAt": "2026-05-15T14:26:57.221Z"
+            },
+            {
+              "id": "a066b59c-dc08-4859-81f5-17579cda05e8",
+              "kegiatan": "Mengikuti Apel Senin",
+              "waktu": "2026-01-26",
+              "catatan": "",
+              "createdAt": "2026-05-15T08:07:42.872Z",
+              "evidence": {
+                "driveLinks": [
+                  "https://drive.google.com/drive/folders/1iGoXdJHHGpwuJul_67VoydDtx51eWTWD?usp=drive_link"
+                ],
+                "driveFiles": [
+                  {
+                    "id": "18VwAmFld3f2SbBkxrbwTEtGs_OWNkF-K",
+                    "name": "DSC04850.JPG",
+                    "mimeType": "image/jpeg",
+                    "size": "8929272",
+                    "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBO7njPOQLbRAx3iq-IBOhK8CkUXSvFDVKduW3CKj-jSMTYi2l154NSjBcZPaOTW16B2Ye6kSfgcT8lfpvo9u3AnQpffC9cBNayNYRKg9SMpv-VCWg=s220",
+                    "webViewLink": "https://drive.google.com/file/d/18VwAmFld3f2SbBkxrbwTEtGs_OWNkF-K/view?usp=drivesdk",
+                    "type": "Gambar"
+                  },
+                  {
+                    "id": "1MC12R8FpalshZ-N1e0gRo5RkrXU7Oof1",
+                    "name": "DSC04895.JPG",
+                    "mimeType": "image/jpeg",
+                    "size": "8071559",
+                    "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBPe1843jyAXgqlHMclv2Ml3BCEHgwiskw6ASSkDl2ZR37aX0RYVmGH11utejsTT0xA4_AhG3jN6XcXyZaSWOw9S6o3W7r8BPhVDMkqMzTz5yrz8cw=s220",
+                    "webViewLink": "https://drive.google.com/file/d/1MC12R8FpalshZ-N1e0gRo5RkrXU7Oof1/view?usp=drivesdk",
+                    "type": "Gambar"
+                  },
+                  {
+                    "id": "16LqU8F2guee0lgZyzlWn1c8yNaHze1Tv",
+                    "name": "DSC04892.JPG",
+                    "mimeType": "image/jpeg",
+                    "size": "8786495",
+                    "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBNHYqDURjkKVc8Az21xiJA8cQ3e3nL142kI1jhmSMfeGYzyvtXyjSfe7y6Q74t3Ka_5a2kSudaXsrZyIKIIJxGg5roKiQhnp66Ww8iiwZVWsP6NbA=s220",
+                    "webViewLink": "https://drive.google.com/file/d/16LqU8F2guee0lgZyzlWn1c8yNaHze1Tv/view?usp=drivesdk",
+                    "type": "Gambar"
+                  },
+                  {
+                    "id": "11CAqrvHC8x1EmYIpbVbEtyl893_8Bbi7",
+                    "name": "DSC04884.JPG",
+                    "mimeType": "image/jpeg",
+                    "size": "9084142",
+                    "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBMySktCrem8W7AO3Vwg7wzu4nbyfKW5U8D3zq6LRyiHzonpAkTka3YUFMC1mS2iOyBh2IVqM_K5YM0D4jpiGCHqD_j3O9xQYX3uSDAFzeYyCtU7WA=s220",
+                    "webViewLink": "https://drive.google.com/file/d/11CAqrvHC8x1EmYIpbVbEtyl893_8Bbi7/view?usp=drivesdk",
+                    "type": "Gambar"
+                  },
+                  {
+                    "id": "1dD6wcNlUjLXxW1IBcCRCr9fFP2ZQHIaL",
+                    "name": "DSC04880.JPG",
+                    "mimeType": "image/jpeg",
+                    "size": "10613390",
+                    "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBOHR6VBf7z1vQPDnOfhQyTAVlzY-cGuO1QcnVsgt1JrQOvvkgtEVLPpTGX3gfJ_160vd19GAXknH1uoC7eVl-rAulXVI67Q9YDptnXmriCzj5ucmQ=s220",
+                    "webViewLink": "https://drive.google.com/file/d/1dD6wcNlUjLXxW1IBcCRCr9fFP2ZQHIaL/view?usp=drivesdk",
+                    "type": "Gambar"
+                  },
+                  {
+                    "id": "19FYmXvhTku0Y8kEmQuJRBR9pG5sYMzrJ",
+                    "name": "DSC04872.JPG",
+                    "mimeType": "image/jpeg",
+                    "size": "13365849",
+                    "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBMIw-gB6CJNqu6ktyXknc5GS6S6yW_KZGN0JAJHMl0JViYvcPThyreMCjzvyvPfwWIefu1p-Vo-84RJmA6WrCFk6Tqq3-zLoGvl82ZVk16RBNCHsg=s220",
+                    "webViewLink": "https://drive.google.com/file/d/19FYmXvhTku0Y8kEmQuJRBR9pG5sYMzrJ/view?usp=drivesdk",
+                    "type": "Gambar"
+                  }
+                ],
+                "selectedDriveIds": [
+                  "18VwAmFld3f2SbBkxrbwTEtGs_OWNkF-K",
+                  "1MC12R8FpalshZ-N1e0gRo5RkrXU7Oof1",
+                  "16LqU8F2guee0lgZyzlWn1c8yNaHze1Tv",
+                  "11CAqrvHC8x1EmYIpbVbEtyl893_8Bbi7",
+                  "1dD6wcNlUjLXxW1IBcCRCr9fFP2ZQHIaL",
+                  "19FYmXvhTku0Y8kEmQuJRBR9pG5sYMzrJ"
+                ],
+                "manualFiles": []
+              },
+              "generatedPdfs": [
+                {
+                  "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778852171369.pdf",
+                  "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778852171369.pdf",
+                  "generatedAt": "2026-05-15T13:36:11.630Z"
+                },
+                {
+                  "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778833933748.pdf",
+                  "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778833933748.pdf",
+                  "generatedAt": "2026-05-15T08:32:14.032Z"
+                }
+              ],
+              "updatedAt": "2026-05-15T08:30:50.103Z"
+            },
+            {
+              "id": "57bc8b20-bcea-47aa-90ae-12df1482413a",
+              "kegiatan": "Melakukan editing konten PIONIR untuk instagram BPS Babel",
+              "waktu": "2026-01-26",
+              "catatan": "",
+              "createdAt": "2026-05-15T14:03:14.074Z",
+              "evidence": {
+                "driveLinks": [
+                  "https://drive.google.com/drive/folders/1-xK80R_-sXzX8v36LlQOd_YEyOfrKamC?usp=drive_link"
+                ],
+                "driveFiles": [
+                  {
+                    "id": "1hzAgFOu4zpLhjrTJvMz6HMpSUDOFC5_b",
+                    "name": "3.png",
+                    "mimeType": "image/png",
+                    "size": "1636015",
+                    "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBP0MF3vw8KBCne8Fa8k3FBLZDI9ULEcwzybejYzmFEIjPF2wxp-rlrt-v1gsRKaM_WpWNbQi8uw83mYoLebbM9CSJADIwWJGWLbGD-PzKYhXui7aXU=s220",
+                    "webViewLink": "https://drive.google.com/file/d/1hzAgFOu4zpLhjrTJvMz6HMpSUDOFC5_b/view?usp=drivesdk",
+                    "type": "Gambar"
+                  },
+                  {
+                    "id": "1Oal7WZc56JHA18p5qPx8OdoFFt4JL94-",
+                    "name": "2.png",
+                    "mimeType": "image/png",
+                    "size": "492149",
+                    "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBO66MRurhzxxOYHS2gV2-sQj07L0bPi_Ok_vSGSf-oz3DJHLhkZLQ3UwGWwZJjHsveYTFLlXSoU4dcxvZYmxUGnEIuTwZezPUP20q81_MM4xdZ4zsk=s220",
+                    "webViewLink": "https://drive.google.com/file/d/1Oal7WZc56JHA18p5qPx8OdoFFt4JL94-/view?usp=drivesdk",
+                    "type": "Gambar"
+                  },
+                  {
+                    "id": "1RohEMwgfa2w27Kdg9Oh3NPjI2x3pKIoM",
+                    "name": "1.png",
+                    "mimeType": "image/png",
+                    "size": "912507",
+                    "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBMvKayyAGCxptv2T0pnxVri9GleC_haUoa5yWa4OPj_ZblHAor3lzdWkXU1YJfQnJMFrwuDgi-qKYZGX_xGJSFjeF7hGlgL3jJHq9PkO03JBZm9fnU=s220",
+                    "webViewLink": "https://drive.google.com/file/d/1RohEMwgfa2w27Kdg9Oh3NPjI2x3pKIoM/view?usp=drivesdk",
+                    "type": "Gambar"
+                  }
+                ],
+                "selectedDriveIds": [
+                  "1hzAgFOu4zpLhjrTJvMz6HMpSUDOFC5_b",
+                  "1Oal7WZc56JHA18p5qPx8OdoFFt4JL94-",
+                  "1RohEMwgfa2w27Kdg9Oh3NPjI2x3pKIoM"
+                ],
+                "manualFiles": []
+              },
+              "generatedPdfs": [
+                {
+                  "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778854001484.pdf",
+                  "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778854001484.pdf",
+                  "generatedAt": "2026-05-15T14:06:41.687Z"
+                }
+              ],
+              "updatedAt": "2026-05-15T14:06:29.419Z"
+            },
+            {
+              "id": "055862cf-2541-446a-abe7-7fb23d6e80ab",
+              "kegiatan": "Mengikuti RAT Koperasi Arima",
+              "waktu": "2026-01-23",
+              "catatan": "",
+              "createdAt": "2026-05-15T08:06:57.014Z",
+              "evidence": {
+                "driveLinks": [
+                  "https://drive.google.com/drive/folders/11e-WvsuMdI9K00kQlD3FnrSVsC3Cqm65?usp=drive_link"
+                ],
+                "driveFiles": [
+                  {
+                    "id": "1h76CC9KkAXw0MaIujnPNr7UT47eiFSkO",
+                    "name": "DSC04828.JPG",
+                    "mimeType": "image/jpeg",
+                    "size": "7768900",
+                    "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBMbZttUtB0Qb7CCuwt5LP_bV8PqpMv7AXBC4Zi-gaX38QqNSJbcSKOS6y6loBjdnVs50t6-WP1dNzxhmhC8ULY45p4CK_UXbgl-mUGNMVNiVnDkWks=s220",
+                    "webViewLink": "https://drive.google.com/file/d/1h76CC9KkAXw0MaIujnPNr7UT47eiFSkO/view?usp=drivesdk",
+                    "type": "Gambar"
+                  },
+                  {
+                    "id": "155rCL4kobCDGopy4ZpvR_ge3VYvbbXPw",
+                    "name": "DSC04790.JPG",
+                    "mimeType": "image/jpeg",
+                    "size": "9246174",
+                    "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBPP5G0O-uNXBoWwTD8HZWn14LslENUFW8Is1KxDCXIWWvSzsiYDOa-G3cqzobaz16X5N-qPpwJOB1cJJxK3zNBy7Fupp8ooo5k0AwmJ1GUOpFOgFro=s220",
+                    "webViewLink": "https://drive.google.com/file/d/155rCL4kobCDGopy4ZpvR_ge3VYvbbXPw/view?usp=drivesdk",
+                    "type": "Gambar"
+                  },
+                  {
+                    "id": "1f0-fwxs-HJ3jmW1wsjQeaJOMCU2NknV0",
+                    "name": "DSC04789.JPG",
+                    "mimeType": "image/jpeg",
+                    "size": "9151028",
+                    "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBOrTijIngz_WAJbc9lFEJMhRAUODnQTSrDteaoZLuADtOQ5FAoSu9DxmyZVV2hqTpNOFe38ps3IBkyhC7sOC9Dr48z7nAK1purYyN_TXL8a_onQh3c=s220",
+                    "webViewLink": "https://drive.google.com/file/d/1f0-fwxs-HJ3jmW1wsjQeaJOMCU2NknV0/view?usp=drivesdk",
+                    "type": "Gambar"
+                  },
+                  {
+                    "id": "1RbLUnPDI0AFPJ72R2sh__8Zw8oOXykc9",
+                    "name": "DSC04787.JPG",
+                    "mimeType": "image/jpeg",
+                    "size": "9057664",
+                    "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBMY0qX_woWzyU_11EvI8EAHxZnIQYlEGIUaoMHas45KVqu1rRHfqxaNSCY3cWDEeFnY6vw4kODsBjfybSjFCronMdn30tcbKcGg6koz18FDBCtpAew=s220",
+                    "webViewLink": "https://drive.google.com/file/d/1RbLUnPDI0AFPJ72R2sh__8Zw8oOXykc9/view?usp=drivesdk",
+                    "type": "Gambar"
+                  },
+                  {
+                    "id": "1DzB_0xq9_-3U3AqhrqerjOKJ58pBDLKo",
+                    "name": "DSC04785.JPG",
+                    "mimeType": "image/jpeg",
+                    "size": "8766278",
+                    "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBPDH6DD_Pbiqsx9U02ZdGTaeuN6uQ_zyLa_kFh9hMRygO4pQ34JQeleo1cLunw7OpmiIiSQIbX8X25-c2LhrEA-ZgirbUOD9-o3lrYWSutqOeFjwQU=s220",
+                    "webViewLink": "https://drive.google.com/file/d/1DzB_0xq9_-3U3AqhrqerjOKJ58pBDLKo/view?usp=drivesdk",
+                    "type": "Gambar"
+                  },
+                  {
+                    "id": "1Jh3AITDVMj-tZW2ta8lO002kALivpHpO",
+                    "name": "DSC04759.JPG",
+                    "mimeType": "image/jpeg",
+                    "size": "4695607",
+                    "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBO1MGzor3TUYRhh2s8wmSqy-lDIoIXlyWGIQerJUNFeetTcybJqDOy9o6qLiVjBu1QrR3XSlHYvrxyZ6lXK4IgNVWiOZ0tr2CfeH9wfpYTPbvg-NgI=s220",
+                    "webViewLink": "https://drive.google.com/file/d/1Jh3AITDVMj-tZW2ta8lO002kALivpHpO/view?usp=drivesdk",
+                    "type": "Gambar"
+                  }
+                ],
+                "selectedDriveIds": [
+                  "1h76CC9KkAXw0MaIujnPNr7UT47eiFSkO",
+                  "155rCL4kobCDGopy4ZpvR_ge3VYvbbXPw",
+                  "1f0-fwxs-HJ3jmW1wsjQeaJOMCU2NknV0",
+                  "1RbLUnPDI0AFPJ72R2sh__8Zw8oOXykc9",
+                  "1DzB_0xq9_-3U3AqhrqerjOKJ58pBDLKo",
+                  "1Jh3AITDVMj-tZW2ta8lO002kALivpHpO"
+                ],
+                "manualFiles": []
+              },
+              "generatedPdfs": [
+                {
+                  "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778852278813.pdf",
+                  "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778852278813.pdf",
+                  "generatedAt": "2026-05-15T13:37:59.077Z"
+                },
+                {
+                  "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778852214011.pdf",
+                  "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778852214011.pdf",
+                  "generatedAt": "2026-05-15T13:36:54.221Z"
+                },
+                {
+                  "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778834791173.pdf",
+                  "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778834791173.pdf",
+                  "generatedAt": "2026-05-15T08:46:31.371Z"
+                }
+              ],
+              "updatedAt": "2026-05-15T08:46:01.759Z"
+            },
+            {
+              "id": "452ec3ae-f94e-4118-933d-c2b82e7b1d60",
+              "kegiatan": "Mengikuti rapat awal tahun Tim Humas",
+              "waktu": "2026-01-23",
+              "catatan": "",
+              "createdAt": "2026-05-15T08:06:16.150Z",
+              "evidence": {
+                "driveLinks": [
+                  "https://drive.google.com/drive/folders/1h-W8NzmidsVeslt3-uM7axn07pCXY22t?usp=drive_link"
+                ],
+                "driveFiles": [
+                  {
+                    "id": "1mnC_roqa3lGd7-0j96MoSgW99p1NDBr0",
+                    "name": "IMG_8731.HEIC",
+                    "mimeType": "image/heif",
+                    "size": "2874460",
+                    "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBM_rR3b92YpbfcCt1WP8m-tZSx9UB78OJaa7suv7Bxta5XuVDnjoOK9GvEltDQVLfNtPU-dX8qfS3MbjkCW_rSNPgWFKQAg8Zn02adhvt8ubb53Ng=s220",
+                    "webViewLink": "https://drive.google.com/file/d/1mnC_roqa3lGd7-0j96MoSgW99p1NDBr0/view?usp=drivesdk",
+                    "type": "Gambar"
+                  },
+                  {
+                    "id": "14dK08T7UeZYmcNpR10jZPm8Wskh53Qik",
+                    "name": "IMG_8733.HEIC",
+                    "mimeType": "image/heif",
+                    "size": "2570488",
+                    "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBMbVWO05zKwiIYX01CMQ_Q1e8NRdupkpualHyacYO837iBwe7QvEoVxwrQqBlJJmHcgRI4P6kERs18QkoheXcRyKe-sJRlwFqYO0_gMZ6tDQICssg=s220",
+                    "webViewLink": "https://drive.google.com/file/d/14dK08T7UeZYmcNpR10jZPm8Wskh53Qik/view?usp=drivesdk",
+                    "type": "Gambar"
+                  },
+                  {
+                    "id": "18cV4n0clsAqUzenDnX2gZgGA8Z_n6ZN9",
+                    "name": "IMG_8735.HEIC",
+                    "mimeType": "image/heif",
+                    "size": "2411662",
+                    "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBOj6tbbIW45dOM_fzlCw0lfd9NXyFqHVbGjbowgzE_r7TBn8XSU2-3sEnwcz5WrwkaGNZF7V0wxKS3gQDGJjguH14xLFt_Ntqy3aN6iD4A7dMcYuQ=s220",
+                    "webViewLink": "https://drive.google.com/file/d/18cV4n0clsAqUzenDnX2gZgGA8Z_n6ZN9/view?usp=drivesdk",
+                    "type": "Gambar"
+                  },
+                  {
+                    "id": "1OG_BNgqgZl57ODqEP0NPa0pZgN0dMK8-",
+                    "name": "IMG_8720.HEIC",
+                    "mimeType": "image/heif",
+                    "size": "2815557",
+                    "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBN2GexRDPerOq0N_loiirUFsc46ItaGzoj1o91XFIvG7-bm4MNa7ddmlxmyHIuHBa-McCGcGkEuBw0EhiYoh6Z2gBuPMuxTMymqPyM8iDHQjrgvNw=s220",
+                    "webViewLink": "https://drive.google.com/file/d/1OG_BNgqgZl57ODqEP0NPa0pZgN0dMK8-/view?usp=drivesdk",
+                    "type": "Gambar"
+                  },
+                  {
+                    "id": "115K22Gb96ytLGbDjXGtz2vTqmbBjIKcy",
+                    "name": "IMG_8712.HEIC",
+                    "mimeType": "image/heif",
+                    "size": "2661039",
+                    "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBMqy5gF2uFqxJDLxCTYtwbldvzAvz0d1gXDdM2zsaphDU2zGXlJB5nYuwBcw2XAomfozWKP4ZZglsqkXkKpburt2CkUKOIhj9o9dD3dvlE94_vWUg=s220",
+                    "webViewLink": "https://drive.google.com/file/d/115K22Gb96ytLGbDjXGtz2vTqmbBjIKcy/view?usp=drivesdk",
+                    "type": "Gambar"
+                  },
+                  {
+                    "id": "1b7iKjvedxVDIc8aenJqRR9DjmNW2quji",
+                    "name": "IMG_8721.HEIC",
+                    "mimeType": "image/heif",
+                    "size": "2249169",
+                    "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBOC5pMzA8jDVTZXrJz5FY9aLxUucaoXozv3N4GTny9ys-PjfBgUFXW-M9YOnC35TLplec4qlYXdDbukoUrj0oPfaa61GZliMh1i-d_288wWXUBCDYs=s220",
+                    "webViewLink": "https://drive.google.com/file/d/1b7iKjvedxVDIc8aenJqRR9DjmNW2quji/view?usp=drivesdk",
+                    "type": "Gambar"
+                  },
+                  {
+                    "id": "1iNtah96mhxoTJZuxBMdnDfrId1lOkJmE",
+                    "name": "IMG_8719.HEIC",
+                    "mimeType": "image/heif",
+                    "size": "2194272",
+                    "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBNYA4HMiJTn9t8J0pysYVOjLGYdRc6VwIm_NYqR0QhiNny04g8v0TpO3Y04EnwzQtb68tOj9nHuzHH5LQcmsABGrUf3qbmJGfxizt5TMd2dLwgUH18=s220",
+                    "webViewLink": "https://drive.google.com/file/d/1iNtah96mhxoTJZuxBMdnDfrId1lOkJmE/view?usp=drivesdk",
+                    "type": "Gambar"
+                  }
+                ],
+                "selectedDriveIds": [
+                  "1mnC_roqa3lGd7-0j96MoSgW99p1NDBr0",
+                  "14dK08T7UeZYmcNpR10jZPm8Wskh53Qik",
+                  "18cV4n0clsAqUzenDnX2gZgGA8Z_n6ZN9",
+                  "1OG_BNgqgZl57ODqEP0NPa0pZgN0dMK8-",
+                  "115K22Gb96ytLGbDjXGtz2vTqmbBjIKcy",
+                  "1b7iKjvedxVDIc8aenJqRR9DjmNW2quji",
+                  "1iNtah96mhxoTJZuxBMdnDfrId1lOkJmE"
+                ],
+                "manualFiles": []
+              },
+              "generatedPdfs": [
+                {
+                  "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778852799654.pdf",
+                  "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778852799654.pdf",
+                  "generatedAt": "2026-05-15T13:46:39.934Z"
+                },
+                {
+                  "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778850934605.pdf",
+                  "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778850934605.pdf",
+                  "generatedAt": "2026-05-15T13:15:34.780Z"
+                }
+              ],
+              "updatedAt": "2026-05-15T09:01:16.770Z"
+            },
+            {
+              "id": "7cf9203a-4f6d-45e8-89f3-ac21d14cf581",
+              "kegiatan": "Melakukan pengecekan dan perbaikan perangkat TI",
+              "waktu": "2026-01-22",
+              "catatan": "",
+              "createdAt": "2026-05-15T08:04:44.350Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": [
+                  {
+                    "id": "823fe7d0-51fc-400a-a6e5-d4990b3b6a76",
+                    "name": "WhatsApp Image 2026-05-15 at 20.10.47.jpeg",
+                    "filename": "1778850737825-WhatsApp Image 2026-05-15 at 20.10.47.jpeg",
+                    "path": "storage\\evidence\\7cfa95ec-e387-45a2-9691-5994e872b893\\7cf9203a-4f6d-45e8-89f3-ac21d14cf581\\1778850737825-WhatsApp Image 2026-05-15 at 20.10.47.jpeg",
+                    "mimetype": "image/jpeg",
+                    "size": 48674,
+                    "uploadedAt": "2026-05-15T13:12:17.830Z"
+                  }
+                ]
+              },
+              "generatedPdfs": [
+                {
+                  "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778852829004.pdf",
+                  "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778852829004.pdf",
+                  "generatedAt": "2026-05-15T13:47:09.252Z"
+                },
+                {
+                  "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778850745288.pdf",
+                  "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778850745288.pdf",
+                  "generatedAt": "2026-05-15T13:12:25.383Z"
+                }
+              ],
+              "updatedAt": "2026-05-15T13:12:17.830Z"
+            },
+            {
+              "id": "b6106d26-d021-48bd-9faa-04671e3b4725",
+              "kegiatan": "Melakukan entri GC Prelist SE 2026 Desa Pagarawan di Matchapro",
+              "waktu": "2026-01-21",
+              "catatan": "",
+              "createdAt": "2026-05-15T08:03:41.800Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": [
+                  {
+                    "id": "a585f44b-0a00-4338-86db-32e4f1c1506c",
+                    "name": "Screenshot_2026-05-15-20-16-43-687_com.matchapro.app-edit.jpg",
+                    "filename": "1778851294274-Screenshot_2026-05-15-20-16-43-687_com.matchapro.app-edit.jpg",
+                    "path": "storage\\evidence\\7cfa95ec-e387-45a2-9691-5994e872b893\\b6106d26-d021-48bd-9faa-04671e3b4725\\1778851294274-Screenshot_2026-05-15-20-16-43-687_com.matchapro.app-edit.jpg",
+                    "mimetype": "image/jpeg",
+                    "size": 1524571,
+                    "uploadedAt": "2026-05-15T13:21:34.282Z"
+                  }
+                ]
+              },
+              "generatedPdfs": [
+                {
+                  "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778852838718.pdf",
+                  "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778852838718.pdf",
+                  "generatedAt": "2026-05-15T13:47:18.925Z"
+                },
+                {
+                  "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778851538823.pdf",
+                  "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778851538823.pdf",
+                  "generatedAt": "2026-05-15T13:25:38.931Z"
+                },
+                {
+                  "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778851299626.pdf",
+                  "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778851299626.pdf",
+                  "generatedAt": "2026-05-15T13:21:39.722Z"
+                }
+              ],
+              "updatedAt": "2026-05-15T13:21:34.282Z"
+            },
+            {
+              "id": "8e66c7e2-dc50-4712-bc58-d7ada7aacf15",
+              "kegiatan": "Melakukan GC Prelist SE 2026 di Desa Pagarawan",
+              "waktu": "2026-01-21",
+              "catatan": "",
+              "createdAt": "2026-05-15T08:03:17.684Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": [
+                  {
+                    "id": "656b9455-b80c-493e-a66a-0ec92453ae5f",
+                    "name": "WhatsApp Image 2026-05-15 at 15.24.12 (2).jpeg",
+                    "filename": "1778833520408-WhatsApp Image 2026-05-15 at 15.24.12 (2).jpeg",
+                    "path": "storage\\evidence\\7cfa95ec-e387-45a2-9691-5994e872b893\\8e66c7e2-dc50-4712-bc58-d7ada7aacf15\\1778833520408-WhatsApp Image 2026-05-15 at 15.24.12 (2).jpeg",
+                    "mimetype": "image/jpeg",
+                    "size": 76842,
+                    "uploadedAt": "2026-05-15T08:25:20.442Z"
+                  },
+                  {
+                    "id": "5bb22a37-adb1-426b-a971-0d65a7ac952d",
+                    "name": "WhatsApp Image 2026-05-15 at 15.24.12 (1).jpeg",
+                    "filename": "1778833520410-WhatsApp Image 2026-05-15 at 15.24.12 (1).jpeg",
+                    "path": "storage\\evidence\\7cfa95ec-e387-45a2-9691-5994e872b893\\8e66c7e2-dc50-4712-bc58-d7ada7aacf15\\1778833520410-WhatsApp Image 2026-05-15 at 15.24.12 (1).jpeg",
+                    "mimetype": "image/jpeg",
+                    "size": 96124,
+                    "uploadedAt": "2026-05-15T08:25:20.438Z"
+                  },
+                  {
+                    "id": "348c9f07-438b-4167-89c1-c88cffffe041",
+                    "name": "WhatsApp Image 2026-05-15 at 15.24.12.jpeg",
+                    "filename": "1778833520412-WhatsApp Image 2026-05-15 at 15.24.12.jpeg",
+                    "path": "storage\\evidence\\7cfa95ec-e387-45a2-9691-5994e872b893\\8e66c7e2-dc50-4712-bc58-d7ada7aacf15\\1778833520412-WhatsApp Image 2026-05-15 at 15.24.12.jpeg",
+                    "mimetype": "image/jpeg",
+                    "size": 98886,
+                    "uploadedAt": "2026-05-15T08:25:20.438Z"
+                  },
+                  {
+                    "id": "5975e156-cc4d-4d06-b5be-44c66be5b4ee",
+                    "name": "WhatsApp Image 2026-05-15 at 15.24.11 (1).jpeg",
+                    "filename": "1778833520412-WhatsApp Image 2026-05-15 at 15.24.11 (1).jpeg",
+                    "path": "storage\\evidence\\7cfa95ec-e387-45a2-9691-5994e872b893\\8e66c7e2-dc50-4712-bc58-d7ada7aacf15\\1778833520412-WhatsApp Image 2026-05-15 at 15.24.11 (1).jpeg",
+                    "mimetype": "image/jpeg",
+                    "size": 94413,
+                    "uploadedAt": "2026-05-15T08:25:20.442Z"
+                  },
+                  {
+                    "id": "9a152a16-4a75-4109-999a-75d8db5514a3",
+                    "name": "WhatsApp Image 2026-05-15 at 15.24.11.jpeg",
+                    "filename": "1778833520413-WhatsApp Image 2026-05-15 at 15.24.11.jpeg",
+                    "path": "storage\\evidence\\7cfa95ec-e387-45a2-9691-5994e872b893\\8e66c7e2-dc50-4712-bc58-d7ada7aacf15\\1778833520413-WhatsApp Image 2026-05-15 at 15.24.11.jpeg",
+                    "mimetype": "image/jpeg",
+                    "size": 316153,
+                    "uploadedAt": "2026-05-15T08:25:20.440Z"
+                  }
+                ]
+              },
+              "generatedPdfs": [
+                {
+                  "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778852846029.pdf",
+                  "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778852846029.pdf",
+                  "generatedAt": "2026-05-15T13:47:26.250Z"
+                },
+                {
+                  "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778833557780.pdf",
+                  "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778833557780.pdf",
+                  "generatedAt": "2026-05-15T08:25:58.080Z"
+                }
+              ],
+              "updatedAt": "2026-05-15T08:25:20.442Z"
+            },
+            {
+              "id": "246ce94c-77e5-46f9-a6ae-271a337168ae",
+              "kegiatan": "Mengikuti Rapat Tim Kerja Diseminasi Statistik",
+              "waktu": "2026-01-20",
+              "catatan": "",
+              "createdAt": "2026-05-15T14:08:26.350Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": [
+                  {
+                    "id": "22bcd6de-351f-4b9a-9467-dd599980a928",
+                    "name": "WhatsApp Image 2026-05-15 at 21.13.33 (1).jpeg",
+                    "filename": "1778854697077-WhatsApp Image 2026-05-15 at 21.13.33 (1).jpeg",
+                    "path": "storage\\evidence\\7cfa95ec-e387-45a2-9691-5994e872b893\\246ce94c-77e5-46f9-a6ae-271a337168ae\\1778854697077-WhatsApp Image 2026-05-15 at 21.13.33 (1).jpeg",
+                    "mimetype": "image/jpeg",
+                    "size": 107530,
+                    "uploadedAt": "2026-05-15T14:18:17.093Z"
+                  },
+                  {
+                    "id": "202de9a4-3bba-4793-8ffb-0670e524e4dc",
+                    "name": "WhatsApp Image 2026-05-15 at 21.13.33.jpeg",
+                    "filename": "1778854697078-WhatsApp Image 2026-05-15 at 21.13.33.jpeg",
+                    "path": "storage\\evidence\\7cfa95ec-e387-45a2-9691-5994e872b893\\246ce94c-77e5-46f9-a6ae-271a337168ae\\1778854697078-WhatsApp Image 2026-05-15 at 21.13.33.jpeg",
+                    "mimetype": "image/jpeg",
+                    "size": 104380,
+                    "uploadedAt": "2026-05-15T14:18:17.097Z"
+                  },
+                  {
+                    "id": "bb7393b8-f719-47ef-b678-d408c89d5c57",
+                    "name": "WhatsApp Image 2026-05-15 at 21.13.32 (1).jpeg",
+                    "filename": "1778854697078-WhatsApp Image 2026-05-15 at 21.13.32 (1).jpeg",
+                    "path": "storage\\evidence\\7cfa95ec-e387-45a2-9691-5994e872b893\\246ce94c-77e5-46f9-a6ae-271a337168ae\\1778854697078-WhatsApp Image 2026-05-15 at 21.13.32 (1).jpeg",
+                    "mimetype": "image/jpeg",
+                    "size": 100912,
+                    "uploadedAt": "2026-05-15T14:18:17.095Z"
+                  },
+                  {
+                    "id": "4e46fc5d-9d8e-4cdf-9f31-7a7b3fba3b34",
+                    "name": "WhatsApp Image 2026-05-15 at 21.13.32.jpeg",
+                    "filename": "1778854697078-WhatsApp Image 2026-05-15 at 21.13.32.jpeg",
+                    "path": "storage\\evidence\\7cfa95ec-e387-45a2-9691-5994e872b893\\246ce94c-77e5-46f9-a6ae-271a337168ae\\1778854697078-WhatsApp Image 2026-05-15 at 21.13.32.jpeg",
+                    "mimetype": "image/jpeg",
+                    "size": 92328,
+                    "uploadedAt": "2026-05-15T14:18:17.096Z"
+                  }
+                ]
+              },
+              "generatedPdfs": [
+                {
+                  "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778854701893.pdf",
+                  "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778854701893.pdf",
+                  "generatedAt": "2026-05-15T14:18:22.094Z"
+                }
+              ],
+              "updatedAt": "2026-05-15T14:18:17.097Z"
+            },
+            {
+              "id": "ae320053-cbeb-4fd0-98c0-c91ce44b5649",
+              "kegiatan": "Melakukan tugas jaga dan memberikan pelayanan PST",
+              "waktu": "2026-01-20",
+              "catatan": "",
+              "createdAt": "2026-05-15T15:12:08.914Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": []
+              },
+              "generatedPdfs": []
+            },
+            {
+              "id": "4cb1c3c3-6fda-46cc-a034-2abbf5c1166d",
+              "kegiatan": "Mengikuti Rakorda SNLIK",
+              "waktu": "2026-01-19",
+              "catatan": "",
+              "createdAt": "2026-05-15T08:02:16.630Z",
+              "evidence": {
+                "driveLinks": [
+                  "https://drive.google.com/drive/folders/1Wn2DwMGguidIPxWcEijnKAK5nvW5Gc6O?usp=drive_link"
+                ],
+                "driveFiles": [
+                  {
+                    "id": "18eDfaJuEEK50Shnp8v8Jx4R_OV8sKlFk",
+                    "name": "DSC04482.JPG",
+                    "mimeType": "image/jpeg",
+                    "size": "8746620",
+                    "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBPjsF62H5vLXd5-HXQh7xjvY4gtAqZU9JIy783veNaZHxn3D4DUGn5_jvHsJZLFfBZPc6HpueU8yF-twoPd08MICQi40Qwt7IrU4nvNq4Q7CL4P4m4=s220",
+                    "webViewLink": "https://drive.google.com/file/d/18eDfaJuEEK50Shnp8v8Jx4R_OV8sKlFk/view?usp=drivesdk",
+                    "type": "Gambar"
+                  },
+                  {
+                    "id": "1zYM1wXU2MQnEWvh5K7hEeZgYa91HHKoS",
+                    "name": "DSC04471.JPG",
+                    "mimeType": "image/jpeg",
+                    "size": "7103489",
+                    "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBOwFhmdJmXiHa-QDxKi1XdGAo8KfUplYh0MX_3rFzfpAStj2V-jmiJ351xX7BunIvQlCG2HFZg7TcPs8HNydqrwIp4nANb20OC2YH7I-qlbpdMqKgI=s220",
+                    "webViewLink": "https://drive.google.com/file/d/1zYM1wXU2MQnEWvh5K7hEeZgYa91HHKoS/view?usp=drivesdk",
+                    "type": "Gambar"
+                  },
+                  {
+                    "id": "1kBly66I2fIDtjYvPX5gBbIKuXlHLmXZG",
+                    "name": "DSC04432.JPG",
+                    "mimeType": "image/jpeg",
+                    "size": "6606239",
+                    "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBNta4Nj6khKJC57g-3vTtiwN6MKCogUgp42uQ4ZXm_7TGxEd4pe9kerqBJ2gBPK4p3oTK13MxalMZjiXY2gGS_bYBl4ovW2GTjfXqaR5UMLtvqZ4w4=s220",
+                    "webViewLink": "https://drive.google.com/file/d/1kBly66I2fIDtjYvPX5gBbIKuXlHLmXZG/view?usp=drivesdk",
+                    "type": "Gambar"
+                  },
+                  {
+                    "id": "1Mpm-nTji7ARChkydzWvEsX5Did1C49FC",
+                    "name": "DSC04425.JPG",
+                    "mimeType": "image/jpeg",
+                    "size": "7384084",
+                    "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBOL_36_UEDrZwfZQDTyTRy5cGhsjNXgdqvrRfxj2t-pfFA5f4J4IaNna_TwWRxmxtICtLhVBJ0bRQeFKpi48e2sn1J284J4Dp6wtS5BEgZxm3Qnifk=s220",
+                    "webViewLink": "https://drive.google.com/file/d/1Mpm-nTji7ARChkydzWvEsX5Did1C49FC/view?usp=drivesdk",
+                    "type": "Gambar"
+                  },
+                  {
+                    "id": "1TZiCTu2g-FOMF8V8hWz9JmMoSLZ8Hsa3",
+                    "name": "DSC04400.JPG",
+                    "mimeType": "image/jpeg",
+                    "size": "8341882",
+                    "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBP4Rk98JgltF614qmuPHQjPt9PjAc15-DEr5R0Gw24ru6uF-GVYn12gl5jU1JNKqkjmTda_E3-f_c5Ed8IP-iUQwqy49EBfBzWGuvLQtfxGUBtq0Bo=s220",
+                    "webViewLink": "https://drive.google.com/file/d/1TZiCTu2g-FOMF8V8hWz9JmMoSLZ8Hsa3/view?usp=drivesdk",
+                    "type": "Gambar"
+                  },
+                  {
+                    "id": "1GNytbl8rTVjiCkZgd3i0WzV-shrhgcb_",
+                    "name": "DSC04398.JPG",
+                    "mimeType": "image/jpeg",
+                    "size": "7900761",
+                    "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBPQa6Nm7wO_atu3OBiQQSXCjuxvKUirl5Uc10ZgFyqjVYjCanXluvSnycjVaMkutlFoZnelprXEKlo4d2HnrvQ81xFkt4Q7ryhsXrGEGUgOI9CwOOE=s220",
+                    "webViewLink": "https://drive.google.com/file/d/1GNytbl8rTVjiCkZgd3i0WzV-shrhgcb_/view?usp=drivesdk",
+                    "type": "Gambar"
+                  }
+                ],
+                "selectedDriveIds": [
+                  "18eDfaJuEEK50Shnp8v8Jx4R_OV8sKlFk",
+                  "1zYM1wXU2MQnEWvh5K7hEeZgYa91HHKoS",
+                  "1kBly66I2fIDtjYvPX5gBbIKuXlHLmXZG",
+                  "1Mpm-nTji7ARChkydzWvEsX5Did1C49FC",
+                  "1TZiCTu2g-FOMF8V8hWz9JmMoSLZ8Hsa3",
+                  "1GNytbl8rTVjiCkZgd3i0WzV-shrhgcb_"
+                ],
+                "manualFiles": []
+              },
+              "generatedPdfs": [
+                {
+                  "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778852879543.pdf",
+                  "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok__S_Tr_Stat-200103212023021002-2026-01_1778852879543.pdf",
+                  "generatedAt": "2026-05-15T13:47:59.798Z"
+                },
+                {
+                  "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778833206856.pdf",
+                  "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778833206856.pdf",
+                  "generatedAt": "2026-05-15T08:20:07.332Z"
+                }
+              ],
+              "updatedAt": "2026-05-15T08:19:24.540Z"
             }
           ],
-          "updatedAt": "2026-05-15T08:25:20.442Z"
-        },
-        {
-          "id": "4cb1c3c3-6fda-46cc-a034-2abbf5c1166d",
-          "kegiatan": "Mengikuti Rakorda SNLIK",
-          "waktu": "2026-01-19",
-          "catatan": "",
-          "createdAt": "2026-05-15T08:02:16.630Z",
-          "evidence": {
-            "driveLinks": [
-              "https://drive.google.com/drive/folders/1Wn2DwMGguidIPxWcEijnKAK5nvW5Gc6O?usp=drive_link"
-            ],
-            "driveFiles": [
-              {
-                "id": "18eDfaJuEEK50Shnp8v8Jx4R_OV8sKlFk",
-                "name": "DSC04482.JPG",
-                "mimeType": "image/jpeg",
-                "size": "8746620",
-                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBPjsF62H5vLXd5-HXQh7xjvY4gtAqZU9JIy783veNaZHxn3D4DUGn5_jvHsJZLFfBZPc6HpueU8yF-twoPd08MICQi40Qwt7IrU4nvNq4Q7CL4P4m4=s220",
-                "webViewLink": "https://drive.google.com/file/d/18eDfaJuEEK50Shnp8v8Jx4R_OV8sKlFk/view?usp=drivesdk",
-                "type": "Gambar"
-              },
-              {
-                "id": "1zYM1wXU2MQnEWvh5K7hEeZgYa91HHKoS",
-                "name": "DSC04471.JPG",
-                "mimeType": "image/jpeg",
-                "size": "7103489",
-                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBOwFhmdJmXiHa-QDxKi1XdGAo8KfUplYh0MX_3rFzfpAStj2V-jmiJ351xX7BunIvQlCG2HFZg7TcPs8HNydqrwIp4nANb20OC2YH7I-qlbpdMqKgI=s220",
-                "webViewLink": "https://drive.google.com/file/d/1zYM1wXU2MQnEWvh5K7hEeZgYa91HHKoS/view?usp=drivesdk",
-                "type": "Gambar"
-              },
-              {
-                "id": "1kBly66I2fIDtjYvPX5gBbIKuXlHLmXZG",
-                "name": "DSC04432.JPG",
-                "mimeType": "image/jpeg",
-                "size": "6606239",
-                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBNta4Nj6khKJC57g-3vTtiwN6MKCogUgp42uQ4ZXm_7TGxEd4pe9kerqBJ2gBPK4p3oTK13MxalMZjiXY2gGS_bYBl4ovW2GTjfXqaR5UMLtvqZ4w4=s220",
-                "webViewLink": "https://drive.google.com/file/d/1kBly66I2fIDtjYvPX5gBbIKuXlHLmXZG/view?usp=drivesdk",
-                "type": "Gambar"
-              },
-              {
-                "id": "1Mpm-nTji7ARChkydzWvEsX5Did1C49FC",
-                "name": "DSC04425.JPG",
-                "mimeType": "image/jpeg",
-                "size": "7384084",
-                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBOL_36_UEDrZwfZQDTyTRy5cGhsjNXgdqvrRfxj2t-pfFA5f4J4IaNna_TwWRxmxtICtLhVBJ0bRQeFKpi48e2sn1J284J4Dp6wtS5BEgZxm3Qnifk=s220",
-                "webViewLink": "https://drive.google.com/file/d/1Mpm-nTji7ARChkydzWvEsX5Did1C49FC/view?usp=drivesdk",
-                "type": "Gambar"
-              },
-              {
-                "id": "1TZiCTu2g-FOMF8V8hWz9JmMoSLZ8Hsa3",
-                "name": "DSC04400.JPG",
-                "mimeType": "image/jpeg",
-                "size": "8341882",
-                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBP4Rk98JgltF614qmuPHQjPt9PjAc15-DEr5R0Gw24ru6uF-GVYn12gl5jU1JNKqkjmTda_E3-f_c5Ed8IP-iUQwqy49EBfBzWGuvLQtfxGUBtq0Bo=s220",
-                "webViewLink": "https://drive.google.com/file/d/1TZiCTu2g-FOMF8V8hWz9JmMoSLZ8Hsa3/view?usp=drivesdk",
-                "type": "Gambar"
-              },
-              {
-                "id": "1GNytbl8rTVjiCkZgd3i0WzV-shrhgcb_",
-                "name": "DSC04398.JPG",
-                "mimeType": "image/jpeg",
-                "size": "7900761",
-                "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBPQa6Nm7wO_atu3OBiQQSXCjuxvKUirl5Uc10ZgFyqjVYjCanXluvSnycjVaMkutlFoZnelprXEKlo4d2HnrvQ81xFkt4Q7ryhsXrGEGUgOI9CwOOE=s220",
-                "webViewLink": "https://drive.google.com/file/d/1GNytbl8rTVjiCkZgd3i0WzV-shrhgcb_/view?usp=drivesdk",
-                "type": "Gambar"
-              }
-            ],
-            "selectedDriveIds": [
-              "18eDfaJuEEK50Shnp8v8Jx4R_OV8sKlFk",
-              "1zYM1wXU2MQnEWvh5K7hEeZgYa91HHKoS",
-              "1kBly66I2fIDtjYvPX5gBbIKuXlHLmXZG",
-              "1Mpm-nTji7ARChkydzWvEsX5Did1C49FC",
-              "1TZiCTu2g-FOMF8V8hWz9JmMoSLZ8Hsa3",
-              "1GNytbl8rTVjiCkZgd3i0WzV-shrhgcb_"
-            ],
-            "manualFiles": []
-          },
-          "generatedPdfs": [
-            {
-              "filename": "Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778833206856.pdf",
-              "url": "/api/output/Bukti_CKP_Akhmad_Fadil_Mubarok-200103212023021002-2026-01_1778833206856.pdf",
-              "generatedAt": "2026-05-15T08:20:07.332Z"
-            }
-          ],
-          "updatedAt": "2026-05-15T08:19:24.540Z"
+          "createdAt": "2026-05-15T07:32:59.162Z"
         }
       ],
-      "createdAt": "2026-05-15T07:32:59.162Z"
+      "createdAt": "2026-05-15T13:30:57.789Z",
+      "updatedAt": "2026-05-15T13:32:52.019Z"
     }
-  ]
+  ],
+  "selectedProfileId": "6ee7cdc9-4f55-48c0-b965-616c4d1f82db"
 }

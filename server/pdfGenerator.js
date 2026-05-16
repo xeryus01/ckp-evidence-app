@@ -45,44 +45,84 @@ function drawIdentityBlock(doc, { nama, nip, periode, waktu, kegiatan }) {
 async function drawEvidenceGrid(doc, imagePaths, startY) {
   const margin = 36;
   const gap = 8;
-  const cols = 4;
-  const boxW = (doc.page.width - margin * 2 - gap * (cols - 1)) / cols;
-  const boxH = 104;
-  let x = margin;
+  const contentW = doc.page.width - margin * 2;
+  const contentH = doc.page.height - margin * 2;
+  const normalImages = [];
+  const pdfPages = [];
+
+  for (const imagePath of imagePaths) {
+    if (imagePath && imagePath.includes('pdf-page-')) {
+      pdfPages.push(imagePath);
+    } else {
+      normalImages.push(imagePath);
+    }
+  }
+
   let y = startY;
+  if (normalImages.length) {
+    const cols = 4;
+    const boxW = (doc.page.width - margin * 2 - gap * (cols - 1)) / cols;
+    const boxH = 104;
+    let x = margin;
 
-  doc.font('Helvetica-Bold').fontSize(11).fillColor('#111827').text('BUKTI DUKUNG', margin, y);
-  y += 18;
+    doc.font('Helvetica-Bold').fontSize(11).fillColor('#111827').text('BUKTI DUKUNG', margin, y);
+    y += 18;
 
-  for (let i = 0; i < imagePaths.length; i++) {
-    if (y + boxH > doc.page.height - 42) {
+    for (let i = 0; i < normalImages.length; i++) {
+      if (y + boxH > doc.page.height - 42) {
+        doc.addPage();
+        y = 38;
+        x = margin;
+        doc.font('Helvetica-Bold').fontSize(11).fillColor('#111827').text('BUKTI DUKUNG LANJUTAN', margin, y);
+        y += 18;
+      }
+
+      const imagePath = normalImages[i];
+      const meta = await sharp(imagePath).metadata();
+      const captionH = 14;
+      const imgMaxH = boxH - captionH - 6;
+      const scale = Math.min(boxW / meta.width, imgMaxH / meta.height);
+      const w = Math.max(1, meta.width * scale);
+      const h = Math.max(1, meta.height * scale);
+      const imgX = x + (boxW - w) / 2;
+      const imgY = y + captionH + (imgMaxH - h) / 2 + 3;
+
+      doc.roundedRect(x, y, boxW, boxH, 4).stroke('#d1d5db');
+      doc.font('Helvetica-Bold').fontSize(7.5).fillColor('#374151')
+        .text(`Bukti ${i + 1}`, x + 5, y + 4, { width: boxW - 10 });
+      doc.image(imagePath, imgX, imgY, { width: w, height: h });
+
+      if ((i + 1) % cols === 0) {
+        x = margin;
+        y += boxH + gap;
+      } else {
+        x += boxW + gap;
+      }
+    }
+  }
+
+  if (pdfPages.length) {
+    if (normalImages.length || startY > 36) {
       doc.addPage();
-      y = 38;
-      x = margin;
-      doc.font('Helvetica-Bold').fontSize(11).fillColor('#111827').text('BUKTI DUKUNG LANJUTAN', margin, y);
-      y += 18;
     }
 
-    const imagePath = imagePaths[i];
-    const meta = await sharp(imagePath).metadata();
-    const captionH = 14;
-    const imgMaxH = boxH - captionH - 6;
-    const scale = Math.min(boxW / meta.width, imgMaxH / meta.height);
-    const w = Math.max(1, meta.width * scale);
-    const h = Math.max(1, meta.height * scale);
-    const imgX = x + (boxW - w) / 2;
-    const imgY = y + captionH + (imgMaxH - h) / 2 + 3;
+    for (let i = 0; i < pdfPages.length; i++) {
+      const imagePath = pdfPages[i];
+      if (i > 0) doc.addPage();
 
-    doc.roundedRect(x, y, boxW, boxH, 4).stroke('#d1d5db');
-    doc.font('Helvetica-Bold').fontSize(7.5).fillColor('#374151')
-      .text(`Bukti ${i + 1}`, x + 5, y + 4, { width: boxW - 10 });
-    doc.image(imagePath, imgX, imgY, { width: w, height: h });
+      doc.font('Helvetica-Bold').fontSize(11).fillColor('#111827')
+        .text(`BUKTI PDF HALAMAN ${i + 1}`, margin, 36);
 
-    if ((i + 1) % cols === 0) {
-      x = margin;
-      y += boxH + gap;
-    } else {
-      x += boxW + gap;
+      const meta = await sharp(imagePath).metadata();
+      const availableW = contentW;
+      const availableH = contentH - 24;
+      const scale = Math.min(availableW / meta.width, availableH / meta.height);
+      const w = Math.max(1, meta.width * scale);
+      const h = Math.max(1, meta.height * scale);
+      const x = margin + (availableW - w) / 2;
+      const yImage = 36 + 24;
+
+      doc.image(imagePath, x, yImage, { width: w, height: h });
     }
   }
 }

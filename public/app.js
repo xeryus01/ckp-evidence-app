@@ -2,6 +2,8 @@ const $ = (id) => document.getElementById(id);
 
 const els = {
   profileForm: $('profileForm'),
+  profileSelect: $('profileSelect'),
+  newProfileBtn: $('newProfileBtn'),
   namaInput: $('namaInput'),
   nipInput: $('nipInput'),
   periodForm: $('periodForm'),
@@ -13,8 +15,14 @@ const els = {
   activityKegiatan: $('activityKegiatan'),
   activityWaktu: $('activityWaktu'),
   activityCatatan: $('activityCatatan'),
+  activitySubmitBtn: $('activitySubmitBtn'),
+  activityCancelBtn: $('activityCancelBtn'),
   emptyState: $('emptyState'),
   activityList: $('activityList'),
+  calendarPanel: $('calendarPanel'),
+  calendarTitle: $('calendarTitle'),
+  calendarSummary: $('calendarSummary'),
+  calendarGrid: $('calendarGrid'),
   evidencePanel: $('evidencePanel'),
   evidenceTitle: $('evidenceTitle'),
   closeEvidenceBtn: $('closeEvidenceBtn'),
@@ -29,12 +37,14 @@ const els = {
   manualForm: $('manualForm'),
   manualFiles: $('manualFiles'),
   manualList: $('manualList'),
+  exportExcelBtn: $('exportExcelBtn'),
   status: $('status')
 };
 
-let state = { profile: {}, periods: [] };
+let state = { profiles: [], selectedProfileId: null, profile: {}, periods: [], creatingProfile: false };
 let activePeriodId = null;
 let activeActivityId = null;
+let editingActivityId = null;
 let previewFiles = [];
 
 function setStatus(message) {
@@ -85,6 +95,53 @@ function formatActivityTime(value) {
   }).format(new Date(year, month - 1, day));
 }
 
+function renderPeriodCalendar(period) {
+  els.calendarPanel.classList.toggle('hidden', !period);
+  if (!period) {
+    els.calendarSummary.textContent = '';
+    els.calendarGrid.innerHTML = '';
+    return;
+  }
+
+  const [year, month] = period.month.split('-').map(Number);
+  const firstDay = new Date(year, month - 1, 1);
+  const daysInMonth = new Date(year, month, 0).getDate();
+  const startWeekday = firstDay.getDay();
+  const activitiesByDate = new Set((period.activities || [])
+    .map(activity => activity.waktu)
+    .filter(Boolean));
+  const occupiedDays = new Set([...activitiesByDate].map(date => date.slice(8, 10)));
+  const emptyDays = daysInMonth - occupiedDays.size;
+
+  els.calendarSummary.textContent = `${emptyDays} hari kosong dari ${daysInMonth} hari di periode ini.`;
+  els.calendarGrid.innerHTML = '';
+
+  ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'].forEach(label => {
+    const cell = document.createElement('div');
+    cell.className = 'calendar-weekday';
+    cell.textContent = label;
+    els.calendarGrid.appendChild(cell);
+  });
+
+  for (let i = 0; i < startWeekday; i++) {
+    const spacer = document.createElement('div');
+    spacer.className = 'calendar-day spacer';
+    els.calendarGrid.appendChild(spacer);
+  }
+
+  for (let day = 1; day <= daysInMonth; day++) {
+    const dateKey = `${period.month}-${String(day).padStart(2, '0')}`;
+    const hasActivity = activitiesByDate.has(dateKey);
+    const cell = document.createElement('div');
+    cell.className = `calendar-day ${hasActivity ? 'filled' : 'empty'}`;
+    cell.innerHTML = `
+      <div class="calendar-number">${day}</div>
+      <div class="calendar-status">${hasActivity ? 'Isi' : 'Kosong'}</div>
+    `;
+    els.calendarGrid.appendChild(cell);
+  }
+}
+
 function activePeriod() {
   return state.periods.find(period => period.id === activePeriodId) || null;
 }
@@ -105,6 +162,22 @@ function formatBytes(bytes) {
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }
 
+function setActivityEditMode(activity = null) {
+  editingActivityId = activity?.id || null;
+  if (activity) {
+    els.activityKegiatan.value = activity.kegiatan || '';
+    els.activityWaktu.value = activity.waktu || '';
+    els.activityCatatan.value = activity.catatan || '';
+    els.activitySubmitBtn.textContent = 'Simpan Perubahan';
+    els.activityCancelBtn.classList.remove('hidden');
+  } else {
+    editingActivityId = null;
+    els.activityForm.reset();
+    els.activitySubmitBtn.textContent = 'Tambah Kegiatan';
+    els.activityCancelBtn.classList.add('hidden');
+  }
+}
+
 function selectedDriveIds() {
   return [...els.driveList.querySelectorAll('input[type="checkbox"]:checked')].map(input => input.value);
 }
@@ -117,7 +190,7 @@ function renderDriveFiles(files, selectedIds = []) {
 
   previewFiles.forEach((file, idx) => {
     const label = document.createElement('label');
-    label.className = 'drive-item';
+    label.className = `drive-item${file.mimeType?.includes('pdf') ? ' pdf-file' : ''}`;
 
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
@@ -130,27 +203,12 @@ function renderDriveFiles(files, selectedIds = []) {
       const img = document.createElement('img');
       img.alt = `Preview ${file.name}`;
       img.loading = 'lazy';
-      
-      // Handle HEIC images
-      if (file.mimeType === 'image/heic' || file.mimeType === 'image/heif' || file.name.toLowerCase().endsWith('.heic') || file.name.toLowerCase().endsWith('.heif')) {
-        // For HEIC images, fetch the blob and convert to JPEG
-        fetch(`/api/drive-thumbnail/${file.id}`)
-          .then(response => response.blob())
-          .then(blob => {
-            return heic2any({ blob, toType: 'image/jpeg', quality: 0.8 });
-          })
-          .then(convertedBlob => {
-            img.src = URL.createObjectURL(convertedBlob);
-          })
-          .catch(err => {
-            console.warn('HEIC conversion failed, using original URL:', err);
-            img.src = `/api/drive-thumbnail/${file.id}`;
-          });
-      } else {
-        // Regular images
-        img.src = `/api/drive-thumbnail/${file.id}`;
-      }
-      
+      img.src = `/api/drive-thumbnail/${file.id}`;
+      img.onerror = () => {
+        img.style.opacity = '0.35';
+        img.alt = 'Pratinjau tidak tersedia';
+        img.title = 'Pratinjau gagal dimuat. Gunakan file ini tanpa preview.';
+      };
       thumb.appendChild(img);
     } else {
       const pdf = document.createElement('div');
@@ -198,6 +256,25 @@ function renderManualFiles(activity) {
   });
 }
 
+function renderProfileOptions() {
+  els.profileSelect.innerHTML = '';
+
+  const placeholder = document.createElement('option');
+  placeholder.value = '';
+  placeholder.disabled = !state.creatingProfile && !!state.profiles.length;
+  placeholder.selected = state.creatingProfile || !state.selectedProfileId;
+  placeholder.textContent = state.creatingProfile ? 'Profil baru' : 'Pilih profil';
+  els.profileSelect.appendChild(placeholder);
+
+  state.profiles.forEach((profile) => {
+    const option = document.createElement('option');
+    option.value = profile.id;
+    option.textContent = `${profile.nama || '(Tanpa nama)'} (${profile.nip || 'NIP kosong'})`;
+    if (profile.id === state.selectedProfileId) option.selected = true;
+    els.profileSelect.appendChild(option);
+  });
+}
+
 function renderEvidencePanel() {
   const activity = activeActivity();
   els.evidencePanel.classList.toggle('hidden', !activity);
@@ -237,6 +314,7 @@ function renderActivities() {
   els.activityList.innerHTML = '';
   els.activityForm.classList.toggle('hidden', !period);
   els.emptyState.classList.toggle('hidden', !!period);
+  els.exportExcelBtn.classList.toggle('hidden', !period);
 
   if (!period) {
     els.currentPeriodTitle.textContent = 'Belum ada periode';
@@ -251,8 +329,10 @@ function renderActivities() {
   const { min, max } = dateBoundsForMonth(period.month);
   els.activityWaktu.min = min;
   els.activityWaktu.max = max;
+  renderPeriodCalendar(period);
 
-  period.activities.forEach((activity) => {
+  const activities = [...period.activities].sort((a, b) => String(b.waktu || '').localeCompare(String(a.waktu || '')));
+  activities.forEach((activity) => {
     const count = evidenceCount(activity);
     const card = document.createElement('article');
     card.className = `activity-card ${activity.id === activeActivityId ? 'selected' : ''}`;
@@ -294,12 +374,55 @@ function renderActivities() {
       els.evidencePanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 
+    const editBtn = document.createElement('button');
+    editBtn.type = 'button';
+    editBtn.className = 'secondary';
+    editBtn.textContent = 'Edit';
+    editBtn.addEventListener('click', () => {
+      setActivityEditMode(activity);
+      activeActivityId = activity.id;
+      render();
+      els.activityForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    const duplicateBtn = document.createElement('button');
+    duplicateBtn.type = 'button';
+    duplicateBtn.className = 'secondary';
+    duplicateBtn.textContent = 'Duplikat';
+    duplicateBtn.addEventListener('click', async () => {
+      const defaultDate = activity.waktu || todayMonth() + '-01';
+      const newDate = window.prompt('Pilih tanggal duplikat (YYYY-MM-DD):', defaultDate);
+      if (!newDate) return;
+      if (!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(newDate)) {
+        setStatus('Tanggal tidak valid. Gunakan format YYYY-MM-DD.');
+        return;
+      }
+      await duplicateActivity(activity.id, newDate);
+    });
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.type = 'button';
+    deleteBtn.className = 'secondary secondary-mini';
+    deleteBtn.textContent = 'Hapus';
+    deleteBtn.addEventListener('click', async () => {
+      if (!confirm('Hapus kegiatan ini? Tindakan tidak bisa dibatalkan.')) return;
+      setStatus('Menghapus kegiatan...');
+      try {
+        await api(`/api/periods/${period.id}/activities/${activity.id}`, { method: 'DELETE' });
+        if (activeActivityId === activity.id) activeActivityId = null;
+        setActivityEditMode(null);
+        await loadState('Kegiatan dihapus.');
+      } catch (err) {
+        setStatus(err.message);
+      }
+    });
+
     const generateBtn = document.createElement('button');
     generateBtn.type = 'button';
     generateBtn.textContent = 'Generate PDF';
     generateBtn.disabled = count === 0;
     generateBtn.addEventListener('click', () => generatePdf(activity.id));
-    actions.append(evidenceBtn, generateBtn);
+    actions.append(evidenceBtn, editBtn, duplicateBtn, deleteBtn, generateBtn);
 
     card.append(body, actions);
     els.activityList.appendChild(card);
@@ -307,6 +430,10 @@ function renderActivities() {
 }
 
 function render() {
+  renderProfileOptions();
+  if (!state.creatingProfile && !state.selectedProfileId && state.profiles.length) {
+    state.selectedProfileId = state.profiles[0].id;
+  }
   if (!activePeriodId && state.periods.length) activePeriodId = state.periods[0].id;
   if (activePeriodId && !activePeriod()) activePeriodId = state.periods[0]?.id || null;
   if (activeActivityId && !activeActivity()) activeActivityId = null;
@@ -319,6 +446,12 @@ function render() {
 
 async function loadState(message) {
   state = await api('/api/state');
+  state.profiles = state.profiles || [];
+  state.selectedProfileId = state.selectedProfileId || null;
+  state.profile = state.profile || { nama: '', nip: '' };
+  state.periods = state.periods || [];
+  state.creatingProfile = false;
+  setActivityEditMode(null);
   render();
   if (message) setStatus(message);
 }
@@ -350,18 +483,90 @@ async function generatePdf(activityId) {
   }
 }
 
+async function duplicateActivity(activityId, waktu) {
+  const period = activePeriod();
+  if (!period) return;
+  setStatus('Menduplikasi kegiatan...');
+  try {
+    const data = await api(`/api/periods/${period.id}/activities/${activityId}/duplicate`, jsonOptions('POST', { waktu }));
+    activePeriodId = data.period.id;
+    activeActivityId = data.activity.id;
+    await loadState('Kegiatan berhasil diduplikasi.');
+  } catch (err) {
+    setStatus(err.message);
+  }
+}
+
+async function exportPeriodExcel() {
+  const period = activePeriod();
+  if (!period) return;
+  setStatus('Membuat file Excel...');
+
+  try {
+    const response = await fetch(`/api/periods/${period.id}/export`);
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({}));
+      throw new Error(error.error || 'Gagal mengekspor Excel.');
+    }
+
+    const buffer = await response.arrayBuffer();
+    const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `Kegiatan_CKP_${period.month}.xlsx`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+    setStatus('Ekspor Excel selesai.');
+  } catch (err) {
+    setStatus(err.message);
+  }
+}
+
 els.profileForm.addEventListener('submit', async (event) => {
   event.preventDefault();
   setStatus('Menyimpan profil...');
   try {
-    await api('/api/profile', jsonOptions('PUT', {
-      nama: els.namaInput.value,
-      nip: els.nipInput.value
-    }));
+    const profileId = state.creatingProfile ? null : state.selectedProfileId;
+    if (profileId) {
+      await api(`/api/profiles/${profileId}`, jsonOptions('PUT', {
+        nama: els.namaInput.value,
+        nip: els.nipInput.value
+      }));
+    } else {
+      await api('/api/profiles', jsonOptions('POST', {
+        nama: els.namaInput.value,
+        nip: els.nipInput.value
+      }));
+    }
     await loadState('Profil disimpan.');
   } catch (err) {
     setStatus(err.message);
   }
+});
+
+els.profileSelect.addEventListener('change', async () => {
+  const profileId = els.profileSelect.value;
+  if (!profileId) return;
+  setStatus('Memilih profil...');
+  try {
+    await api(`/api/profiles/${profileId}/select`, jsonOptions('PUT', {}));
+    await loadState('Profil dipilih.');
+  } catch (err) {
+    setStatus(err.message);
+  }
+});
+
+els.newProfileBtn.addEventListener('click', () => {
+  state.creatingProfile = true;
+  state.selectedProfileId = null;
+  state.profile = { nama: '', nip: '' };
+  state.periods = [];
+  activePeriodId = null;
+  activeActivityId = null;
+  render();
 });
 
 els.periodForm.addEventListener('submit', async (event) => {
@@ -381,20 +586,31 @@ els.activityForm.addEventListener('submit', async (event) => {
   event.preventDefault();
   const period = activePeriod();
   if (!period) return;
-  setStatus('Menambahkan kegiatan...');
+  setStatus(editingActivityId ? 'Menyimpan perubahan kegiatan...' : 'Menambahkan kegiatan...');
   try {
-    const data = await api(`/api/periods/${period.id}/activities`, jsonOptions('POST', {
+    const payload = {
       kegiatan: els.activityKegiatan.value,
       waktu: els.activityWaktu.value,
       catatan: els.activityCatatan.value
-    }));
+    };
+    const url = editingActivityId
+      ? `/api/periods/${period.id}/activities/${editingActivityId}`
+      : `/api/periods/${period.id}/activities`;
+    const method = editingActivityId ? 'PATCH' : 'POST';
+    const data = await api(url, jsonOptions(method, payload));
     activeActivityId = data.activity.id;
-    els.activityForm.reset();
-    await loadState('Kegiatan ditambahkan. Bukti bisa diisi sekarang atau nanti.');
+    setActivityEditMode(null);
+    await loadState(editingActivityId ? 'Perubahan kegiatan disimpan.' : 'Kegiatan ditambahkan. Bukti bisa diisi sekarang atau nanti.');
   } catch (err) {
     setStatus(err.message);
   }
 });
+
+els.activityCancelBtn.addEventListener('click', () => {
+  setActivityEditMode(null);
+});
+
+els.exportExcelBtn.addEventListener('click', exportPeriodExcel);
 
 els.previewBtn.addEventListener('click', async () => {
   const period = activePeriod();

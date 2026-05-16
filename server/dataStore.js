@@ -3,6 +3,7 @@ const path = require('path');
 const { Readable } = require('stream');
 const { buffer } = require('stream/consumers');
 const { get, put } = require('@vercel/blob');
+const { v4: uuidv4 } = require('uuid');
 
 const DATA_PATH = process.env.DATA_PATH || path.join('storage', 'app-data.json');
 const DATA_BLOB_PATH = process.env.DATA_BLOB_PATH || 'data/app-data.json';
@@ -11,9 +12,35 @@ const IS_VERCEL = Boolean(process.env.VERCEL);
 
 function emptyData() {
   return {
-    profile: { nama: '', nip: '' },
-    periods: []
+    profiles: [],
+    selectedProfileId: null
   };
+}
+
+function normalizeLegacyData(rawData) {
+  const source = rawData || {};
+  const data = { ...emptyData() };
+
+  if (Array.isArray(source.profiles) && source.profiles.length) {
+    data.profiles = source.profiles;
+    data.selectedProfileId = source.selectedProfileId || null;
+  } else if ((source.profile && typeof source.profile === 'object') || Array.isArray(source.periods)) {
+    const profile = {
+      id: uuidv4(),
+      nama: source.profile?.nama || '',
+      nip: source.profile?.nip || '',
+      periods: Array.isArray(source.periods) ? source.periods : [],
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+    data.profiles = [profile];
+    data.selectedProfileId = profile.id;
+  }
+
+  if (!Array.isArray(data.profiles)) data.profiles = [];
+  if (!data.selectedProfileId && data.profiles.length) data.selectedProfileId = data.profiles[0].id;
+
+  return data;
 }
 
 async function ensureDataFile() {
@@ -31,7 +58,7 @@ async function readData() {
     if (!stored?.stream) return emptyData();
     const raw = (await buffer(Readable.fromWeb(stored.stream))).toString('utf8');
     try {
-      return { ...emptyData(), ...JSON.parse(raw) };
+      return normalizeLegacyData(JSON.parse(raw));
     } catch {
       return emptyData();
     }
@@ -42,21 +69,23 @@ async function readData() {
   await ensureDataFile();
   const raw = await fs.readFile(DATA_PATH, 'utf8');
   try {
-    return { ...emptyData(), ...JSON.parse(raw) };
+    return normalizeLegacyData(JSON.parse(raw));
   } catch {
     return emptyData();
   }
 }
 
 async function writeData(data) {
+  const normalized = normalizeLegacyData(data);
+
   if (USE_BLOB) {
-    await put(DATA_BLOB_PATH, JSON.stringify(data, null, 2), {
+    await put(DATA_BLOB_PATH, JSON.stringify(normalized, null, 2), {
       access: 'private',
       contentType: 'application/json',
       allowOverwrite: true,
       cacheControlMaxAge: 60
     });
-    return data;
+    return normalized;
   }
 
   if (IS_VERCEL) {
@@ -64,8 +93,8 @@ async function writeData(data) {
   }
 
   await fs.mkdir(path.dirname(DATA_PATH), { recursive: true });
-  await fs.writeFile(DATA_PATH, JSON.stringify(data, null, 2));
-  return data;
+  await fs.writeFile(DATA_PATH, JSON.stringify(normalized, null, 2));
+  return normalized;
 }
 
 async function updateData(mutator) {
@@ -75,15 +104,30 @@ async function updateData(mutator) {
   return result ?? data;
 }
 
-function findPeriod(data, periodId) {
-  return data.periods.find(period => period.id === periodId);
+function findProfile(data, profileId) {
+  return data.profiles.find(profile => profile.id === profileId) || null;
 }
 
-function findActivity(data, periodId, activityId) {
-  const period = findPeriod(data, periodId);
-  if (!period) return { period: null, activity: null };
-  const activity = period.activities.find(item => item.id === activityId);
-  return { period, activity };
+function findPeriod(data, profileId, periodId) {
+  if (arguments.length === 2) {
+    periodId = profileId;
+    profileId = data.selectedProfileId;
+  }
+  const profile = findProfile(data, profileId);
+  return profile?.periods?.find(period => period.id === periodId) || null;
 }
 
-module.exports = { readData, writeData, updateData, findActivity, findPeriod };
+function findActivity(data, profileId, periodId, activityId) {
+  if (arguments.length === 3) {
+    activityId = periodId;
+    periodId = profileId;
+    profileId = data.selectedProfileId;
+  }
+  const profile = findProfile(data, profileId);
+  const period = profile?.periods?.find(periodItem => periodItem.id === periodId);
+  if (!period) return { profile: null, period: null, activity: null };
+  const activity = period.activities.find(item => item.id === activityId) || null;
+  return { profile, period, activity };
+}
+
+module.exports = { readData, writeData, updateData, findActivity, findPeriod, findProfile };
