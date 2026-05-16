@@ -37,7 +37,7 @@ async function saveManualEvidence(file, periodId, activityId) {
   if (hasBlob) {
     const pathname = blobPath('evidence', periodId, activityId, filename);
     const stored = await put(pathname, file.buffer, {
-      access: 'private',
+      access: 'public',
       contentType: file.mimetype,
       addRandomSuffix: true
     });
@@ -89,7 +89,7 @@ async function materializeStoredFile(file, destDir) {
   if (!hasBlob) throw new Error('BLOB_READ_WRITE_TOKEN belum tersedia untuk membaca bukti manual.');
 
   await fsp.mkdir(destDir, { recursive: true });
-  const result = await get(file.blobPath, { access: 'private', useCache: false });
+  const result = await get(file.blobPath, { access: 'public', useCache: false });
   if (!result?.stream) throw new Error(`Bukti manual tidak ditemukan: ${file.name}`);
 
   const filePath = path.join(destDir, file.filename || safeFilename(file.name));
@@ -105,7 +105,7 @@ async function persistOutputPdf(outputPath, filename) {
   if (hasBlob) {
     const pathname = blobPath('output', filename);
     const stored = await put(pathname, fs.createReadStream(outputPath), {
-      access: 'private',
+      access: 'public',
       contentType: 'application/pdf',
       allowOverwrite: true
     });
@@ -126,7 +126,7 @@ async function persistOutputPdf(outputPath, filename) {
 
 async function sendOutputPdf(res, filename) {
   if (hasBlob) {
-    const result = await get(blobPath('output', filename), { access: 'private', useCache: false });
+    const result = await get(blobPath('output', filename), { access: 'public', useCache: false });
     if (!result?.stream) return res.status(404).send('PDF tidak ditemukan.');
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);

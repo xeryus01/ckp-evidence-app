@@ -32,6 +32,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
+// Request logging middleware
+app.use((req, res, next) => {
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.path}`);
+  next();
+});
+
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: MAX_FILE_SIZE, files: 100 },
@@ -116,20 +122,31 @@ function activityStatus(activity) {
 app.get('/api/health', (req, res) => res.json({ ok: true }));
 
 app.get('/api/state', async (req, res) => {
-  const data = await readData();
-  const profile = findProfile(data, data.selectedProfileId) || { nama: '', nip: '', periods: [] };
-  profile.periods = Array.isArray(profile.periods) ? profile.periods : [];
-  profile.periods.forEach(period => period.activities.forEach(normalizeActivity));
-  res.json({
-    profiles: data.profiles,
-    selectedProfileId: data.selectedProfileId,
-    profile: {
-      id: profile.id,
-      nama: profile.nama,
-      nip: profile.nip
-    },
-    periods: profile.periods
-  });
+  try {
+    console.log('[/api/state] Reading data...');
+    const data = await readData();
+    console.log('[/api/state] Data read successfully, profiles:', data.profiles.length);
+    const profile = findProfile(data, data.selectedProfileId) || { nama: '', nip: '', periods: [] };
+    profile.periods = Array.isArray(profile.periods) ? profile.periods : [];
+    profile.periods.forEach(period => period.activities.forEach(normalizeActivity));
+    console.log('[/api/state] Sending response');
+    res.json({
+      profiles: data.profiles,
+      selectedProfileId: data.selectedProfileId,
+      profile: {
+        id: profile.id,
+        nama: profile.nama,
+        nip: profile.nip
+      },
+      periods: profile.periods
+    });
+  } catch (error) {
+    console.error('[/api/state] ERROR:', {
+      message: error.message,
+      stack: error.stack?.slice(0, 300)
+    });
+    res.status(500).json({ error: error.message });
+  }
 });
 
 app.put('/api/profile', async (req, res) => {
@@ -612,6 +629,20 @@ app.use((err, req, res, next) => {
     ? `Ukuran file terlalu besar. Batas upload saat ini ${Math.round(MAX_FILE_SIZE / 1024 / 1024)} MB per file.`
     : err.message || 'Terjadi kesalahan server.';
   res.status(400).json({ error: message });
+});
+
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error('[GLOBAL ERROR] Unhandled error:', {
+    message: err.message,
+    code: err.code,
+    statusCode: err.statusCode,
+    stack: err.stack?.slice(0, 500)
+  });
+  const message = err.status === 400 
+    ? err.message 
+    : 'Terjadi kesalahan server yang tidak terduga.';
+  res.status(err.status || 500).json({ error: message });
 });
 
 if (require.main === module) {

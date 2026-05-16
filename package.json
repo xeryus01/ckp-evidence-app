@@ -14,7 +14,8 @@
     "vercel:env:google": "node scripts/vercel-cli.js env:google",
     "upload:vercel": "node scripts/vercel-cli.js deploy --preview",
     "deploy:preview": "node scripts/vercel-cli.js deploy --preview",
-    "deploy:prod": "node scripts/vercel-cli.js deploy --prod"
+    "deploy:prod": "node scripts/vercel-cli.js deploy --prod",
+    "migrate:vercel": "node scripts/migrate-local-to-vercel.js"
   },
   "dependencies": {
     "@napi-rs/canvas": "latest",

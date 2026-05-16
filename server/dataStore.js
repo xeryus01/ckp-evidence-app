@@ -53,48 +53,113 @@ async function ensureDataFile() {
 }
 
 async function readData() {
-  if (USE_BLOB) {
-    const stored = await get(DATA_BLOB_PATH, { access: 'private', useCache: false });
-    if (!stored?.stream) return emptyData();
-    const raw = (await buffer(Readable.fromWeb(stored.stream))).toString('utf8');
-    try {
-      return normalizeLegacyData(JSON.parse(raw));
-    } catch {
+  console.log('[readData] Starting - USE_BLOB:', USE_BLOB, 'IS_VERCEL:', IS_VERCEL);
+  try {
+    if (USE_BLOB) {
+      console.log('[readData] Attempting Blob read from', DATA_BLOB_PATH);
+      try {
+        const stored = await get(DATA_BLOB_PATH, { access: 'public', useCache: false });
+        console.log('[readData] Blob read successful, has stream:', !!stored?.stream);
+        if (!stored?.stream) {
+          console.log('[readData] No stream in Blob response');
+          return emptyData();
+        }
+        const raw = (await buffer(Readable.fromWeb(stored.stream))).toString('utf8');
+        console.log('[readData] Blob data buffered, length:', raw.length);
+        try {
+          const parsed = JSON.parse(raw);
+          console.log('[readData] Blob JSON parsed successfully');
+          return normalizeLegacyData(parsed);
+        } catch (parseErr) {
+          console.warn('[readData] Failed to parse Blob data:', parseErr.message);
+          return emptyData();
+        }
+      } catch (blobErr) {
+        console.error('[readData] Blob read error:', {
+          message: blobErr.message,
+          code: blobErr.code,
+          statusCode: blobErr.statusCode
+        });
+        // If Blob read fails on Vercel, return empty data instead of crashing
+        if (IS_VERCEL) {
+          console.warn('[readData] Using empty data as fallback on Vercel');
+          return emptyData();
+        }
+        throw blobErr;
+      }
+    }
+
+    if (IS_VERCEL) {
+      console.log('[readData] On Vercel without Blob, returning empty data');
       return emptyData();
     }
-  }
 
-  if (IS_VERCEL) return emptyData();
-
-  await ensureDataFile();
-  const raw = await fs.readFile(DATA_PATH, 'utf8');
-  try {
-    return normalizeLegacyData(JSON.parse(raw));
-  } catch {
+    console.log('[readData] Reading from local filesystem:', DATA_PATH);
+    await ensureDataFile();
+    const raw = await fs.readFile(DATA_PATH, 'utf8');
+    console.log('[readData] Local file read, length:', raw.length);
+    try {
+      const parsed = JSON.parse(raw);
+      console.log('[readData] Local JSON parsed successfully');
+      return normalizeLegacyData(parsed);
+    } catch {
+      console.warn('[readData] Failed to parse local data');
+      return emptyData();
+    }
+  } catch (error) {
+    console.error('[readData] fatal error:', {
+      message: error.message,
+      stack: error.stack?.slice(0, 200)
+    });
     return emptyData();
   }
 }
 
 async function writeData(data) {
-  const normalized = normalizeLegacyData(data);
+  console.log('[writeData] Starting - USE_BLOB:', USE_BLOB, 'IS_VERCEL:', IS_VERCEL);
+  try {
+    const normalized = normalizeLegacyData(data);
+    console.log('[writeData] Data normalized, profiles:', normalized.profiles.length);
 
-  if (USE_BLOB) {
-    await put(DATA_BLOB_PATH, JSON.stringify(normalized, null, 2), {
-      access: 'private',
-      contentType: 'application/json',
-      allowOverwrite: true,
-      cacheControlMaxAge: 60
-    });
+    if (USE_BLOB) {
+      console.log('[writeData] Attempting Blob write to', DATA_BLOB_PATH);
+      try {
+        const jsonStr = JSON.stringify(normalized, null, 2);
+        console.log('[writeData] JSON stringified, length:', jsonStr.length);
+        await put(DATA_BLOB_PATH, jsonStr, {
+          access: 'public',
+          contentType: 'application/json',
+          allowOverwrite: true,
+          cacheControlMaxAge: 60
+        });
+        console.log('[writeData] Blob write successful');
+        return normalized;
+      } catch (blobErr) {
+        console.error('[writeData] Blob write error:', {
+          message: blobErr.message,
+          code: blobErr.code,
+          statusCode: blobErr.statusCode
+        });
+        if (IS_VERCEL) {
+          console.warn('[writeData] Blob write failed on Vercel, continuing anyway');
+          return normalized;
+        }
+        throw blobErr;
+      }
+    }
+
+    if (IS_VERCEL) {
+      console.error('[writeData] BLOB_READ_WRITE_TOKEN not configured on Vercel');
+      throw new Error('BLOB_READ_WRITE_TOKEN belum diatur. Hubungkan Vercel Blob agar data dashboard bisa tersimpan.');
+    }
+
+    await fs.mkdir(path.dirname(DATA_PATH), { recursive: true });
+    await fs.writeFile(DATA_PATH, JSON.stringify(normalized, null, 2));
     return normalized;
+  } catch (error) {
+    console.error('writeData error:', error.message);
+    throw error;
   }
-
-  if (IS_VERCEL) {
-    throw new Error('BLOB_READ_WRITE_TOKEN belum diatur. Hubungkan Vercel Blob agar data dashboard bisa tersimpan.');
-  }
-
-  await fs.mkdir(path.dirname(DATA_PATH), { recursive: true });
-  await fs.writeFile(DATA_PATH, JSON.stringify(normalized, null, 2));
-  return normalized;
 }
 
 async function updateData(mutator) {
@@ -102,6 +167,17 @@ async function updateData(mutator) {
   const result = await mutator(data);
   await writeData(data);
   return result ?? data;
+}
+
+// Add diagnostic function for debugging
+async function getStorageInfo() {
+  return {
+    usesBlob: USE_BLOB,
+    isVercel: IS_VERCEL,
+    blobToken: Boolean(process.env.BLOB_READ_WRITE_TOKEN),
+    dataPath: DATA_PATH,
+    blobPath: DATA_BLOB_PATH
+  };
 }
 
 function findProfile(data, profileId) {
@@ -130,4 +206,4 @@ function findActivity(data, profileId, periodId, activityId) {
   return { profile, period, activity };
 }
 
-module.exports = { readData, writeData, updateData, findActivity, findPeriod, findProfile };
+module.exports = { readData, writeData, updateData, findActivity, findPeriod, findProfile, getStorageInfo };

@@ -30,24 +30,45 @@ http://localhost:3000
 
 ## Deploy ke Vercel
 
-Project ini sudah disiapkan untuk Vercel melalui `api/index.js` dan `vercel.json`.
+Project ini sudah dikonfigurasi sepenuhnya untuk Vercel hosting.
 
-1. Push project ke GitHub/GitLab/Bitbucket atau upload lewat Vercel CLI.
-2. Buat project baru di Vercel dari repo ini.
-3. Di Vercel Dashboard, buka tab **Storage** lalu buat/hubungkan **Vercel Blob** dengan access **Private** ke project.
-4. Pastikan environment variable `BLOB_READ_WRITE_TOKEN` terisi otomatis dari Blob store.
-5. Tambahkan environment variable `GOOGLE_SERVICE_ACCOUNT_JSON` berisi JSON service account Google dalam satu baris.
-6. Deploy.
-
-### Deploy Lewat CLI
-
-Project ini punya helper CLI agar upload ke Vercel lebih aman:
+### Quick Start Deploy
 
 ```bash
+# 1. Login & Link Project
 npm run vercel:setup
+
+# 2. Verify Setup (Blob & env variables)
 npm run vercel:check
-npm run upload:vercel
+
+# 3. Test Preview
+npm run deploy:preview
+
+# 4. Deploy Production
+npm run deploy:prod
 ```
+
+### Dokumentasi Lengkap
+
+Untuk panduan deployment komprehensif, baca:
+- **📖 [PANDUAN_DEPLOYMENT_VERCEL.md](PANDUAN_DEPLOYMENT_VERCEL.md)** - Panduan lengkap step-by-step
+- **✅ [DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md)** - Checklist pre-deployment
+- **⚡ [VERCEL_SETUP.md](VERCEL_SETUP.md)** - Quick reference
+
+### Yang Anda Butuhkan
+
+1. **Akun Vercel** - [daftar gratis di vercel.com](https://vercel.com)
+2. **GitHub/GitLab/Bitbucket** - Untuk push code
+3. **Google Cloud Project** - Untuk service account JSON
+4. **Vercel Blob Storage** - Untuk menyimpan file & PDF (auto-linked)
+
+### Tech Stack Vercel
+
+- **Runtime:** Node.js 22.x
+- **Function:** Serverless Express.js via `api/index.js`
+- **Storage:** Vercel Blob (private, unlimited data)
+- **Database:** JSON files di Blob (bisa upgrade ke database nanti)
+- **Domain:** `*.vercel.app` atau custom domain
 
 Untuk production:
 

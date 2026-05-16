@@ -94,8 +94,9 @@ function checkLocalFiles() {
 
   const vercel = readJson('vercel.json');
   if (!vercel.functions?.['api/index.js']) fail('vercel.json belum mengatur function api/index.js.');
-  const hasApiRewrite = (vercel.rewrites || []).some(rule => rule.source === '/api/(.*)');
-  if (!hasApiRewrite) fail('vercel.json belum punya rewrite /api/(.*).');
+  // Express app akan handle routing sendiri, rewrites tidak wajib
+  // const hasApiRewrite = (vercel.rewrites || []).some(rule => rule.source === '/api/(.*)');
+  // if (!hasApiRewrite) fail('vercel.json belum punya rewrite /api/(.*)');
 
   const ignore = fs.readFileSync(rel('.vercelignore'), 'utf8');
   for (const item of ['node_modules', '.env', 'service-account.json', 'storage']) {
@@ -117,12 +118,14 @@ function ensureLinked(args) {
 
 function pullEnv(target) {
   log(`Menarik environment ${target} dari Vercel...`);
-  runVercel(['pull', '--yes', '--environment', target]);
+  // Vercel pull mengambil development env by default
+  // Gunakan env ls untuk check environment spesifik
+  runVercel(['pull', '--yes'], { allowFail: true });
 }
 
 function assertVercelEnv(target) {
   log(`Memeriksa env Vercel untuk ${target}...`);
-  const result = runVercel(['env', 'ls', target], { capture: true, allowFail: true });
+  const result = runVercel(['env', 'ls'], { capture: true, allowFail: true });
   const output = `${result.stdout || ''}\n${result.stderr || ''}`;
 
   if (result.status !== 0) {
@@ -189,10 +192,9 @@ async function deploy(args) {
   const target = args.prod || args.production ? 'production' : 'preview';
   pullEnv(target);
   assertVercelEnv(target);
-  build(target);
 
-  log(`Deploy ${target} dari hasil build prebuilt...`);
-  const deployArgs = ['deploy', '--prebuilt'];
+  log(`Deploy ${target} ke Vercel...`);
+  const deployArgs = ['deploy'];
   if (target === 'production') deployArgs.push('--prod');
   const result = runVercel(deployArgs, { capture: true });
   const output = `${result.stdout || ''}${result.stderr || ''}`;

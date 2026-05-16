@@ -1,103 +1,70 @@
-# Panduan Setup Vercel untuk CKP Evidence App
+# Setup Vercel - Quick Start
 
-Project Anda sudah berhasil di-link ke Vercel dengan nama: **xeryus01s-projects/ckp-evidence-app**
+> **📖 Untuk panduan lengkap:** Baca [PANDUAN_DEPLOYMENT_VERCEL.md](PANDUAN_DEPLOYMENT_VERCEL.md)
 
-## Status Setup Saat Ini
-✅ Vercel CLI terinstall dan ter-update  
-✅ Project sudah di-link ke Vercel  
-✅ Development environment variables sudah tersedia  
-✅ Konfigurasi Vercel sudah optimal  
+## ✅ Status Setup Saat Ini
 
-## ⚠️ Yang Masih Perlu Setup
+Project sudah dikonfigurasi untuk Vercel dengan:
+- ✅ `api/index.js` - Entry point untuk serverless function
+- ✅ `vercel.json` - Konfigurasi build & functions
+- ✅ `.vercelignore` - File yang diignore
+- ✅ Scripts helper - Deploy otomatis
 
-Anda perlu menambahkan 2 environment variables di Vercel Dashboard untuk production dan preview:
+## 🚀 Quick Start (5 Langkah)
 
-### 1. **BLOB_READ_WRITE_TOKEN**
-Ini adalah token untuk Vercel Blob Storage (untuk menyimpan file hasil PDF di cloud).
-
-**Cara mendapatkan:**
-- Buka https://vercel.com/dashboard
-- Pergi ke project **ckp-evidence-app**
-- Tab **Settings** → **Storage** → **Blob**
-- Jika belum ada, klik "Create" untuk membuat Blob Storage
-- Copy token yang muncul
-
-**Setelah dapat token:**
+### 1. Login ke Vercel
 ```bash
-vercel env add BLOB_READ_WRITE_TOKEN production
-# Paste token saat diminta
-
-vercel env add BLOB_READ_WRITE_TOKEN preview
-# Paste token saat diminta (biasanya sama)
+npm run vercel:setup
 ```
 
-### 2. **GOOGLE_SERVICE_ACCOUNT_JSON**
-Ini adalah credentials dari Google Cloud untuk akses Google Drive dan membuat PDF dengan font custom.
+### 2. Setup Vercel Blob Storage
+- Dashboard Vercel → Project → **Storage** → **Blob** → **Create**
+- Copy token → Vercel otomatis add ke env variables
 
-**Cara mendapatkan:**
-1. Buka https://console.cloud.google.com
-2. Buat Service Account atau gunakan yang sudah ada
-3. Buat JSON key untuk service account tersebut
-4. Download file JSON key-nya
-
-**Setelah dapat file JSON:**
+### 3. Add Google Service Account
 ```bash
-vercel env add GOOGLE_SERVICE_ACCOUNT_JSON production
-# Paste seluruh isi file JSON (jangan include filename)
-
-vercel env add GOOGLE_SERVICE_ACCOUNT_JSON preview
-# Paste seluruh isi file JSON yang sama
+npm run vercel:env:google
 ```
 
-## Langkah Deployment
-
-Setelah setup env variables, jalankan:
-
-```bash
-# Build untuk production
-npm run build
-
-# Deploy ke preview (testing)
-npm run deploy:preview
-
-# Deploy ke production (live)
-npm run deploy:prod
-```
-
-Atau gunakan script yang lebih lengkap:
-```bash
-npm run vercel:check          # Cek apakah semua siap
-npm run deploy:preview        # Deploy preview
-npm run deploy:prod           # Deploy production
-```
-
-## Troubleshooting
-
-Jika ada masalah, jalankan:
+### 4. Verify Setup
 ```bash
 npm run vercel:check
 ```
 
-Script ini akan memeriksa:
-- ✓ File lokal lengkap
-- ✓ Project linked ke Vercel
-- ✓ Environment variables ada
+### 5. Deploy
+```bash
+# Test terlebih dahulu
+npm run deploy:preview
 
-## Info Project
-- **Project Vercel:** xeryus01s-projects/ckp-evidence-app
-- **Node Version:** 22.x
-- **Framework:** Express.js
-- **Runtime:** Node.js Serverless Functions
-- **Function Memory:** 1024MB
-- **Max Duration:** 300 detik
+# Deploy production
+npm run deploy:prod
+```
 
-## Catatan Penting
-- Environment variables harus ditambahkan untuk KEDUA `production` dan `preview` environment
-- Vercel akan otomatis build dan deploy ketika ada perubahan
-- Pastikan `.vercelignore` sudah mengabaikan `node_modules`, `.env`, `service-account.json`, dan `storage`
+## 📚 Dokumentasi Lengkap
 
----
-Jika sudah setup env variables, lanjutkan dengan:
+- **Setup lokal**: Lihat section "Setup Lokal" di [PANDUAN_DEPLOYMENT_VERCEL.md](PANDUAN_DEPLOYMENT_VERCEL.md#-setup-lokal)
+- **Konfigurasi Vercel**: Lihat section "Konfigurasi Vercel" di [PANDUAN_DEPLOYMENT_VERCEL.md](PANDUAN_DEPLOYMENT_VERCEL.md#️-konfigurasi-vercel)
+- **Troubleshooting**: Lihat section "Troubleshooting" di [PANDUAN_DEPLOYMENT_VERCEL.md](PANDUAN_DEPLOYMENT_VERCEL.md#️-troubleshooting)
+
+## 🔐 Konfigurasi Penting
+
+**Vercel Environment Variables (Production & Preview):**
+- `BLOB_READ_WRITE_TOKEN` - Dari Vercel Blob Storage
+- `GOOGLE_SERVICE_ACCOUNT_JSON` - Google Cloud credentials
+- `NODE_ENV=production` - Auto-set oleh Vercel
+
+**Project Settings:**
+- Node.js: **22.x**
+- Framework: **Express.js**
+- Function Memory: **1024MB** (bisa naik jika ada timeout)
+- Max Duration: **300 detik** (bisa naik untuk generate PDF besar)
+
+## 📱 Info Deployment
+
+- **Function Entry:** `api/index.js` (→ `server/index.js`)
+- **Build:** Otomatis
+- **Storage:** Vercel Blob (private)
+- **Logs:** `vercel logs --follow`
 ```bash
 npm run deploy:preview
 ```
