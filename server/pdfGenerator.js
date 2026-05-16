@@ -1,6 +1,6 @@
 const fs = require('fs');
 const PDFDocument = require('pdfkit');
-const sharp = require('sharp');
+const Jimp = require('jimp');
 
 function safeText(v) {
   return String(v || '-').replace(/\s+/g, ' ').trim();

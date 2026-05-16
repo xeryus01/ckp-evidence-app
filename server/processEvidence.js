@@ -1,50 +1,81 @@
 const fs = require('fs/promises');
 const path = require('path');
-const sharp = require('sharp');
 const convert = require('heic-convert');
 const pdfjsLib = require('pdfjs-dist/legacy/build/pdf.mjs');
 const { createCanvas } = require('@napi-rs/canvas');
+const Jimp = require('jimp');
 
 const IMAGE_MIMES = ['.jpg', '.jpeg', '.png', '.webp', '.tif', '.tiff', '.bmp', '.heic', '.heif'];
 const HEIC_MIMES = ['image/heic', 'image/heif'];
 
-async function convertHeicToJpg(inputPath, outputPath) {
+async function tryLoadSharp() {
   try {
-    await sharp(inputPath)
-      .rotate()
-      .toFormat('jpeg')
-      .jpeg({ quality: 90, mozjpeg: true })
-      .toFile(outputPath);
-    return outputPath;
+    return require('sharp');
   } catch (err) {
-    console.warn('sharp HEIC conversion failed, falling back to heic-convert:', err?.message || err);
-    const inputBuffer = await fs.readFile(inputPath);
-    const outputBuffer = await convert({
-      buffer: inputBuffer,
-      format: 'JPEG',
-      quality: 0.9
-    });
-    await fs.writeFile(outputPath, outputBuffer);
-    return outputPath;
+    console.warn('[processEvidence] sharp not available, falling back to Jimp:', err.message);
+    return null;
   }
 }
 
-async function compressImage(inputPath, outputDir, index) {
+async function convertHeicToJpg(inputPathOrBuffer, outputPath) {
+  const sharp = await tryLoadSharp();
+  if (sharp) {
+    try {
+      await sharp(inputPathOrBuffer)
+        .rotate()
+        .toFormat('jpeg')
+        .jpeg({ quality: 90, mozjpeg: true })
+        .toFile(outputPath);
+      return outputPath;
+    } catch (err) {
+      console.warn('[processEvidence] sharp HEIC conversion failed, falling back to Jimp/heic-convert:', err?.message || err);
+    }
+  }
+
+  const inputBuffer = typeof inputPathOrBuffer === 'string'
+    ? await fs.readFile(inputPathOrBuffer)
+    : Buffer.isBuffer(inputPathOrBuffer)
+      ? inputPathOrBuffer
+      : Buffer.from(inputPathOrBuffer);
+  const outputBuffer = await convert({
+    buffer: inputBuffer,
+    format: 'JPEG',
+    quality: 0.9
+  });
+  const image = await Jimp.read(Buffer.from(outputBuffer));
+  await image.quality(90).writeAsync(outputPath);
+  return outputPath;
+}
+
+async function compressImage(inputPathOrBuffer, outputDir, index) {
   const out = path.join(outputDir, `evidence-${String(index).padStart(3, '0')}.jpg`);
-  await sharp(inputPath)
-    .rotate()
-    .resize({ width: 1600, height: 2200, fit: 'inside', withoutEnlargement: true })
-    .jpeg({ quality: 78, mozjpeg: true })
-    .toFile(out);
+  const sharp = await tryLoadSharp();
+  if (sharp) {
+    await sharp(inputPathOrBuffer)
+      .rotate()
+      .resize({ width: 1600, height: 2200, fit: 'inside', withoutEnlargement: true })
+      .jpeg({ quality: 78, mozjpeg: true })
+      .toFile(out);
+    return out;
+  }
+
+  const inputBuffer = typeof inputPathOrBuffer === 'string'
+    ? await fs.readFile(inputPathOrBuffer)
+    : Buffer.isBuffer(inputPathOrBuffer)
+      ? inputPathOrBuffer
+      : Buffer.from(inputPathOrBuffer);
+  const image = await Jimp.read(inputBuffer);
+  image.contain(1600, 2200, Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE);
+  await image.quality(78).writeAsync(out);
   return out;
 }
 
 async function pdfToImages(inputPath, outputDir, startIndex) {
   let data;
-  if (inputPath instanceof Uint8Array) {
-    data = inputPath;
+  if (inputPath instanceof Uint8Array || Buffer.isBuffer(inputPath)) {
+    data = Buffer.from(inputPath);
   } else if (typeof inputPath === 'string') {
-    data = new Uint8Array(await fs.readFile(inputPath));
+    data = Buffer.from(await fs.readFile(inputPath));
   } else {
     throw new Error('PDF input tidak valid: harus berupa String path atau Buffer/Uint8Array.');
   }
@@ -61,9 +92,9 @@ async function pdfToImages(inputPath, outputDir, startIndex) {
     const ctx = canvas.getContext('2d');
     await page.render({ canvasContext: ctx, viewport }).promise;
     const out = path.join(outputDir, `pdf-page-${startIndex}-${pageNum}.jpg`);
-    await sharp(canvas.toBuffer('image/png'))
-      .jpeg({ quality: 78, mozjpeg: true })
-      .toFile(out);
+    const pngBuffer = canvas.toBuffer('image/png');
+    const image = await Jimp.read(pngBuffer);
+    await image.quality(78).writeAsync(out);
     result.push(out);
   }
   return result;
