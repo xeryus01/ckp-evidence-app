@@ -2,6 +2,20 @@ const fs = require('fs');
 const PDFDocument = require('pdfkit');
 const Jimp = require('jimp');
 
+// Helper to get image metadata using Jimp
+async function getImageMetadata(imagePath) {
+  try {
+    const image = await Jimp.read(imagePath);
+    return {
+      width: image.bitmap.width,
+      height: image.bitmap.height
+    };
+  } catch (err) {
+    console.error('[pdfGenerator] Error reading image metadata:', err.message);
+    return { width: 800, height: 600 }; // fallback dimensions
+  }
+}
+
 function safeText(v) {
   return String(v || '-').replace(/\s+/g, ' ').trim();
 }
@@ -78,7 +92,7 @@ async function drawEvidenceGrid(doc, imagePaths, startY) {
       }
 
       const imagePath = normalImages[i];
-      const meta = await sharp(imagePath).metadata();
+      const meta = await getImageMetadata(imagePath);
       const captionH = 14;
       const imgMaxH = boxH - captionH - 6;
       const scale = Math.min(boxW / meta.width, imgMaxH / meta.height);
@@ -113,7 +127,7 @@ async function drawEvidenceGrid(doc, imagePaths, startY) {
       doc.font('Helvetica-Bold').fontSize(11).fillColor('#111827')
         .text(`BUKTI PDF HALAMAN ${i + 1}`, margin, 36);
 
-      const meta = await sharp(imagePath).metadata();
+      const meta = await getImageMetadata(imagePath);
       const availableW = contentW;
       const availableH = contentH - 24;
       const scale = Math.min(availableW / meta.width, availableH / meta.height);

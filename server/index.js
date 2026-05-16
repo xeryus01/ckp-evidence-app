@@ -4,8 +4,18 @@ const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
-const sharp = require('sharp');
+const Jimp = require('jimp');
 const { v4: uuidv4 } = require('uuid');
+
+// Lazy load sharp - try to load, fallback gracefully if unavailable
+async function tryLoadSharp() {
+  try {
+    return require('sharp');
+  } catch (err) {
+    console.warn('[server] sharp not available:', err.message);
+    return null;
+  }
+}
 const { listFromDriveLinks, downloadDriveFilesByIds, streamDriveFileById } = require('./drive');
 const { normalizeEvidence } = require('./processEvidence');
 const { generatePdf } = require('./pdfGenerator');
@@ -464,29 +474,53 @@ app.get('/api/drive-thumbnail/:id', async (req, res) => {
     const resizeOptions = { width: 640, height: 640, fit: 'inside', withoutEnlargement: true };
     res.setHeader('Content-Type', 'image/jpeg');
 
-    if (mimeType === 'image/heic' || mimeType === 'image/heif') {
-      const buffer = await bufferStream(stream);
-      const outputBuffer = await sharp(buffer)
-        .rotate()
-        .resize(resizeOptions)
-        .jpeg({ quality: 80, mozjpeg: true })
-        .toBuffer();
-      return res.send(outputBuffer);
-    }
+    try {
+      const sharp = await tryLoadSharp();
+      
+      if (mimeType === 'image/heic' || mimeType === 'image/heif') {
+        const buffer = await bufferStream(stream);
+        if (sharp) {
+          const outputBuffer = await sharp(buffer)
+            .rotate()
+            .resize(resizeOptions)
+            .jpeg({ quality: 80, mozjpeg: true })
+            .toBuffer();
+          return res.send(outputBuffer);
+        } else {
+          // Jimp fallback for HEIC
+          const image = await Jimp.read(buffer);
+          const resized = image.resize({ w: resizeOptions.width, h: resizeOptions.height, mode: 'contain' });
+          const outputBuffer = await resized.quality(80).getBuffer('image/jpeg');
+          return res.send(outputBuffer);
+        }
+      }
 
-    const transformer = sharp()
-      .rotate()
-      .resize(resizeOptions)
-      .jpeg({ quality: 80, mozjpeg: true });
-    stream.on('error', (err) => {
-      console.error('Drive thumbnail stream error:', err);
+      if (sharp) {
+        const transformer = sharp()
+          .rotate()
+          .resize(resizeOptions)
+          .jpeg({ quality: 80, mozjpeg: true });
+        stream.on('error', (err) => {
+          console.error('Drive thumbnail stream error:', err);
+          if (!res.headersSent) res.status(500).end('Gagal memuat preview.');
+        });
+        transformer.on('error', (err) => {
+          console.error('Sharp preview conversion error:', err);
+          if (!res.headersSent) res.status(500).end('Gagal memuat preview.');
+        });
+        return stream.pipe(transformer).pipe(res);
+      } else {
+        // Jimp fallback
+        const buffer = await bufferStream(stream);
+        const image = await Jimp.read(buffer);
+        const resized = image.resize({ w: resizeOptions.width, h: resizeOptions.height, mode: 'contain' });
+        const outputBuffer = await resized.quality(80).getBuffer('image/jpeg');
+        return res.send(outputBuffer);
+      }
+    } catch (err) {
+      console.error('Thumbnail conversion error:', err);
       if (!res.headersSent) res.status(500).end('Gagal memuat preview.');
-    });
-    transformer.on('error', (err) => {
-      console.error('Sharp preview conversion error:', err);
-      if (!res.headersSent) res.status(500).end('Gagal memuat preview.');
-    });
-    stream.pipe(transformer).pipe(res);
+    }
   } catch (err) {
     console.error(err);
     if (!res.headersSent) res.status(500).send(err.message || 'Gagal memuat preview Drive.');
