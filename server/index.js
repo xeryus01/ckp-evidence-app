@@ -17,9 +17,16 @@ async function tryLoadSharp() {
   }
 }
 const { listFromDriveLinks, downloadDriveFilesByIds, streamDriveFileById } = require('./drive');
-const { normalizeEvidence } = require('./processEvidence');
 const { generatePdf } = require('./pdfGenerator');
 const XLSX = require('xlsx');
+
+let normalizeEvidence;
+function getNormalizeEvidence() {
+  if (!normalizeEvidence) {
+    normalizeEvidence = require('./processEvidence').normalizeEvidence;
+  }
+  return normalizeEvidence;
+}
 const { readData, updateData, findActivity, findPeriod, findProfile } = require('./dataStore');
 const {
   OUTPUT_DIR,
@@ -568,7 +575,8 @@ app.post('/api/generate', upload.array('manualFiles', 100), async (req, res) => 
     const allFiles = [...driveFiles, ...manualFiles];
     if (!allFiles.length) throw new Error('Belum ada bukti dukung. Isi link Drive atau upload file manual.');
 
-    const imagePaths = await normalizeEvidence(allFiles, processedDir);
+    const normalizeEvidenceFn = getNormalizeEvidence();
+    const imagePaths = await normalizeEvidenceFn(allFiles, processedDir);
     if (!imagePaths.length) throw new Error('Tidak ada bukti yang berhasil diproses. Gunakan gambar atau PDF.');
 
     const safeName = `${nama || 'CKP'}-${nip || 'NIP'}`.replace(/[^a-zA-Z0-9-_]/g, '_');
@@ -613,7 +621,8 @@ app.post('/api/periods/:periodId/activities/:activityId/generate', async (req, r
     const allFiles = [...driveFiles, ...manualFiles];
     if (!allFiles.length) throw new Error('Kegiatan ini belum memiliki bukti dukung.');
 
-    const imagePaths = await normalizeEvidence(allFiles, processedDir);
+    const normalizeEvidenceFn = getNormalizeEvidence();
+    const imagePaths = await normalizeEvidenceFn(allFiles, processedDir);
     if (!imagePaths.length) throw new Error('Tidak ada bukti yang berhasil diproses. Gunakan gambar atau PDF.');
 
     const profile = findProfile(data, data.selectedProfileId) || { nama: '', nip: '' };

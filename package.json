@@ -20,6 +20,7 @@
   "dependencies": {
     "@napi-rs/canvas": "latest",
     "@vercel/blob": "^2.3.3",
+    "canvas": "^3.2.3",
     "cors": "latest",
     "dotenv": "latest",
     "express": "latest",

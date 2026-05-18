@@ -1,11 +1,158 @@
 const fs = require('fs/promises');
 const path = require('path');
 const convert = require('heic-convert');
-const pdfjsLib = require('pdfjs-dist/legacy/build/pdf.mjs');
-const { createCanvas } = require('@napi-rs/canvas');
 const Jimp = require('jimp');
 
 const IMAGE_MIMES = ['.jpg', '.jpeg', '.png', '.webp', '.tif', '.tiff', '.bmp', '.heic', '.heif'];
+
+function createDOMMatrixPolyfill() {
+  class DOMMatrix {
+    constructor(init = 'none') {
+      if (Array.isArray(init)) {
+        [this.a = 1, this.b = 0, this.c = 0, this.d = 1, this.e = 0, this.f = 0] = init;
+      } else if (init instanceof DOMMatrix) {
+        this.a = init.a; this.b = init.b; this.c = init.c; this.d = init.d; this.e = init.e; this.f = init.f;
+      } else if (typeof init === 'string') {
+        const values = init.trim().replace(/matrix\(|\)/g, '').split(/,|\s+/).filter(Boolean).map(Number);
+        [this.a = 1, this.b = 0, this.c = 0, this.d = 1, this.e = 0, this.f = 0] = values;
+      } else {
+        this.a = 1; this.b = 0; this.c = 0; this.d = 1; this.e = 0; this.f = 0;
+      }
+    }
+
+    static fromFloat32Array(array) {
+      return new DOMMatrix(Array.from(array));
+    }
+
+    static fromFloat64Array(array) {
+      return new DOMMatrix(Array.from(array));
+    }
+
+    multiply(other) {
+      return new DOMMatrix([
+        this.a * other.a + this.b * other.c,
+        this.a * other.b + this.b * other.d,
+        this.c * other.a + this.d * other.c,
+        this.c * other.b + this.d * other.d,
+        this.e * other.a + this.f * other.c + other.e,
+        this.e * other.b + this.f * other.d + other.f
+      ]);
+    }
+
+    multiplySelf(other) {
+      const result = this.multiply(other);
+      Object.assign(this, result);
+      return this;
+    }
+
+    translateSelf(tx = 0, ty = 0) {
+      this.e += tx;
+      this.f += ty;
+      return this;
+    }
+
+    scaleSelf(sx = 1, sy = sx) {
+      this.a *= sx;
+      this.b *= sx;
+      this.c *= sy;
+      this.d *= sy;
+      return this;
+    }
+
+    invertSelf() {
+      const det = this.a * this.d - this.b * this.c;
+      if (!det) return this;
+      const a = this.d / det;
+      const b = -this.b / det;
+      const c = -this.c / det;
+      const d = this.a / det;
+      const e = (this.c * this.f - this.d * this.e) / det;
+      const f = (this.b * this.e - this.a * this.f) / det;
+      Object.assign(this, { a, b, c, d, e, f });
+      return this;
+    }
+
+    toFloat32Array() {
+      return new Float32Array([this.a, this.b, this.c, this.d, this.e, this.f]);
+    }
+
+    toFloat64Array() {
+      return new Float64Array([this.a, this.b, this.c, this.d, this.e, this.f]);
+    }
+  }
+  return DOMMatrix;
+}
+
+function loadCanvasSupport() {
+  let canvasLib = null;
+  try {
+    canvasLib = require('@napi-rs/canvas');
+  } catch (err) {
+    try {
+      canvasLib = require('canvas');
+    } catch (err2) {
+      throw new Error('Library canvas tidak tersedia. Install @napi-rs/canvas atau canvas agar PDF dapat diproses.');
+    }
+  }
+
+  if (!globalThis.DOMMatrix) {
+    if (canvasLib.DOMMatrix) {
+      globalThis.DOMMatrix = canvasLib.DOMMatrix;
+    } else {
+      globalThis.DOMMatrix = createDOMMatrixPolyfill();
+    }
+  }
+  if (!globalThis.ImageData) {
+    globalThis.ImageData = canvasLib.ImageData || class ImageData {
+      constructor(data, width, height) {
+        this.data = data;
+        this.width = width;
+        this.height = height;
+      }
+    };
+  }
+  if (!globalThis.Path2D) {
+    globalThis.Path2D = canvasLib.Path2D || class Path2D {
+      constructor(path) {
+        this.path = path;
+      }
+      addPath() {}
+    };
+  }
+
+  if (!globalThis.DOMPoint) {
+    globalThis.DOMPoint = canvasLib.DOMPoint || class DOMPoint {
+      constructor(x = 0, y = 0, z = 0, w = 1) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.w = w;
+      }
+    };
+  }
+
+  if (!globalThis.DOMRect) {
+    globalThis.DOMRect = canvasLib.DOMRect || class DOMRect {
+      constructor(x = 0, y = 0, width = 0, height = 0) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.top = y;
+        this.left = x;
+        this.right = x + width;
+        this.bottom = y + height;
+      }
+    };
+  }
+
+  return canvasLib;
+}
+
+const canvasSupport = loadCanvasSupport();
+const { createCanvas } = canvasSupport;
+const pdfjsLib = require('pdfjs-dist/legacy/build/pdf.mjs');
+
 const HEIC_MIMES = ['image/heic', 'image/heif'];
 
 async function tryLoadSharp() {
