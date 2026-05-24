@@ -11,6 +11,10 @@ const TMP_ROOT = process.env.TMP_DIR || (process.env.VERCEL ? '/tmp/ckp-evidence
 const OUTPUT_DIR = process.env.OUTPUT_DIR || (process.env.VERCEL ? path.join(TMP_ROOT, 'output') : 'storage/output');
 const EVIDENCE_DIR = process.env.EVIDENCE_DIR || 'storage/evidence';
 
+// In-memory fallback storage for Vercel when Blob is not configured
+const inMemoryFiles = new Map();
+const inMemoryOutputs = new Map();
+
 function usingBlob() {
   return hasBlob;
 }
@@ -24,6 +28,20 @@ function blobPath(...parts) {
 }
 
 async function saveUploadToTemp(file, dir) {
+  if (isVercel && !hasBlob) {
+    // In-memory storage for Vercel without Blob
+    const filename = `${Date.now()}-${safeFilename(file.originalname)}`;
+    const fileKey = path.join(dir, filename).replace(/\\/g, '/');
+    inMemoryFiles.set(fileKey, {
+      buffer: file.buffer,
+      mimetype: file.mimetype,
+      name: file.originalname
+    });
+    console.log('[saveUploadToTemp] Stored in-memory:', fileKey);
+    return { path: fileKey, mimetype: file.mimetype, name: file.originalname, inMemory: true };
+  }
+
+  // Local filesystem storage
   await fsp.mkdir(dir, { recursive: true });
   const filename = `${Date.now()}-${safeFilename(file.originalname)}`;
   const filePath = path.join(dir, filename);
@@ -36,25 +54,61 @@ async function saveManualEvidence(file, periodId, activityId) {
 
   if (hasBlob) {
     const pathname = blobPath('evidence', periodId, activityId, filename);
-    const stored = await put(pathname, file.buffer, {
-      access: 'public',
-      contentType: file.mimetype,
-      addRandomSuffix: true
+    try {
+      const stored = await put(pathname, file.buffer, {
+        access: 'public',
+        contentType: file.mimetype,
+        addRandomSuffix: true
+      });
+      return {
+        name: file.originalname,
+        filename: stored.pathname.split('/').pop(),
+        blobPath: stored.pathname,
+        blobUrl: stored.url,
+        mimetype: file.mimetype,
+        size: file.size
+      };
+    } catch (err) {
+      console.error('[saveManualEvidence] Blob upload failed:', err.message);
+      // Fallback to in-memory if Blob fails
+      const fileKey = blobPath('evidence', periodId, activityId, filename);
+      inMemoryFiles.set(fileKey, {
+        buffer: file.buffer,
+        mimetype: file.mimetype,
+        name: file.originalname
+      });
+      console.log('[saveManualEvidence] Fallback to in-memory storage:', fileKey);
+      return {
+        name: file.originalname,
+        filename,
+        inMemoryKey: fileKey,
+        blobPath: null,
+        mimetype: file.mimetype,
+        size: file.size
+      };
+    }
+  }
+
+  if (isVercel) {
+    // In-memory storage for Vercel without Blob
+    const fileKey = blobPath('evidence', periodId, activityId, filename);
+    inMemoryFiles.set(fileKey, {
+      buffer: file.buffer,
+      mimetype: file.mimetype,
+      name: file.originalname
     });
+    console.log('[saveManualEvidence] Stored in-memory:', fileKey);
     return {
       name: file.originalname,
-      filename: stored.pathname.split('/').pop(),
-      blobPath: stored.pathname,
-      blobUrl: stored.url,
+      filename,
+      inMemoryKey: fileKey,
+      blobPath: null,
       mimetype: file.mimetype,
       size: file.size
     };
   }
 
-  if (isVercel) {
-    throw new Error('BLOB_READ_WRITE_TOKEN belum diatur. Hubungkan Vercel Blob agar upload manual bisa tersimpan.');
-  }
-
+  // Local storage
   const dir = path.join(EVIDENCE_DIR, periodId, activityId);
   await fsp.mkdir(dir, { recursive: true });
   const filePath = path.join(dir, filename);
@@ -69,14 +123,48 @@ async function saveManualEvidence(file, periodId, activityId) {
 }
 
 async function deleteStoredFile(file) {
-  if (file?.blobPath && hasBlob) {
-    await del(file.blobPath).catch(() => {});
+  if (file?.inMemoryKey) {
+    inMemoryFiles.delete(file.inMemoryKey);
+    console.log('[deleteStoredFile] Deleted from in-memory:', file.inMemoryKey);
     return;
   }
-  if (file?.path) await fsp.rm(file.path, { force: true }).catch(() => {});
+  if (file?.blobPath && hasBlob) {
+    try {
+      await del(file.blobPath);
+      console.log('[deleteStoredFile] Deleted from Blob:', file.blobPath);
+    } catch (err) {
+      console.warn('[deleteStoredFile] Failed to delete from Blob:', err.message);
+    }
+    return;
+  }
+  if (file?.path) {
+    try {
+      await fsp.rm(file.path, { force: true });
+      console.log('[deleteStoredFile] Deleted from filesystem:', file.path);
+    } catch (err) {
+      console.warn('[deleteStoredFile] Failed to delete from filesystem:', err.message);
+    }
+  }
 }
 
 async function materializeStoredFile(file, destDir) {
+  // Check in-memory first
+  if (file?.inMemoryKey) {
+    const stored = inMemoryFiles.get(file.inMemoryKey);
+    if (stored) {
+      await fsp.mkdir(destDir, { recursive: true });
+      const filePath = path.join(destDir, file.filename || safeFilename(file.name));
+      await fsp.writeFile(filePath, stored.buffer);
+      console.log('[materializeStoredFile] Materialized from in-memory:', filePath);
+      return {
+        path: filePath,
+        mimetype: stored.mimetype,
+        name: stored.name
+      };
+    }
+  }
+
+  // Check local filesystem
   if (!file?.blobPath) {
     return {
       path: file.path,
@@ -86,56 +174,119 @@ async function materializeStoredFile(file, destDir) {
     };
   }
 
-  if (!hasBlob) throw new Error('BLOB_READ_WRITE_TOKEN belum tersedia untuk membaca bukti manual.');
+  // Fetch from Blob
+  if (!hasBlob) {
+    console.error('[materializeStoredFile] No Blob token available');
+    throw new Error('Bukti manual tidak dapat dibaca (Blob storage belum dikonfigurasi).');
+  }
 
-  await fsp.mkdir(destDir, { recursive: true });
-  const result = await get(file.blobPath, { access: 'public', useCache: false });
-  if (!result?.stream) throw new Error(`Bukti manual tidak ditemukan: ${file.name}`);
+  try {
+    await fsp.mkdir(destDir, { recursive: true });
+    const result = await get(file.blobPath, { access: 'public', useCache: false });
+    if (!result?.stream) {
+      throw new Error(`Bukti manual tidak ditemukan: ${file.name}`);
+    }
 
-  const filePath = path.join(destDir, file.filename || safeFilename(file.name));
-  await pipeline(Readable.fromWeb(result.stream), fs.createWriteStream(filePath));
-  return {
-    path: filePath,
-    mimetype: file.mimetype || result.blob.contentType,
-    name: file.name
-  };
+    const filePath = path.join(destDir, file.filename || safeFilename(file.name));
+    await pipeline(Readable.fromWeb(result.stream), fs.createWriteStream(filePath));
+    console.log('[materializeStoredFile] Materialized from Blob:', filePath);
+    return {
+      path: filePath,
+      mimetype: file.mimetype || result.blob.contentType,
+      name: file.name
+    };
+  } catch (err) {
+    console.error('[materializeStoredFile] Blob fetch failed:', err.message);
+    throw err;
+  }
 }
 
 async function persistOutputPdf(outputPath, filename) {
   if (hasBlob) {
     const pathname = blobPath('output', filename);
-    const stored = await put(pathname, fs.createReadStream(outputPath), {
-      access: 'public',
-      contentType: 'application/pdf',
-      allowOverwrite: true
-    });
-    return {
-      filename,
-      url: `/api/output/${encodeURIComponent(filename)}`,
-      blobPath: stored.pathname,
-      blobUrl: stored.url
-    };
+    try {
+      const stored = await put(pathname, fs.createReadStream(outputPath), {
+        access: 'public',
+        contentType: 'application/pdf',
+        allowOverwrite: true
+      });
+      console.log('[persistOutputPdf] Persisted to Blob:', pathname);
+      return {
+        filename,
+        url: `/api/output/${encodeURIComponent(filename)}`,
+        blobPath: stored.pathname,
+        blobUrl: stored.url
+      };
+    } catch (err) {
+      console.error('[persistOutputPdf] Blob upload failed:', err.message);
+      // Fallback to in-memory
+      const pdfBuffer = await fsp.readFile(outputPath);
+      inMemoryOutputs.set(filename, pdfBuffer);
+      console.log('[persistOutputPdf] Fallback to in-memory storage:', filename);
+      return {
+        filename,
+        url: `/api/output/${encodeURIComponent(filename)}`,
+        inMemory: true
+      };
+    }
   }
 
   if (isVercel) {
-    throw new Error('BLOB_READ_WRITE_TOKEN belum diatur. Hubungkan Vercel Blob agar PDF tersimpan.');
+    // In-memory storage for Vercel without Blob
+    const pdfBuffer = await fsp.readFile(outputPath);
+    inMemoryOutputs.set(filename, pdfBuffer);
+    console.log('[persistOutputPdf] Stored in-memory:', filename);
+    return {
+      filename,
+      url: `/api/output/${encodeURIComponent(filename)}`,
+      inMemory: true
+    };
   }
 
+  // Local storage
+  console.log('[persistOutputPdf] Stored locally:', filename);
   return { filename, url: `/api/output/${encodeURIComponent(filename)}` };
 }
 
 async function sendOutputPdf(res, filename) {
-  if (hasBlob) {
-    const result = await get(blobPath('output', filename), { access: 'public', useCache: false });
-    if (!result?.stream) return res.status(404).send('PDF tidak ditemukan.');
+  // Check in-memory first
+  if (inMemoryOutputs.has(filename)) {
+    const pdfBuffer = inMemoryOutputs.get(filename);
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
-    await pipeline(Readable.fromWeb(result.stream), res);
-    return null;
+    res.setHeader('Content-Length', pdfBuffer.length);
+    console.log('[sendOutputPdf] Sending from in-memory:', filename);
+    return res.send(pdfBuffer);
   }
 
+  // Fetch from Blob
+  if (hasBlob) {
+    try {
+      const result = await get(blobPath('output', filename), { access: 'public', useCache: false });
+      if (!result?.stream) {
+        return res.status(404).json({ error: 'PDF tidak ditemukan.' });
+      }
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+      console.log('[sendOutputPdf] Sending from Blob:', filename);
+      await pipeline(Readable.fromWeb(result.stream), res);
+      return null;
+    } catch (err) {
+      console.error('[sendOutputPdf] Blob fetch failed:', err.message);
+      return res.status(500).json({ error: 'Gagal mengakses PDF.' });
+    }
+  }
+
+  // Fetch from local filesystem
   const filePath = path.join(OUTPUT_DIR, filename);
-  return res.download(filePath, filename);
+  try {
+    await fsp.access(filePath);
+    console.log('[sendOutputPdf] Sending from filesystem:', filePath);
+    return res.download(filePath, filename);
+  } catch (err) {
+    console.error('[sendOutputPdf] File not found:', filePath);
+    return res.status(404).json({ error: 'PDF tidak ditemukan.' });
+  }
 }
 
 module.exports = {

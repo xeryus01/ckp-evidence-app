@@ -87,6 +87,20 @@
       </section>
     </section>
 
+    <div id="progressModal" class="progress-modal hidden">
+      <div class="progress-overlay">
+        <div class="progress-card">
+          <h2>Membuat PDF</h2>
+          <p id="progressMessage" class="progress-message">Mempersiapkan...</p>
+          <div class="progress-bar-container">
+            <div id="progressBar" class="progress-bar" style="width: 0%"></div>
+          </div>
+          <p id="progressPercent" class="progress-percent">0%</p>
+          <div id="progressLog" class="progress-log"></div>
+        </div>
+      </div>
+    </div>
+
     <section id="evidencePanel" class="evidence-panel hidden">
       <div class="panel-head">
         <div>
@@ -101,6 +115,9 @@
           <h3>Google Drive</h3>
           <label>Link file/folder
             <textarea id="driveLinks" rows="4" placeholder="Tempel satu atau beberapa link Drive"></textarea>
+          </label>
+          <label>Link bukti pendukung
+            <textarea id="supportLinks" rows="3" placeholder="Tempel satu atau beberapa link Instagram, website, atau sumber lain"></textarea>
           </label>
           <div class="button-row">
             <button id="previewBtn" type="button" class="secondary">Cek File</button>

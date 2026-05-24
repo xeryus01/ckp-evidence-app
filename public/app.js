@@ -28,6 +28,7 @@ const els = {
   closeEvidenceBtn: $('closeEvidenceBtn'),
   driveForm: $('driveForm'),
   driveLinks: $('driveLinks'),
+  supportLinks: $('supportLinks'),
   previewBtn: $('previewBtn'),
   saveDriveBtn: $('saveDriveBtn'),
   drivePicker: $('drivePicker'),
@@ -134,12 +135,30 @@ function renderPeriodCalendar(period) {
     const hasActivity = activitiesByDate.has(dateKey);
     const cell = document.createElement('div');
     cell.className = `calendar-day ${hasActivity ? 'filled' : 'empty'}`;
+    cell.setAttribute('data-date', dateKey);
     cell.innerHTML = `
       <div class="calendar-number">${day}</div>
       <div class="calendar-status">${hasActivity ? 'Isi' : 'Kosong'}</div>
     `;
+    cell.style.cursor = 'pointer';
+    cell.addEventListener('click', (event) => {
+      event.stopPropagation();
+      const date = event.currentTarget.getAttribute('data-date');
+      handleCalendarDateClick(date);
+    });
     els.calendarGrid.appendChild(cell);
   }
+}
+
+function handleCalendarDateClick(dateKey) {
+  setActivityEditMode(null);
+  const waktuInput = document.getElementById('activityWaktu');
+  const formInput = document.getElementById('activityKegiatan');
+  const form = document.getElementById('activityForm');
+
+  if (waktuInput) waktuInput.value = dateKey;
+  if (form) form.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  if (formInput) formInput.focus();
 }
 
 function activePeriod() {
@@ -151,9 +170,14 @@ function activeActivity() {
   return period?.activities.find(activity => activity.id === activeActivityId) || null;
 }
 
-function evidenceCount(activity) {
+function evidenceFileCount(activity) {
   const evidence = activity.evidence || {};
   return (evidence.selectedDriveIds || []).length + (evidence.manualFiles || []).length;
+}
+
+function evidenceSupportCount(activity) {
+  const evidence = activity.evidence || {};
+  return Array.isArray(evidence.supportLinks) ? evidence.supportLinks.length : 0;
 }
 
 function formatBytes(bytes) {
@@ -283,6 +307,7 @@ function renderEvidencePanel() {
   els.evidenceTitle.textContent = activity.kegiatan;
   const evidence = activity.evidence || {};
   els.driveLinks.value = (evidence.driveLinks || []).join('\n');
+  els.supportLinks.value = (evidence.supportLinks || []).join('\n');
   renderDriveFiles(evidence.driveFiles || [], evidence.selectedDriveIds || []);
   renderManualFiles(activity);
 }
@@ -333,7 +358,8 @@ function renderActivities() {
 
   const activities = [...period.activities].sort((a, b) => String(b.waktu || '').localeCompare(String(a.waktu || '')));
   activities.forEach((activity) => {
-    const count = evidenceCount(activity);
+    const fileCount = evidenceFileCount(activity);
+    const supportCount = evidenceSupportCount(activity);
     const card = document.createElement('article');
     card.className = `activity-card ${activity.id === activeActivityId ? 'selected' : ''}`;
 
@@ -347,8 +373,13 @@ function renderActivities() {
     const time = document.createElement('span');
     time.textContent = formatActivityTime(activity.waktu);
     const status = document.createElement('span');
-    status.className = `pill ${count ? '' : 'pending'}`;
-    status.textContent = count ? `${count} bukti siap` : 'Menunggu bukti';
+    const hasAnyEvidence = fileCount || supportCount;
+    let statusText = 'Menunggu bukti';
+    if (fileCount && supportCount) statusText = `${fileCount} bukti siap + ${supportCount} bukti dukung`;
+    else if (fileCount) statusText = `${fileCount} bukti siap`;
+    else if (supportCount) statusText = `${supportCount} bukti dukung`;
+    status.className = `pill ${hasAnyEvidence ? '' : 'pending'}`;
+    status.textContent = statusText;
     meta.append(time, status);
 
     const lastPdf = activity.generatedPdfs?.[0];
@@ -420,7 +451,7 @@ function renderActivities() {
     const generateBtn = document.createElement('button');
     generateBtn.type = 'button';
     generateBtn.textContent = 'Generate PDF';
-    generateBtn.disabled = count === 0;
+    generateBtn.disabled = fileCount === 0;
     generateBtn.addEventListener('click', () => generatePdf(activity.id));
     actions.append(evidenceBtn, editBtn, duplicateBtn, deleteBtn, generateBtn);
 
@@ -468,18 +499,87 @@ async function removeManualFile(fileId) {
 async function generatePdf(activityId) {
   const period = activePeriod();
   if (!period) return;
+
+  const modal = document.getElementById('progressModal');
+  const msgEl = document.getElementById('progressMessage');
+  const barEl = document.getElementById('progressBar');
+  const percentEl = document.getElementById('progressPercent');
+  const logEl = document.getElementById('progressLog');
+
+  modal.classList.remove('hidden');
+  logEl.innerHTML = '';
+  let step = 0;
+  const steps = [
+    'Mempersiapkan file...',
+    'Mengunduh dari Google Drive...',
+    'Memproses gambar...',
+    'Mengonversi HEIC (jika ada)...',
+    'Membuat PDF...',
+    'Menyimpan hasil...'
+  ];
+
+  const updateProgress = (index, percent) => {
+    barEl.style.width = Math.min(percent, 95) + '%';
+    percentEl.textContent = Math.min(percent, 95) + '%';
+    if (index < steps.length) msgEl.textContent = steps[index];
+  };
+
+  const addLog = (msg) => {
+    const entry = document.createElement('div');
+    entry.className = 'log-entry';
+    entry.textContent = new Date().toLocaleTimeString() + ' - ' + msg;
+    logEl.appendChild(entry);
+    logEl.scrollTop = logEl.scrollHeight;
+  };
+
   setStatus('Membuat PDF A4...');
   try {
-    const data = await api(`/api/periods/${period.id}/activities/${activityId}/generate`, { method: 'POST' });
+    addLog('Mengirim permintaan generate...');
+    updateProgress(0, 10);
+
+    const response = await fetch(`/api/periods/${period.id}/activities/${activityId}/generate`, {
+      method: 'POST'
+    });
+
+    updateProgress(1, 25);
+    addLog('Response diterima, memproses...');
+
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({}));
+      throw new Error(err.error || `Gagal membuat PDF (${response.status})`);
+    }
+
+    updateProgress(4, 80);
+    addLog('PDF berhasil dibuat di server');
+
+    const data = await response.json();
+
+    updateProgress(5, 95);
+    addLog('Mengunduh file PDF...');
+
     const a = document.createElement('a');
     a.href = data.url;
     a.download = data.filename;
     document.body.appendChild(a);
     a.click();
     a.remove();
-    await loadState('PDF berhasil dibuat.');
+
+    updateProgress(5, 100);
+    barEl.style.width = '100%';
+    percentEl.textContent = '100%';
+    addLog('PDF berhasil diunduh!');
+
+    setTimeout(() => {
+      modal.classList.add('hidden');
+      loadState('PDF berhasil dibuat.');
+    }, 800);
   } catch (err) {
+    addLog('ERROR: ' + err.message);
+    console.error(err);
     setStatus(err.message);
+    setTimeout(() => {
+      modal.classList.add('hidden');
+    }, 3000);
   }
 }
 
@@ -640,6 +740,7 @@ els.driveForm.addEventListener('submit', async (event) => {
   try {
     await api(`/api/periods/${period.id}/activities/${activity.id}/drive-evidence`, jsonOptions('PUT', {
       driveLinks: els.driveLinks.value,
+      supportLinks: els.supportLinks.value,
       selectedDriveIds: selectedDriveIds(),
       driveFiles: previewFiles
     }));

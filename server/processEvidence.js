@@ -165,19 +165,23 @@ async function tryLoadSharp() {
 }
 
 async function convertHeicToJpg(inputPathOrBuffer, outputPath) {
+  console.log('[processEvidence] Converting HEIC to JPEG:', { outputPath });
   const sharp = await tryLoadSharp();
   if (sharp) {
     try {
+      console.log('[processEvidence] Using sharp for HEIC conversion');
       await sharp(inputPathOrBuffer)
         .rotate()
         .toFormat('jpeg')
         .jpeg({ quality: 90, mozjpeg: true })
         .toFile(outputPath);
+      console.log('[processEvidence] HEIC conversion succeeded with sharp');
       return outputPath;
     } catch (err) {
       console.warn('[processEvidence] sharp HEIC conversion failed, falling back to Jimp/heic-convert:', err?.message || err);
     }
   }
+  console.log('[processEvidence] Using heic-convert for HEIC conversion');
 
   const inputBuffer = typeof inputPathOrBuffer === 'string'
     ? await fs.readFile(inputPathOrBuffer)
@@ -219,10 +223,13 @@ async function compressImage(inputPathOrBuffer, outputDir, index) {
 
 async function pdfToImages(inputPath, outputDir, startIndex) {
   let data;
-  if (inputPath instanceof Uint8Array || Buffer.isBuffer(inputPath)) {
-    data = Buffer.from(inputPath);
-  } else if (typeof inputPath === 'string') {
-    data = Buffer.from(await fs.readFile(inputPath));
+  if (typeof inputPath === 'string') {
+    const buffer = await fs.readFile(inputPath);
+    data = new Uint8Array(buffer);
+  } else if (inputPath instanceof Uint8Array) {
+    data = inputPath;
+  } else if (Buffer.isBuffer(inputPath)) {
+    data = new Uint8Array(inputPath);
   } else {
     throw new Error('PDF input tidak valid: harus berupa String path atau Buffer/Uint8Array.');
   }

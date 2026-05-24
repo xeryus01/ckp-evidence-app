@@ -467,6 +467,101 @@ button:disabled { opacity: .58; cursor: wait; }
 
 .hidden { display: none !important; }
 
+.progress-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-card {
+  background: white;
+  border-radius: 12px;
+  padding: 28px;
+  width: min(480px, calc(100% - 20px));
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.progress-card h2 {
+  margin: 0 0 12px;
+  font-size: 20px;
+  color: #18201c;
+}
+
+.progress-message {
+  margin: 0 0 16px;
+  color: #5a6b60;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 8px;
+  background: #e2e9e5;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #277c66 0%, #1f6955 100%);
+  transition: width 0.3s ease;
+  border-radius: 4px;
+}
+
+.progress-percent {
+  margin: 0 0 16px;
+  text-align: center;
+  color: #277c66;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.progress-log {
+  flex: 1;
+  overflow-y: auto;
+  background: #f8faf8;
+  border: 1px solid #d7ded8;
+  border-radius: 6px;
+  padding: 12px;
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  line-height: 1.4;
+  max-height: 200px;
+}
+
+.log-entry {
+  color: #5a6b60;
+  margin-bottom: 4px;
+  word-break: break-word;
+}
+
+.log-entry:last-child {
+  margin-bottom: 0;
+}
+
 @media (max-width: 900px) {
   .topbar,
   .workspace,

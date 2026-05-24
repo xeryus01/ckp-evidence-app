@@ -16,7 +16,12 @@ async function tryLoadSharp() {
     return null;
   }
 }
-const { listFromDriveLinks, downloadDriveFilesByIds, streamDriveFileById } = require('./drive');
+const {
+  listFromDriveLinks,
+  downloadDriveFilesByIds,
+  streamDriveFileById,
+  uploadFileToFolder
+} = require('./drive');
 const { generatePdf } = require('./pdfGenerator');
 const XLSX = require('xlsx');
 
@@ -27,7 +32,7 @@ function getNormalizeEvidence() {
   }
   return normalizeEvidence;
 }
-const { readData, updateData, findActivity, findPeriod, findProfile } = require('./dataStore');
+const { readData, updateData, findActivity, findPeriod, findProfile, getStorageInfo } = require('./dataStore');
 const {
   OUTPUT_DIR,
   TMP_ROOT,
@@ -42,6 +47,7 @@ const {
 const app = express();
 const PORT = process.env.PORT || 3000;
 const TMP_DIR = TMP_ROOT;
+const DRIVE_UPLOAD_FOLDER_ID = process.env.GOOGLE_DRIVE_UPLOAD_FOLDER_ID || '1vzMxCBTOm3zVFZic-XKnb0GIC68Yn7qK';
 const MAX_FILE_SIZE = Number(process.env.MAX_UPLOAD_MB || (process.env.VERCEL ? 4 : 50)) * 1024 * 1024;
 
 app.use(cors());
@@ -55,12 +61,13 @@ app.use((req, res, next) => {
   next();
 });
 
+const supportedMimes = ['image/jpeg', 'image/png', 'image/webp', 'image/tiff', 'image/bmp', 'image/heic', 'image/heif', 'application/pdf'];
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: MAX_FILE_SIZE, files: 100 },
   fileFilter: (req, file, cb) => {
-    if (file.mimetype.startsWith('image/') || file.mimetype === 'application/pdf') cb(null, true);
-    else cb(new Error('Hanya gambar dan PDF yang didukung.'));
+    if (supportedMimes.includes(file.mimetype) || file.mimetype.startsWith('image/')) cb(null, true);
+    else cb(new Error('Hanya gambar (termasuk HEIC) dan PDF yang didukung.'));
   }
 });
 
@@ -68,8 +75,8 @@ const evidenceUpload = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: MAX_FILE_SIZE, files: 100 },
   fileFilter: (req, file, cb) => {
-    if (file.mimetype.startsWith('image/') || file.mimetype === 'application/pdf') cb(null, true);
-    else cb(new Error('Hanya gambar dan PDF yang didukung.'));
+    if (supportedMimes.includes(file.mimetype) || file.mimetype.startsWith('image/')) cb(null, true);
+    else cb(new Error('Hanya gambar (termasuk HEIC) dan PDF yang didukung.'));
   }
 });
 
@@ -100,8 +107,26 @@ function activityTimeLabel(value) {
   }).format(new Date(year, month - 1, day));
 }
 
+function formatOutputFilename(dateValue, activityName) {
+  let datePart = String(dateValue || '').trim();
+  if (/^\d{4}-\d{2}-\d{2}$/.test(datePart)) {
+    datePart = datePart.replace(/-/g, '');
+  } else if (/^\d{4}-\d{2}$/.test(datePart)) {
+    datePart = `${datePart.slice(0, 4)}${datePart.slice(5, 7)}01`;
+  } else {
+    datePart = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+  }
+
+  const safeName = String(activityName || 'kegiatan')
+    .trim()
+    .replace(/[\\/:*?"<>|]/g, '_')
+    .replace(/\s+/g, ' ');
+
+  return `${datePart}_${safeName}.pdf`;
+}
+
 function defaultEvidence() {
-  return { driveLinks: [], driveFiles: [], selectedDriveIds: [], manualFiles: [] };
+  return { driveLinks: [], driveFiles: [], selectedDriveIds: [], manualFiles: [], supportLinks: [] };
 }
 
 function normalizeActivity(activity) {
@@ -109,6 +134,7 @@ function normalizeActivity(activity) {
   if (!Array.isArray(activity.evidence.driveFiles)) activity.evidence.driveFiles = [];
   if (!Array.isArray(activity.evidence.selectedDriveIds)) activity.evidence.selectedDriveIds = [];
   if (!Array.isArray(activity.evidence.manualFiles)) activity.evidence.manualFiles = [];
+  if (!Array.isArray(activity.evidence.supportLinks)) activity.evidence.supportLinks = [];
   activity.generatedPdfs = activity.generatedPdfs || [];
   return activity;
 }
@@ -129,11 +155,21 @@ function collectDriveLinks(input) {
   return String(input || '').split(/\n|,/).map(item => item.trim()).filter(Boolean);
 }
 
+function collectSupportLinks(input) {
+  if (Array.isArray(input)) return input.map(item => String(item).trim()).filter(Boolean);
+  return String(input || '').split(/\n|,/).map(item => item.trim()).filter(Boolean);
+}
+
 function activityStatus(activity) {
   const evidence = normalizeActivity({ evidence: activity.evidence }).evidence;
   const driveCount = getSelectedDriveIds(evidence).length;
+  const supportCount = Array.isArray(evidence.supportLinks) ? evidence.supportLinks.length : 0;
   const count = driveCount + evidence.manualFiles.length;
-  return count ? `${count} bukti siap` : 'Menunggu bukti';
+
+  if (count && supportCount) return `${count} bukti siap + ${supportCount} bukti dukung`;
+  if (count) return `${count} bukti siap`;
+  if (supportCount) return `${supportCount} bukti dukung`;
+  return 'Menunggu bukti';
 }
 
 app.get('/api/health', (req, res) => res.json({ ok: true }));
@@ -374,11 +410,12 @@ app.get('/api/periods/:periodId/export', async (req, res) => {
       Tanggal: activity.waktu ? activityTimeLabel(activity.waktu) : '',
       Kegiatan: activity.kegiatan || '',
       Catatan: activity.catatan || '',
-      'Status Bukti': activityStatus(activity)
+      'Status Bukti': activityStatus(activity),
+      bukti_dukung: (activity.evidence?.supportLinks || []).join(' | ')
     }));
 
     const worksheet = XLSX.utils.json_to_sheet(rows, {
-      header: ['No', 'Tanggal', 'Kegiatan', 'Catatan', 'Status Bukti']
+      header: ['No', 'Tanggal', 'Kegiatan', 'Catatan', 'Status Bukti', 'bukti_dukung']
     });
     const workbook = XLSX.utils.book_new();
     const sheetName = String(period.label || period.month).slice(0, 31) || 'Kegiatan';
@@ -417,6 +454,7 @@ app.put('/api/periods/:periodId/activities/:activityId/drive-evidence', async (r
     found.evidence.driveLinks = collectDriveLinks(req.body.driveLinks);
     found.evidence.selectedDriveIds = selectedDriveIds;
     found.evidence.driveFiles = driveFiles;
+    found.evidence.supportLinks = collectSupportLinks(req.body.supportLinks);
     found.updatedAt = new Date().toISOString();
     return found;
   });
@@ -579,9 +617,10 @@ app.post('/api/generate', upload.array('manualFiles', 100), async (req, res) => 
     const imagePaths = await normalizeEvidenceFn(allFiles, processedDir);
     if (!imagePaths.length) throw new Error('Tidak ada bukti yang berhasil diproses. Gunakan gambar atau PDF.');
 
-    const safeName = `${nama || 'CKP'}-${nip || 'NIP'}`.replace(/[^a-zA-Z0-9-_]/g, '_');
-    const outputPath = path.join(OUTPUT_DIR, `Bukti_CKP_${safeName}_${Date.now()}.pdf`);
+    const filename = formatOutputFilename(waktu, kegiatan);
+    const outputPath = path.join(OUTPUT_DIR, filename);
     await generatePdf({ nama, nip, periode, waktu: activityTimeLabel(waktu), kegiatan, imagePaths, outputPath });
+    console.log('[server] Generated PDF without uploading to Drive:', outputPath);
 
     res.download(outputPath, path.basename(outputPath), async (err) => {
       await cleanup();
@@ -595,9 +634,19 @@ app.post('/api/generate', upload.array('manualFiles', 100), async (req, res) => 
 });
 
 app.post('/api/periods/:periodId/activities/:activityId/generate', async (req, res) => {
+  const requestId = uuidv4();
+  const startAt = Date.now();
+  console.log(`[generate] Request ${requestId} start`, {
+    periodId: req.params.periodId,
+    activityId: req.params.activityId
+  });
+
   const data = await readData();
   const { period, activity } = findActivity(data, req.params.periodId, req.params.activityId);
-  if (!period || !activity) return res.status(404).json({ error: 'Kegiatan tidak ditemukan.' });
+  if (!period || !activity) {
+    console.error(`[generate] Request ${requestId} not found`, { periodId: req.params.periodId, activityId: req.params.activityId });
+    return res.status(404).json({ error: 'Kegiatan tidak ditemukan.' });
+  }
   normalizeActivity(activity);
 
   const jobId = uuidv4();
@@ -614,20 +663,30 @@ app.post('/api/periods/:periodId/activities/:activityId/generate', async (req, r
 
   try {
     const driveIds = getSelectedDriveIds(activity.evidence);
+    console.log(`[generate] Request ${requestId} fetching evidence`, {
+      driveIdsCount: driveIds.length,
+      manualCount: Array.isArray(activity.evidence.manualFiles) ? activity.evidence.manualFiles.length : 0
+    });
+
     const driveFiles = driveIds.length
       ? await downloadDriveFilesByIds(driveIds, driveDir)
       : [];
+    console.log(`[generate] Request ${requestId} downloaded drive files`, { driveFilesCount: driveFiles.length });
+
     const manualFiles = await Promise.all((Array.isArray(activity.evidence.manualFiles) ? activity.evidence.manualFiles : []).map(file => materializeStoredFile(file, manualDir)));
+    console.log(`[generate] Request ${requestId} materialized manual files`, { manualFilesCount: manualFiles.length });
+
     const allFiles = [...driveFiles, ...manualFiles];
     if (!allFiles.length) throw new Error('Kegiatan ini belum memiliki bukti dukung.');
 
     const normalizeEvidenceFn = getNormalizeEvidence();
     const imagePaths = await normalizeEvidenceFn(allFiles, processedDir);
+    console.log(`[generate] Request ${requestId} evidence processed`, { imagePathsCount: imagePaths.length });
     if (!imagePaths.length) throw new Error('Tidak ada bukti yang berhasil diproses. Gunakan gambar atau PDF.');
 
     const profile = findProfile(data, data.selectedProfileId) || { nama: '', nip: '' };
-    const safeName = `${profile.nama || 'CKP'}-${profile.nip || 'NIP'}-${period.month}`.replace(/[^a-zA-Z0-9-_]/g, '_');
-    const outputPath = path.join(OUTPUT_DIR, `Bukti_CKP_${safeName}_${Date.now()}.pdf`);
+    const filename = formatOutputFilename(activity.waktu, activity.kegiatan);
+    const outputPath = path.join(OUTPUT_DIR, filename);
     await generatePdf({
       nama: profile.nama,
       nip: profile.nip,
@@ -637,9 +696,11 @@ app.post('/api/periods/:periodId/activities/:activityId/generate', async (req, r
       imagePaths,
       outputPath
     });
+    console.log(`[generate] Request ${requestId} PDF generated`, { outputPath });
 
-    const filename = path.basename(outputPath);
     const pdf = await persistOutputPdf(outputPath, filename);
+    console.log(`[generate] Request ${requestId} PDF persisted`, { pdfUrl: pdf.url, filename: pdf.filename });
+
     await updateData((fresh) => {
       const { activity: freshActivity } = findActivity(fresh, req.params.periodId, req.params.activityId);
       if (!freshActivity) return null;
@@ -651,10 +712,19 @@ app.post('/api/periods/:periodId/activities/:activityId/generate', async (req, r
       return freshActivity;
     });
 
+    console.log(`[generate] Request ${requestId} skipped Drive upload and completed`);
+    const elapsedMs = Date.now() - startAt;
+    console.log(`[generate] Request ${requestId} completed`, { elapsedMs });
     res.json({ filename: pdf.filename, url: pdf.url });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: err.message || 'Gagal membuat PDF.' });
+    await cleanup();
+    console.error(`[generate] Request ${requestId} failed`, {
+      message: err.message,
+      stack: err.stack,
+      periodId: req.params.periodId,
+      activityId: req.params.activityId
+    });
+    res.status(500).json({ error: err.message || 'Gagal membuat PDF.', stack: err.stack });
   } finally {
     await cleanup();
   }
@@ -662,8 +732,39 @@ app.post('/api/periods/:periodId/activities/:activityId/generate', async (req, r
 
 app.get('/api/output/:filename', async (req, res) => {
   const filename = path.basename(req.params.filename);
-  if (!/^Bukti_CKP_[\w.-]+\.pdf$/.test(filename)) return res.status(400).send('Nama file tidak valid.');
+  if (!/^[A-Za-z0-9 _\-.]+\.pdf$/.test(filename)) return res.status(400).send('Nama file tidak valid.');
   await sendOutputPdf(res, filename);
+});
+
+app.get('/api/diagnostics', async (req, res) => {
+  try {
+    const storageInfo = await getStorageInfo();
+    const isDev = !process.env.VERCEL;
+    res.json({
+      environment: {
+        vercel: process.env.VERCEL === '1',
+        nodeEnv: process.env.NODE_ENV || 'development',
+        platform: process.env.VERCEL_PLATFORM_OS || 'unknown'
+      },
+      storage: storageInfo,
+      features: {
+        googleDrive: !!process.env.GOOGLE_SERVICE_ACCOUNT_JSON || !!process.env.GOOGLE_APPLICATION_CREDENTIALS,
+        blob: storageInfo.usesBlob,
+        pdfGeneration: true
+      },
+      limits: {
+        maxUploadMB: MAX_FILE_SIZE / 1024 / 1024,
+        maxTimeout: 300
+      },
+      status: 'healthy'
+    });
+  } catch (err) {
+    console.error('[/api/diagnostics] ERROR:', err.message);
+    res.status(500).json({
+      error: err.message,
+      status: 'degraded'
+    });
+  }
 });
 
 app.use((err, req, res, next) => {

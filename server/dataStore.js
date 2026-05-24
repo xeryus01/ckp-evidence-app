@@ -10,6 +10,10 @@ const DATA_BLOB_PATH = process.env.DATA_BLOB_PATH || 'data/app-data.json';
 const USE_BLOB = Boolean(process.env.BLOB_READ_WRITE_TOKEN);
 const IS_VERCEL = Boolean(process.env.VERCEL);
 
+// In-memory cache for data persistence on Vercel
+let inMemoryDataCache = null;
+let inMemoryDataLastUpdate = 0;
+
 function emptyData() {
   return {
     profiles: [],
@@ -54,25 +58,41 @@ async function ensureDataFile() {
 
 async function readData() {
   console.log('[readData] Starting - USE_BLOB:', USE_BLOB, 'IS_VERCEL:', IS_VERCEL);
+  
   try {
+    // Check in-memory cache first (for Vercel without Blob)
+    if (IS_VERCEL && !USE_BLOB && inMemoryDataCache) {
+      console.log('[readData] Using in-memory cache');
+      return inMemoryDataCache;
+    }
+
     if (USE_BLOB) {
       console.log('[readData] Attempting Blob read from', DATA_BLOB_PATH);
       try {
         const stored = await get(DATA_BLOB_PATH, { access: 'public', useCache: false });
         console.log('[readData] Blob read successful, has stream:', !!stored?.stream);
+        
         if (!stored?.stream) {
           console.log('[readData] No stream in Blob response');
-          return emptyData();
+          const emptyDataSet = emptyData();
+          inMemoryDataCache = emptyDataSet;
+          return emptyDataSet;
         }
+        
         const raw = (await buffer(Readable.fromWeb(stored.stream))).toString('utf8');
         console.log('[readData] Blob data buffered, length:', raw.length);
+        
         try {
           const parsed = JSON.parse(raw);
           console.log('[readData] Blob JSON parsed successfully');
-          return normalizeLegacyData(parsed);
+          const normalized = normalizeLegacyData(parsed);
+          inMemoryDataCache = normalized; // Cache it
+          return normalized;
         } catch (parseErr) {
           console.warn('[readData] Failed to parse Blob data:', parseErr.message);
-          return emptyData();
+          const emptyDataSet = emptyData();
+          inMemoryDataCache = emptyDataSet;
+          return emptyDataSet;
         }
       } catch (blobErr) {
         console.error('[readData] Blob read error:', {
@@ -80,52 +100,78 @@ async function readData() {
           code: blobErr.code,
           statusCode: blobErr.statusCode
         });
-        // If Blob read fails on Vercel, return empty data instead of crashing
-        if (IS_VERCEL) {
-          console.warn('[readData] Using empty data as fallback on Vercel');
-          return emptyData();
+        
+        // Fallback to in-memory cache if available
+        if (inMemoryDataCache) {
+          console.warn('[readData] Blob failed, using in-memory cache');
+          return inMemoryDataCache;
         }
+        
+        if (IS_VERCEL) {
+          console.warn('[readData] Blob read failed on Vercel, using empty data');
+          const emptyDataSet = emptyData();
+          inMemoryDataCache = emptyDataSet;
+          return emptyDataSet;
+        }
+        
         throw blobErr;
       }
     }
 
-    if (IS_VERCEL) {
-      console.log('[readData] On Vercel without Blob, returning empty data');
-      return emptyData();
+    if (IS_VERCEL && !USE_BLOB) {
+      console.log('[readData] On Vercel without Blob, using in-memory cache');
+      if (inMemoryDataCache) return inMemoryDataCache;
+      const emptyDataSet = emptyData();
+      inMemoryDataCache = emptyDataSet;
+      return emptyDataSet;
     }
 
+    // Local filesystem read
     console.log('[readData] Reading from local filesystem:', DATA_PATH);
     await ensureDataFile();
     const raw = await fs.readFile(DATA_PATH, 'utf8');
     console.log('[readData] Local file read, length:', raw.length);
+    
     try {
       const parsed = JSON.parse(raw);
       console.log('[readData] Local JSON parsed successfully');
-      return normalizeLegacyData(parsed);
+      const normalized = normalizeLegacyData(parsed);
+      inMemoryDataCache = normalized;
+      return normalized;
     } catch {
       console.warn('[readData] Failed to parse local data');
-      return emptyData();
+      const emptyDataSet = emptyData();
+      inMemoryDataCache = emptyDataSet;
+      return emptyDataSet;
     }
   } catch (error) {
     console.error('[readData] fatal error:', {
       message: error.message,
       stack: error.stack?.slice(0, 200)
     });
-    return emptyData();
+    const emptyDataSet = emptyData();
+    inMemoryDataCache = emptyDataSet;
+    return emptyDataSet;
   }
 }
 
 async function writeData(data) {
   console.log('[writeData] Starting - USE_BLOB:', USE_BLOB, 'IS_VERCEL:', IS_VERCEL);
+  
   try {
     const normalized = normalizeLegacyData(data);
     console.log('[writeData] Data normalized, profiles:', normalized.profiles.length);
+
+    // Always update in-memory cache
+    inMemoryDataCache = normalized;
+    inMemoryDataLastUpdate = Date.now();
 
     if (USE_BLOB) {
       console.log('[writeData] Attempting Blob write to', DATA_BLOB_PATH);
       try {
         const jsonStr = JSON.stringify(normalized, null, 2);
         console.log('[writeData] JSON stringified, length:', jsonStr.length);
+        
         await put(DATA_BLOB_PATH, jsonStr, {
           access: 'public',
           contentType: 'application/json',
@@ -140,24 +186,31 @@ async function writeData(data) {
           code: blobErr.code,
           statusCode: blobErr.statusCode
         });
+        
         if (IS_VERCEL) {
-          console.warn('[writeData] Blob write failed on Vercel, continuing anyway');
+          console.warn('[writeData] Blob write failed on Vercel, data kept in memory');
+          // Data is already in inMemoryDataCache, so reads will work
           return normalized;
         }
+        
         throw blobErr;
       }
     }
 
     if (IS_VERCEL) {
-      console.error('[writeData] BLOB_READ_WRITE_TOKEN not configured on Vercel');
-      throw new Error('BLOB_READ_WRITE_TOKEN belum diatur. Hubungkan Vercel Blob agar data dashboard bisa tersimpan.');
+      console.log('[writeData] On Vercel without Blob, data kept in memory');
+      // Data is already in inMemoryDataCache
+      return normalized;
     }
 
+    // Local filesystem write
+    console.log('[writeData] Writing to local filesystem:', DATA_PATH);
     await fs.mkdir(path.dirname(DATA_PATH), { recursive: true });
     await fs.writeFile(DATA_PATH, JSON.stringify(normalized, null, 2));
+    console.log('[writeData] Local write successful');
     return normalized;
   } catch (error) {
-    console.error('writeData error:', error.message);
+    console.error('[writeData] error:', error.message);
     throw error;
   }
 }
@@ -176,7 +229,10 @@ async function getStorageInfo() {
     isVercel: IS_VERCEL,
     blobToken: Boolean(process.env.BLOB_READ_WRITE_TOKEN),
     dataPath: DATA_PATH,
-    blobPath: DATA_BLOB_PATH
+    blobPath: DATA_BLOB_PATH,
+    inMemoryCacheActive: !!inMemoryDataCache,
+    inMemoryCacheProfiles: inMemoryDataCache?.profiles?.length || 0,
+    lastCacheUpdate: inMemoryDataLastUpdate ? new Date(inMemoryDataLastUpdate).toISOString() : 'never'
   };
 }
 

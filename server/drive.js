@@ -20,17 +20,53 @@ function getDriveId(urlOrId) {
 }
 
 function getAuth() {
-  const scopes = ['https://www.googleapis.com/auth/drive.readonly'];
+  const scopes = ['https://www.googleapis.com/auth/drive'];
   if (process.env.GOOGLE_SERVICE_ACCOUNT_JSON) {
     const credentials = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON);
     return new google.auth.GoogleAuth({ credentials, scopes });
   }
+
+  const keyFilename = process.env.GOOGLE_APPLICATION_CREDENTIALS
+    || path.join(__dirname, '..', 'service-account.json');
+
+  if (fs.existsSync(keyFilename)) {
+    return new google.auth.GoogleAuth({ keyFilename, scopes });
+  }
+
   return new google.auth.GoogleAuth({ scopes });
 }
 
 async function getDrive() {
   const auth = await getAuth().getClient();
   return google.drive({ version: 'v3', auth });
+}
+
+async function uploadFileToFolder(filePath, folderId, fileName) {
+  const drive = await getDrive();
+  const mimeType = mime.contentType(path.extname(filePath)) || 'application/pdf';
+  const stats = fs.statSync(filePath);
+  console.log(`[drive] Uploading file to Drive folder ${folderId}:`, {
+    filePath,
+    fileName,
+    mimeType,
+    fileSizeBytes: stats.size
+  });
+  const fileMetadata = {
+    name: fileName,
+    parents: [folderId]
+  };
+  const media = {
+    mimeType,
+    body: fs.createReadStream(filePath)
+  };
+
+  const response = await drive.files.create({
+    requestBody: fileMetadata,
+    media,
+    fields: 'id,name,mimeType,webViewLink,parents',
+    supportsAllDrives: true
+  });
+  return response.data;
 }
 
 async function getMeta(drive, fileId) {
@@ -136,5 +172,12 @@ async function streamDriveFileById(fileId) {
   return { stream: res.data, meta };
 }
 
-module.exports = { downloadFromDriveLinks, getDriveId, listFromDriveLinks, downloadDriveFilesByIds, streamDriveFileById };
+module.exports = {
+  downloadFromDriveLinks,
+  getDriveId,
+  listFromDriveLinks,
+  downloadDriveFilesByIds,
+  streamDriveFileById,
+  uploadFileToFolder
+};
 

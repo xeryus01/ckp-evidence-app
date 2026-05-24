@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "Website pembuat dokumen PDF bukti dukung CKP dari Google Drive, PDF, dan upload manual.",
   "main": "server/index.js",
+  "packageManager": "npm@10",
   "engines": {
-    "node": "22.x"
+    "node": "20.x",
+    "npm": "10.x"
   },
   "scripts": {
     "dev": "nodemon server/index.js",

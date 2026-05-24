@@ -162,7 +162,7 @@ function drawPageNumbers(doc) {
 async function generatePdf({ nama, nip, periode, waktu, kegiatan, imagePaths, outputPath }) {
   return new Promise(async (resolve, reject) => {
     try {
-      const doc = new PDFDocument({ size: 'A4', layout: 'portrait', margin: 36, autoFirstPage: true, bufferPages: true });
+      const doc = new PDFDocument({ size: 'A4', layout: 'portrait', margin: 36, autoFirstPage: true, bufferPages: true, compress: true });
       const stream = fs.createWriteStream(outputPath);
       doc.pipe(stream);
 
