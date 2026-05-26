@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard Bukti CKP</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">CKP Evidence</p>
+        <h1>Dashboard Bukti Dukung</h1>
+      </div>
+      <form id="profileForm" class="profile-form">
+        <div class="profile-select-row">
+          <label>Profil
+            <select id="profileSelect"></select>
+          </label>
+          <button type="button" id="newProfileBtn" class="secondary mini">Profil Baru</button>
+        </div>
+        <label>Nama
+          <input id="namaInput" name="nama" required placeholder="Nama pegawai" />
+        </label>
+        <label>NIP
+          <input id="nipInput" name="nip" required placeholder="NIP" />
+        </label>
+        <button type="submit">Simpan</button>
+      </form>
+    </header>
+
+    <section class="workspace">
+      <aside class="period-panel">
+        <form id="periodForm" class="period-form">
+          <label>Periode CKP
+            <input id="periodMonth" name="month" type="month" required />
+          </label>
+          <button type="submit">Tambah Periode</button>
+        </form>
+        <div id="periodList" class="period-list"></div>
+      </aside>
+
+      <section class="main-panel">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">Periode aktif</p>
+            <h2 id="currentPeriodTitle">Belum ada periode</h2>
+          </div>
+          <div class="panel-actions">
+            <p id="periodSummary" class="muted"></p>
+            <button type="button" id="exportExcelBtn" class="secondary hidden">Ekspor Excel</button>
+          </div>
+        </div>
+
+        <form id="activityForm" class="activity-form hidden">
+          <div class="field-row">
+            <label>Nama Kegiatan
+              <textarea id="activityKegiatan" name="kegiatan" rows="2" required placeholder="Tulis kegiatan CKP"></textarea>
+            </label>
+            <label>Waktu
+              <input id="activityWaktu" name="waktu" type="date" />
+            </label>
+          </div>
+          <label>Catatan
+            <input id="activityCatatan" name="catatan" placeholder="Opsional" />
+          </label>
+          <div class="button-row">
+            <button type="submit" id="activitySubmitBtn">Tambah Kegiatan</button>
+            <button type="button" id="activityCancelBtn" class="secondary hidden">Batal</button>
+          </div>
+        </form>
+
+        <div id="calendarPanel" class="calendar-panel hidden">
+          <div class="calendar-head">
+            <div>
+              <p class="eyebrow">Kalender Periode</p>
+              <h3 id="calendarTitle">Hari Kosong</h3>
+            </div>
+            <p id="calendarSummary" class="muted"></p>
+          </div>
+          <div id="calendarGrid" class="calendar-grid"></div>
+        </div>
+
+        <div id="emptyState" class="empty-state">Buat atau pilih periode untuk mulai menyusun daftar kegiatan.</div>
+        <div id="activityList" class="activity-list"></div>
+      </section>
+    </section>
+
+    <div id="progressModal" class="progress-modal hidden">
+      <div class="progress-overlay">
+        <div class="progress-card">
+          <h2>Membuat PDF</h2>
+          <p id="progressMessage" class="progress-message">Mempersiapkan...</p>
+          <div class="progress-bar-container">
+            <div id="progressBar" class="progress-bar" style="width: 0%"></div>
+          </div>
+          <p id="progressPercent" class="progress-percent">0%</p>
+          <div id="progressLog" class="progress-log"></div>
+        </div>
+      </div>
+    </div>
+
+    <section id="evidencePanel" class="evidence-panel hidden">
+      <div class="panel-head">
+        <div>
+          <p class="eyebrow">Bukti kegiatan</p>
+          <h2 id="evidenceTitle">Pilih kegiatan</h2>
+        </div>
+        <button id="closeEvidenceBtn" type="button" class="ghost">Tutup</button>
+      </div>
+
+      <div class="evidence-grid">
+        <form id="driveForm" class="evidence-box">
+          <h3>Google Drive</h3>
+          <label>Link file/folder
+            <textarea id="driveLinks" rows="4" placeholder="Tempel satu atau beberapa link Drive"></textarea>
+          </label>
+          <label>Link bukti pendukung
+            <textarea id="supportLinks" rows="3" placeholder="Tempel satu atau beberapa link Instagram, website, atau sumber lain"></textarea>
+          </label>
+          <div class="button-row">
+            <button id="previewBtn" type="button" class="secondary">Cek File</button>
+            <button id="saveDriveBtn" type="submit">Simpan Pilihan</button>
+          </div>
+          <div id="drivePicker" class="drive-picker hidden">
+            <div class="picker-head">
+              <strong>File Drive</strong>
+              <div>
+                <button type="button" class="mini" id="selectAllBtn">Pilih semua</button>
+                <button type="button" class="mini secondary-mini" id="clearAllBtn">Kosongkan</button>
+              </div>
+            </div>
+            <div id="driveList" class="drive-list"></div>
+          </div>
+        </form>
+
+        <form id="manualForm" class="evidence-box">
+          <h3>Upload Manual</h3>
+          <label>Gambar/PDF
+            <input id="manualFiles" type="file" name="manualFiles" multiple accept="image/*,.pdf,application/pdf" />
+          </label>
+          <button type="submit">Upload Bukti</button>
+          <div id="manualList" class="file-list"></div>
+        </form>
+      </div>
+    </section>
+
+    <p id="status" class="status"></p>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

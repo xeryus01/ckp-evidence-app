@@ -1,0 +1,11 @@
+{
+  "remoteName": "origin",
+  "projects": [
+    {
+      "id": "prj_YuVd0krFBu6dfx9YY6VfRS7CyWtq",
+      "name": "ckp-app",
+      "directory": ".",
+      "orgId": "team_0hFr05wvglFXOtIUxVOBnWGp"
+    }
+  ]
+}

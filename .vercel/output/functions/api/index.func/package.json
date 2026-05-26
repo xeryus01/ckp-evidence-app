@@ -1,0 +1,42 @@
+{
+  "name": "ckp-evidence-app",
+  "version": "1.0.0",
+  "description": "Website pembuat dokumen PDF bukti dukung CKP dari Google Drive, PDF, dan upload manual.",
+  "main": "server/index.js",
+  "engines": {
+    "node": "22.x"
+  },
+  "scripts": {
+    "dev": "nodemon server/index.js",
+    "start": "node server/index.js",
+    "vercel:setup": "node scripts/vercel-cli.js setup",
+    "vercel:check": "node scripts/vercel-cli.js check",
+    "vercel:env:google": "node scripts/vercel-cli.js env:google",
+    "upload:vercel": "node scripts/vercel-cli.js deploy --preview",
+    "deploy:preview": "node scripts/vercel-cli.js deploy --preview",
+    "deploy:prod": "node scripts/vercel-cli.js deploy --prod",
+    "migrate:vercel": "node scripts/migrate-local-to-vercel.js"
+  },
+  "dependencies": {
+    "@napi-rs/canvas": "latest",
+    "@vercel/blob": "^2.3.3",
+    "canvas": "^3.2.3",
+    "cors": "latest",
+    "dotenv": "latest",
+    "express": "latest",
+    "googleapis": "latest",
+    "heic-convert": "^2.1.0",
+    "heic2any": "^0.0.4",
+    "jimp": "^0.22.12",
+    "mime-types": "latest",
+    "multer": "latest",
+    "pdfjs-dist": "latest",
+    "pdfkit": "latest",
+    "sharp": "latest",
+    "uuid": "latest",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "nodemon": "latest"
+  }
+}
