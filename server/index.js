@@ -311,13 +311,17 @@ app.post('/api/periods/:periodId/activities', async (req, res) => {
     const newActivity = normalizeActivity({
       id: uuidv4(),
       kegiatan: String(req.body.kegiatan || '').trim(),
-      waktu: String(req.body.waktu || '').trim(),
+      startDate: String(req.body.startDate || '').trim(),
+      endDate: String(req.body.endDate || '').trim(),
+      startTime: String(req.body.startTime || '').trim(),
+      endTime: String(req.body.endTime || '').trim(),
+      waktu: String(req.body.startDate || req.body.waktu || '').trim(),
       catatan: String(req.body.catatan || '').trim(),
       createdAt: new Date().toISOString()
     });
     if (!newActivity.kegiatan) throw new Error('Nama kegiatan wajib diisi.');
     period.activities.push(newActivity);
-    period.activities.sort((a, b) => String(b.waktu || '').localeCompare(String(a.waktu || '')));
+    period.activities.sort((a, b) => String(b.startDate || b.waktu || '').localeCompare(String(a.startDate || a.waktu || '')));
     return newActivity;
   });
   if (!activity) return res.status(404).json({ error: 'Periode tidak ditemukan.' });
@@ -330,11 +334,18 @@ app.patch('/api/periods/:periodId/activities/:activityId', async (req, res) => {
     if (!found) return null;
     if (req.body.kegiatan !== undefined) found.kegiatan = String(req.body.kegiatan || '').trim();
     if (req.body.waktu !== undefined) found.waktu = String(req.body.waktu || '').trim();
+    if (req.body.startDate !== undefined) {
+      found.startDate = String(req.body.startDate || '').trim();
+      found.waktu = found.startDate || String(found.waktu || '').trim();
+    }
+    if (req.body.endDate !== undefined) found.endDate = String(req.body.endDate || '').trim();
+    if (req.body.startTime !== undefined) found.startTime = String(req.body.startTime || '').trim();
+    if (req.body.endTime !== undefined) found.endTime = String(req.body.endTime || '').trim();
     if (req.body.catatan !== undefined) found.catatan = String(req.body.catatan || '').trim();
     found.updatedAt = new Date().toISOString();
     const normalized = normalizeActivity(found);
     if (period?.activities) {
-      period.activities.sort((a, b) => String(b.waktu || '').localeCompare(String(a.waktu || '')));
+      period.activities.sort((a, b) => String(b.startDate || b.waktu || '').localeCompare(String(a.startDate || a.waktu || '')));
     }
     return normalized;
   });
@@ -385,12 +396,16 @@ app.post('/api/periods/:periodId/activities/:activityId/duplicate', async (req, 
       id: uuidv4(),
       kegiatan: activity.kegiatan,
       waktu,
+      startDate: waktu,
+      endDate: activity.endDate || '',
+      startTime: activity.startTime || '',
+      endTime: activity.endTime || '',
       catatan: activity.catatan || '',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     });
     targetPeriod.activities.push(duplicatedActivity);
-    targetPeriod.activities.sort((a, b) => String(b.waktu || '').localeCompare(String(a.waktu || '')));
+    targetPeriod.activities.sort((a, b) => String(b.startDate || b.waktu || '').localeCompare(String(a.startDate || a.waktu || '')));
 
     return { activity: duplicatedActivity, period: { id: targetPeriod.id, month: targetPeriod.month, label: targetPeriod.label } };
   });
@@ -405,17 +420,56 @@ app.get('/api/periods/:periodId/export', async (req, res) => {
     const period = findPeriod(data, req.params.periodId);
     if (!period) return res.status(404).json({ error: 'Periode tidak ditemukan.' });
 
-    const rows = (Array.isArray(period.activities) ? period.activities : []).map((activity, index) => ({
-      No: index + 1,
-      Tanggal: activity.waktu ? activityTimeLabel(activity.waktu) : '',
-      Kegiatan: activity.kegiatan || '',
-      Catatan: activity.catatan || '',
-      'Status Bukti': activityStatus(activity),
-      bukti_dukung: (activity.evidence?.supportLinks || []).join(' | ')
-    }));
+    const parseActivityTime = (value) => {
+      const raw = String(value || '').trim();
+      if (!raw) return { date: '', startTime: '', endTime: '' };
+
+      const dateOnlyMatch = raw.match(/^(\d{4}-\d{2}-\d{2})$/);
+      if (dateOnlyMatch) {
+        return { date: activityTimeLabel(dateOnlyMatch[1]), startTime: '', endTime: '' };
+      }
+
+      const dateTimeMatch = raw.match(/^(\d{4}-\d{2}-\d{2})[ T]+(.+)$/);
+      if (dateTimeMatch) {
+        const dateLabel = activityTimeLabel(dateTimeMatch[1]);
+        const timePart = dateTimeMatch[2].trim();
+        const rangeMatch = timePart.match(/^(\d{2}:\d{2}(?::\d{2})?)\s*[-–—]\s*(\d{2}:\d{2}(?::\d{2})?)$/);
+        if (rangeMatch) {
+          return { date: dateLabel, startTime: rangeMatch[1], endTime: rangeMatch[2] };
+        }
+        const singleTimeMatch = timePart.match(/^(\d{2}:\d{2}(?::\d{2})?)$/);
+        if (singleTimeMatch) {
+          return { date: dateLabel, startTime: singleTimeMatch[1], endTime: '' };
+        }
+        return { date: dateLabel, startTime: '', endTime: '' };
+      }
+
+      return { date: raw, startTime: '', endTime: '' };
+    };
+
+    const rows = (Array.isArray(period.activities) ? period.activities : []).map((activity, index) => {
+      const parsed = parseActivityTime(activity.waktu);
+      const dateLabel = activity.startDate ? activityTimeLabel(activity.startDate) : parsed.date;
+      const startTime = activity.startTime || parsed.startTime;
+      const endTime = activity.endTime || parsed.endTime;
+      return {
+        No: index + 1,
+        Tanggal: dateLabel,
+        'Tanggal Mulai': activity.startDate ? activityTimeLabel(activity.startDate) : '',
+        'Tanggal Selesai': activity.endDate ? activityTimeLabel(activity.endDate) : '',
+        'Jam Mulai': startTime,
+        'Jam Selesai': endTime,
+        Kegiatan: activity.kegiatan || '',
+        Catatan: activity.catatan || '',
+        Progres: 100,
+        'Centang SKP': 1,
+        'Status Bukti': activityStatus(activity),
+        'Link Bukti Dukung': ''
+      };
+    });
 
     const worksheet = XLSX.utils.json_to_sheet(rows, {
-      header: ['No', 'Tanggal', 'Kegiatan', 'Catatan', 'Status Bukti', 'bukti_dukung']
+      header: ['No', 'Tanggal', 'Tanggal Mulai', 'Tanggal Selesai', 'Jam Mulai', 'Jam Selesai', 'Kegiatan', 'Catatan', 'Progres', 'Centang SKP', 'Status Bukti', 'Link Bukti Dukung']
     });
     const workbook = XLSX.utils.book_new();
     const sheetName = String(period.label || period.month).slice(0, 31) || 'Kegiatan';

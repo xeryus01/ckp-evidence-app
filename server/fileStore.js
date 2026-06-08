@@ -3,10 +3,21 @@ const fsp = require('fs/promises');
 const path = require('path');
 const { Readable } = require('stream');
 const { pipeline } = require('stream/promises');
-const { del, get, put } = require('@vercel/blob');
 
 const hasBlob = Boolean(process.env.BLOB_READ_WRITE_TOKEN);
 const isVercel = Boolean(process.env.VERCEL);
+
+let blobClient = null;
+function getBlobClient() {
+  if (blobClient !== null) return blobClient;
+  try {
+    blobClient = require('@vercel/blob');
+  } catch (err) {
+    console.warn('[fileStore] @vercel/blob import failed:', err.message);
+    blobClient = null;
+  }
+  return blobClient;
+}
 const TMP_ROOT = process.env.TMP_DIR || (process.env.VERCEL ? '/tmp/ckp-evidence' : 'storage/tmp');
 const OUTPUT_DIR = process.env.OUTPUT_DIR || (process.env.VERCEL ? path.join(TMP_ROOT, 'output') : 'storage/output');
 const EVIDENCE_DIR = process.env.EVIDENCE_DIR || 'storage/evidence';
@@ -53,40 +64,46 @@ async function saveManualEvidence(file, periodId, activityId) {
   const filename = `${Date.now()}-${safeFilename(file.originalname)}`;
 
   if (hasBlob) {
+    const blob = getBlobClient();
     const pathname = blobPath('evidence', periodId, activityId, filename);
-    try {
-      const stored = await put(pathname, file.buffer, {
-        access: 'public',
-        contentType: file.mimetype,
-        addRandomSuffix: true
-      });
-      return {
-        name: file.originalname,
-        filename: stored.pathname.split('/').pop(),
-        blobPath: stored.pathname,
-        blobUrl: stored.url,
-        mimetype: file.mimetype,
-        size: file.size
-      };
-    } catch (err) {
-      console.error('[saveManualEvidence] Blob upload failed:', err.message);
-      // Fallback to in-memory if Blob fails
-      const fileKey = blobPath('evidence', periodId, activityId, filename);
-      inMemoryFiles.set(fileKey, {
-        buffer: file.buffer,
-        mimetype: file.mimetype,
-        name: file.originalname
-      });
-      console.log('[saveManualEvidence] Fallback to in-memory storage:', fileKey);
-      return {
-        name: file.originalname,
-        filename,
-        inMemoryKey: fileKey,
-        blobPath: null,
-        mimetype: file.mimetype,
-        size: file.size
-      };
+    if (blob) {
+      try {
+        const stored = await blob.put(pathname, file.buffer, {
+          access: 'public',
+          contentType: file.mimetype,
+          addRandomSuffix: true
+        });
+        return {
+          name: file.originalname,
+          filename: stored.pathname.split('/').pop(),
+          blobPath: stored.pathname,
+          blobUrl: stored.url,
+          mimetype: file.mimetype,
+          size: file.size
+        };
+      } catch (err) {
+        console.error('[saveManualEvidence] Blob upload failed:', err.message);
+      }
+    } else {
+      console.warn('[saveManualEvidence] Blob client unavailable, falling back to in-memory storage');
     }
+
+    // Fallback to in-memory if Blob fails or is unavailable
+    const fileKey = blobPath('evidence', periodId, activityId, filename);
+    inMemoryFiles.set(fileKey, {
+      buffer: file.buffer,
+      mimetype: file.mimetype,
+      name: file.originalname
+    });
+    console.log('[saveManualEvidence] Fallback to in-memory storage:', fileKey);
+    return {
+      name: file.originalname,
+      filename,
+      inMemoryKey: fileKey,
+      blobPath: null,
+      mimetype: file.mimetype,
+      size: file.size
+    };
   }
 
   if (isVercel) {
@@ -129,11 +146,16 @@ async function deleteStoredFile(file) {
     return;
   }
   if (file?.blobPath && hasBlob) {
-    try {
-      await del(file.blobPath);
-      console.log('[deleteStoredFile] Deleted from Blob:', file.blobPath);
-    } catch (err) {
-      console.warn('[deleteStoredFile] Failed to delete from Blob:', err.message);
+    const blob = getBlobClient();
+    if (blob) {
+      try {
+        await blob.del(file.blobPath);
+        console.log('[deleteStoredFile] Deleted from Blob:', file.blobPath);
+      } catch (err) {
+        console.warn('[deleteStoredFile] Failed to delete from Blob:', err.message);
+      }
+    } else {
+      console.warn('[deleteStoredFile] Blob client unavailable, cannot delete blob path:', file.blobPath);
     }
     return;
   }
@@ -182,7 +204,13 @@ async function materializeStoredFile(file, destDir) {
 
   try {
     await fsp.mkdir(destDir, { recursive: true });
-    const result = await get(file.blobPath, { access: 'public', useCache: false });
+    const blob = getBlobClient();
+    if (!blob) {
+      console.error('[materializeStoredFile] Blob client unavailable');
+      throw new Error('Bukti manual tidak dapat dibaca (Blob storage belum dikonfigurasi).');
+    }
+
+    const result = await blob.get(file.blobPath, { access: 'public', useCache: false });
     if (!result?.stream) {
       throw new Error(`Bukti manual tidak ditemukan: ${file.name}`);
     }
@@ -203,32 +231,37 @@ async function materializeStoredFile(file, destDir) {
 
 async function persistOutputPdf(outputPath, filename) {
   if (hasBlob) {
+    const blob = getBlobClient();
     const pathname = blobPath('output', filename);
-    try {
-      const stored = await put(pathname, fs.createReadStream(outputPath), {
-        access: 'public',
-        contentType: 'application/pdf',
-        allowOverwrite: true
-      });
-      console.log('[persistOutputPdf] Persisted to Blob:', pathname);
-      return {
-        filename,
-        url: `/api/output/${encodeURIComponent(filename)}`,
-        blobPath: stored.pathname,
-        blobUrl: stored.url
-      };
-    } catch (err) {
-      console.error('[persistOutputPdf] Blob upload failed:', err.message);
-      // Fallback to in-memory
-      const pdfBuffer = await fsp.readFile(outputPath);
-      inMemoryOutputs.set(filename, pdfBuffer);
-      console.log('[persistOutputPdf] Fallback to in-memory storage:', filename);
-      return {
-        filename,
-        url: `/api/output/${encodeURIComponent(filename)}`,
-        inMemory: true
-      };
+    if (blob) {
+      try {
+        const stored = await blob.put(pathname, fs.createReadStream(outputPath), {
+          access: 'public',
+          contentType: 'application/pdf',
+          allowOverwrite: true
+        });
+        console.log('[persistOutputPdf] Persisted to Blob:', pathname);
+        return {
+          filename,
+          url: `/api/output/${encodeURIComponent(filename)}`,
+          blobPath: stored.pathname,
+          blobUrl: stored.url
+        };
+      } catch (err) {
+        console.error('[persistOutputPdf] Blob upload failed:', err.message);
+      }
+    } else {
+      console.warn('[persistOutputPdf] Blob client unavailable, falling back to in-memory');
     }
+
+    const pdfBuffer = await fsp.readFile(outputPath);
+    inMemoryOutputs.set(filename, pdfBuffer);
+    console.log('[persistOutputPdf] Fallback to in-memory storage:', filename);
+    return {
+      filename,
+      url: `/api/output/${encodeURIComponent(filename)}`,
+      inMemory: true
+    };
   }
 
   if (isVercel) {
@@ -261,20 +294,24 @@ async function sendOutputPdf(res, filename) {
 
   // Fetch from Blob
   if (hasBlob) {
-    try {
-      const result = await get(blobPath('output', filename), { access: 'public', useCache: false });
-      if (!result?.stream) {
-        return res.status(404).json({ error: 'PDF tidak ditemukan.' });
+    const blob = getBlobClient();
+    if (blob) {
+      try {
+        const result = await blob.get(blobPath('output', filename), { access: 'public', useCache: false });
+        if (!result?.stream) {
+          return res.status(404).json({ error: 'PDF tidak ditemukan.' });
+        }
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+        console.log('[sendOutputPdf] Sending from Blob:', filename);
+        await pipeline(Readable.fromWeb(result.stream), res);
+        return null;
+      } catch (err) {
+        console.error('[sendOutputPdf] Blob fetch failed:', err.message);
+        return res.status(500).json({ error: 'Gagal mengakses PDF.' });
       }
-      res.setHeader('Content-Type', 'application/pdf');
-      res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
-      console.log('[sendOutputPdf] Sending from Blob:', filename);
-      await pipeline(Readable.fromWeb(result.stream), res);
-      return null;
-    } catch (err) {
-      console.error('[sendOutputPdf] Blob fetch failed:', err.message);
-      return res.status(500).json({ error: 'Gagal mengakses PDF.' });
     }
+    console.warn('[sendOutputPdf] Blob client unavailable, falling back to filesystem/in-memory');
   }
 
   // Fetch from local filesystem

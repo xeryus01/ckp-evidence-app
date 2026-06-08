@@ -26,7 +26,7 @@
     "cors": "latest",
     "dotenv": "latest",
     "express": "latest",
-    "googleapis": "latest",
+    "googleapis": "^171.4.0",
     "heic-convert": "^2.1.0",
     "heic2any": "^0.0.4",
     "jimp": "^0.22.12",

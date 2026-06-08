@@ -14,6 +14,13 @@
       "nip": "200103212023021002",
       "periods": [
         {
+          "id": "6483a43e-dcbf-4a24-9a13-a1ba9757aaa6",
+          "month": "2026-06",
+          "label": "Juni 2026",
+          "activities": [],
+          "createdAt": "2026-06-08T07:12:34.728Z"
+        },
+        {
           "id": "924e92ed-086a-45ce-a959-af569eb53f06",
           "month": "2026-05",
           "label": "Mei 2026",
@@ -1037,6 +1044,31 @@
                 "supportLinks": []
               },
               "generatedPdfs": [
+                {
+                  "filename": "20260331_Mengikuti Silaturahmi dan Konsolidasi Pegawai BPS Seluruh Indonesia.pdf",
+                  "url": "/api/output/20260331_Mengikuti%20Silaturahmi%20dan%20Konsolidasi%20Pegawai%20BPS%20Seluruh%20Indonesia.pdf",
+                  "generatedAt": "2026-06-08T08:21:27.629Z"
+                },
+                {
+                  "filename": "20260331_Mengikuti Silaturahmi dan Konsolidasi Pegawai BPS Seluruh Indonesia.pdf",
+                  "url": "/api/output/20260331_Mengikuti%20Silaturahmi%20dan%20Konsolidasi%20Pegawai%20BPS%20Seluruh%20Indonesia.pdf",
+                  "generatedAt": "2026-06-08T08:21:04.943Z"
+                },
+                {
+                  "filename": "20260331_Mengikuti Silaturahmi dan Konsolidasi Pegawai BPS Seluruh Indonesia.pdf",
+                  "url": "/api/output/20260331_Mengikuti%20Silaturahmi%20dan%20Konsolidasi%20Pegawai%20BPS%20Seluruh%20Indonesia.pdf",
+                  "generatedAt": "2026-06-08T08:16:44.699Z"
+                },
+                {
+                  "filename": "20260331_Mengikuti Silaturahmi dan Konsolidasi Pegawai BPS Seluruh Indonesia.pdf",
+                  "url": "/api/output/20260331_Mengikuti%20Silaturahmi%20dan%20Konsolidasi%20Pegawai%20BPS%20Seluruh%20Indonesia.pdf",
+                  "generatedAt": "2026-06-08T08:11:52.731Z"
+                },
+                {
+                  "filename": "20260331_Mengikuti Silaturahmi dan Konsolidasi Pegawai BPS Seluruh Indonesia.pdf",
+                  "url": "/api/output/20260331_Mengikuti%20Silaturahmi%20dan%20Konsolidasi%20Pegawai%20BPS%20Seluruh%20Indonesia.pdf",
+                  "generatedAt": "2026-06-08T08:11:32.087Z"
+                },
                 {
                   "filename": "20260331_Mengikuti Silaturahmi dan Konsolidasi Pegawai BPS Seluruh Indonesia.pdf",
                   "url": "/api/output/20260331_Mengikuti%20Silaturahmi%20dan%20Konsolidasi%20Pegawai%20BPS%20Seluruh%20Indonesia.pdf",
@@ -2395,6 +2427,11 @@
                 {
                   "filename": "20260227_Melakukan persiapan rilis BRS 2 Maret 2026.pdf",
                   "url": "/api/output/20260227_Melakukan%20persiapan%20rilis%20BRS%202%20Maret%202026.pdf",
+                  "generatedAt": "2026-06-08T08:06:40.724Z"
+                },
+                {
+                  "filename": "20260227_Melakukan persiapan rilis BRS 2 Maret 2026.pdf",
+                  "url": "/api/output/20260227_Melakukan%20persiapan%20rilis%20BRS%202%20Maret%202026.pdf",
                   "generatedAt": "2026-05-21T15:51:10.637Z"
                 }
               ],
@@ -2444,9 +2481,15 @@
                   "1hrm0i_e4-MeDs6mNT4vy07qMH3S-4PF2",
                   "1NHTVu-aKmfond5b6XGnF5dAy9Rrk7tT1"
                 ],
-                "manualFiles": []
+                "manualFiles": [],
+                "supportLinks": []
               },
               "generatedPdfs": [
+                {
+                  "filename": "20260227_Menjadi narasumber Kopi Manis _Data Berbicara Lewat Peta_ Visualisasi Indikator Sosial Ekonomi BPS Menggunakan QGIS_.pdf",
+                  "url": "/api/output/20260227_Menjadi%20narasumber%20Kopi%20Manis%20_Data%20Berbicara%20Lewat%20Peta_%20Visualisasi%20Indikator%20Sosial%20Ekonomi%20BPS%20Menggunakan%20QGIS_.pdf",
+                  "generatedAt": "2026-06-08T08:06:52.147Z"
+                },
                 {
                   "filename": "20260227_Menjadi narasumber Kopi Manis _Data Berbicara Lewat Peta_ Visualisasi Indikator Sosial Ekonomi BPS Menggunakan QGIS_.pdf",
                   "url": "/api/output/20260227_Menjadi%20narasumber%20Kopi%20Manis%20_Data%20Berbicara%20Lewat%20Peta_%20Visualisasi%20Indikator%20Sosial%20Ekonomi%20BPS%20Menggunakan%20QGIS_.pdf",
@@ -2594,6 +2637,11 @@
                 {
                   "filename": "20260226_Melakukan updating dan penambahan inovasi Pelayanan Publik.pdf",
                   "url": "/api/output/20260226_Melakukan%20updating%20dan%20penambahan%20inovasi%20Pelayanan%20Publik.pdf",
+                  "generatedAt": "2026-06-08T08:06:59.508Z"
+                },
+                {
+                  "filename": "20260226_Melakukan updating dan penambahan inovasi Pelayanan Publik.pdf",
+                  "url": "/api/output/20260226_Melakukan%20updating%20dan%20penambahan%20inovasi%20Pelayanan%20Publik.pdf",
                   "generatedAt": "2026-05-21T15:51:02.743Z"
                 }
               ],
@@ -2639,9 +2687,20 @@
                     "size": 601866,
                     "uploadedAt": "2026-05-20T08:24:09.536Z"
                   }
-                ]
+                ],
+                "supportLinks": []
               },
               "generatedPdfs": [
+                {
+                  "filename": "20260223_Mengikuti kegiatan musala (Utsman 1 _ Sejarah Shalat).pdf",
+                  "url": "/api/output/20260223_Mengikuti%20kegiatan%20musala%20(Utsman%201%20_%20Sejarah%20Shalat).pdf",
+                  "generatedAt": "2026-06-08T08:07:03.299Z"
+                },
+                {
+                  "filename": "20260223_Mengikuti kegiatan musala (Utsman 1 _ Sejarah Shalat).pdf",
+                  "url": "/api/output/20260223_Mengikuti%20kegiatan%20musala%20(Utsman%201%20_%20Sejarah%20Shalat).pdf",
+                  "generatedAt": "2026-06-08T08:03:53.945Z"
+                },
                 {
                   "filename": "20260223_Mengikuti kegiatan musala (Utsman 1 _ Sejarah Shalat).pdf",
                   "url": "/api/output/20260223_Mengikuti%20kegiatan%20musala%20(Utsman%201%20_%20Sejarah%20Shalat).pdf",
@@ -2679,9 +2738,15 @@
                     "size": 311822,
                     "uploadedAt": "2026-05-20T08:23:29.003Z"
                   }
-                ]
+                ],
+                "supportLinks": []
               },
               "generatedPdfs": [
+                {
+                  "filename": "20260220_Menjadi Instruktur Nasional Survei Komoditas Strategis Perkebunan (KOMSTRAT) 2026.pdf",
+                  "url": "/api/output/20260220_Menjadi%20Instruktur%20Nasional%20Survei%20Komoditas%20Strategis%20Perkebunan%20(KOMSTRAT)%202026.pdf",
+                  "generatedAt": "2026-06-08T08:07:08.744Z"
+                },
                 {
                   "filename": "20260220_Menjadi Instruktur Nasional Survei Komoditas Strategis Perkebunan (KOMSTRAT) 2026.pdf",
                   "url": "/api/output/20260220_Menjadi%20Instruktur%20Nasional%20Survei%20Komoditas%20Strategis%20Perkebunan%20(KOMSTRAT)%202026.pdf",
@@ -2710,9 +2775,15 @@
                     "size": 93859,
                     "uploadedAt": "2026-05-20T07:32:39.357Z"
                   }
-                ]
+                ],
+                "supportLinks": []
               },
               "generatedPdfs": [
+                {
+                  "filename": "20260219_Melakukan tugas jaga dan memberikan pelayanan PST.pdf",
+                  "url": "/api/output/20260219_Melakukan%20tugas%20jaga%20dan%20memberikan%20pelayanan%20PST.pdf",
+                  "generatedAt": "2026-06-08T08:07:12.267Z"
+                },
                 {
                   "filename": "20260219_Melakukan tugas jaga dan memberikan pelayanan PST.pdf",
                   "url": "/api/output/20260219_Melakukan%20tugas%20jaga%20dan%20memberikan%20pelayanan%20PST.pdf",
@@ -2793,6 +2864,11 @@
                 {
                   "filename": "20260218_Melakukan pemenuhan bukti dukung ZI Pilar 6_ Pelayanan Publik.pdf",
                   "url": "/api/output/20260218_Melakukan%20pemenuhan%20bukti%20dukung%20ZI%20Pilar%206_%20Pelayanan%20Publik.pdf",
+                  "generatedAt": "2026-06-08T08:07:19.459Z"
+                },
+                {
+                  "filename": "20260218_Melakukan pemenuhan bukti dukung ZI Pilar 6_ Pelayanan Publik.pdf",
+                  "url": "/api/output/20260218_Melakukan%20pemenuhan%20bukti%20dukung%20ZI%20Pilar%206_%20Pelayanan%20Publik.pdf",
                   "generatedAt": "2026-05-21T16:13:32.279Z"
                 }
               ],
@@ -2818,9 +2894,20 @@
                     "size": 93859,
                     "uploadedAt": "2026-05-20T07:33:04.242Z"
                   }
-                ]
+                ],
+                "supportLinks": []
               },
               "generatedPdfs": [
+                {
+                  "filename": "20260213_Melakukan tugas jaga dan memberikan pelayanan PST.pdf",
+                  "url": "/api/output/20260213_Melakukan%20tugas%20jaga%20dan%20memberikan%20pelayanan%20PST.pdf",
+                  "generatedAt": "2026-06-08T08:07:22.771Z"
+                },
+                {
+                  "filename": "20260213_Melakukan tugas jaga dan memberikan pelayanan PST.pdf",
+                  "url": "/api/output/20260213_Melakukan%20tugas%20jaga%20dan%20memberikan%20pelayanan%20PST.pdf",
+                  "generatedAt": "2026-06-08T08:04:15.917Z"
+                },
                 {
                   "filename": "20260213_Melakukan tugas jaga dan memberikan pelayanan PST.pdf",
                   "url": "/api/output/20260213_Melakukan%20tugas%20jaga%20dan%20memberikan%20pelayanan%20PST.pdf",
@@ -2858,9 +2945,15 @@
                     "size": 286875,
                     "uploadedAt": "2026-05-20T08:28:59.480Z"
                   }
-                ]
+                ],
+                "supportLinks": []
               },
               "generatedPdfs": [
+                {
+                  "filename": "20260213_Melakukan ekspor raw perkembangan pendataan SNLIK.pdf",
+                  "url": "/api/output/20260213_Melakukan%20ekspor%20raw%20perkembangan%20pendataan%20SNLIK.pdf",
+                  "generatedAt": "2026-06-08T08:07:28.360Z"
+                },
                 {
                   "filename": "20260213_Melakukan ekspor raw perkembangan pendataan SNLIK.pdf",
                   "url": "/api/output/20260213_Melakukan%20ekspor%20raw%20perkembangan%20pendataan%20SNLIK.pdf",

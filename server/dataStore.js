@@ -2,13 +2,25 @@ const fs = require('fs/promises');
 const path = require('path');
 const { Readable } = require('stream');
 const { buffer } = require('stream/consumers');
-const { get, put } = require('@vercel/blob');
 const { v4: uuidv4 } = require('uuid');
 
 const DATA_PATH = process.env.DATA_PATH || path.join('storage', 'app-data.json');
 const DATA_BLOB_PATH = process.env.DATA_BLOB_PATH || 'data/app-data.json';
 const USE_BLOB = Boolean(process.env.BLOB_READ_WRITE_TOKEN);
 const IS_VERCEL = Boolean(process.env.VERCEL);
+
+let blobClient = null;
+function getBlobClient() {
+  if (blobClient !== null) return blobClient;
+  try {
+    blobClient = require('@vercel/blob');
+    return blobClient;
+  } catch (err) {
+    console.warn('[dataStore] @vercel/blob import failed:', err.message);
+    blobClient = null;
+    return null;
+  }
+}
 
 // In-memory cache for data persistence on Vercel
 let inMemoryDataCache = null;
@@ -67,21 +79,33 @@ async function readData() {
     }
 
     if (USE_BLOB) {
+      const blob = getBlobClient();
+      if (!blob) {
+        console.warn('[readData] Blob client unavailable, falling back to in-memory or empty data');
+        if (inMemoryDataCache) return inMemoryDataCache;
+        if (IS_VERCEL) {
+          const emptyDataSet = emptyData();
+          inMemoryDataCache = emptyDataSet;
+          return emptyDataSet;
+        }
+        throw new Error('Blob storage client unavailable.');
+      }
+
       console.log('[readData] Attempting Blob read from', DATA_BLOB_PATH);
       try {
-        const stored = await get(DATA_BLOB_PATH, { access: 'public', useCache: false });
+        const stored = await blob.get(DATA_BLOB_PATH, { access: 'public', useCache: false });
         console.log('[readData] Blob read successful, has stream:', !!stored?.stream);
-        
+
         if (!stored?.stream) {
           console.log('[readData] No stream in Blob response');
           const emptyDataSet = emptyData();
           inMemoryDataCache = emptyDataSet;
           return emptyDataSet;
         }
-        
+
         const raw = (await buffer(Readable.fromWeb(stored.stream))).toString('utf8');
         console.log('[readData] Blob data buffered, length:', raw.length);
-        
+
         try {
           const parsed = JSON.parse(raw);
           console.log('[readData] Blob JSON parsed successfully');
@@ -167,12 +191,18 @@ async function writeData(data) {
     inMemoryDataLastUpdate = Date.now();
 
     if (USE_BLOB) {
+      const blob = getBlobClient();
+      if (!blob) {
+        console.warn('[writeData] Blob client unavailable, data kept in memory');
+        return normalized;
+      }
+
       console.log('[writeData] Attempting Blob write to', DATA_BLOB_PATH);
       try {
         const jsonStr = JSON.stringify(normalized, null, 2);
         console.log('[writeData] JSON stringified, length:', jsonStr.length);
         
-        await put(DATA_BLOB_PATH, jsonStr, {
+        await blob.put(DATA_BLOB_PATH, jsonStr, {
           access: 'public',
           contentType: 'application/json',
           allowOverwrite: true,

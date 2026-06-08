@@ -1,34 +1,36 @@
 const $ = (id) => document.getElementById(id);
 
 const els = {
-  profileForm: $('profileForm'),
   profileSelect: $('profileSelect'),
   newProfileBtn: $('newProfileBtn'),
-  namaInput: $('namaInput'),
-  nipInput: $('nipInput'),
+  saveProfileBtn: $('saveProfileBtn'),
+  nipDisplay: $('nipDisplay'),
   periodForm: $('periodForm'),
   periodMonth: $('periodMonth'),
   periodList: $('periodList'),
-  currentPeriodTitle: $('currentPeriodTitle'),
-  periodSummary: $('periodSummary'),
+  periodTitle: $('periodTitle'),
+  periodStatText: $('periodStatText'),
+  activityFormWrapper: $('activityFormWrapper'),
   activityForm: $('activityForm'),
-  activityKegiatan: $('activityKegiatan'),
-  activityWaktu: $('activityWaktu'),
-  activityCatatan: $('activityCatatan'),
+  kegiatanInput: $('kegiatanInput'),
+  startDate: $('startDate'),
+  endDate: $('endDate'),
+  startTime: $('startTime'),
+  endTime: $('endTime'),
+  catatanInput: $('catatanInput'),
   activitySubmitBtn: $('activitySubmitBtn'),
   activityCancelBtn: $('activityCancelBtn'),
   emptyState: $('emptyState'),
   activityList: $('activityList'),
-  calendarPanel: $('calendarPanel'),
-  calendarTitle: $('calendarTitle'),
-  calendarSummary: $('calendarSummary'),
-  calendarGrid: $('calendarGrid'),
+  calendarContainer: $('calendarContainer'),
+  calTitle: $('calTitle'),
+  calGrid: $('calGrid'),
+  evidenceOverlay: $('evidenceOverlay'),
   evidencePanel: $('evidencePanel'),
   evidenceTitle: $('evidenceTitle'),
   closeEvidenceBtn: $('closeEvidenceBtn'),
   driveForm: $('driveForm'),
   driveLinks: $('driveLinks'),
-  supportLinks: $('supportLinks'),
   previewBtn: $('previewBtn'),
   saveDriveBtn: $('saveDriveBtn'),
   drivePicker: $('drivePicker'),
@@ -39,17 +41,35 @@ const els = {
   manualFiles: $('manualFiles'),
   manualList: $('manualList'),
   exportExcelBtn: $('exportExcelBtn'),
-  status: $('status')
+  generateAllPdfBtn: $('generateAllPdfBtn'),
+  statusToast: $('statusToast'),
+  progressOverlay: $('progressOverlay'),
+  progressMsg: $('progressMsg'),
+  progressBar: $('progressBar'),
+  progressPct: $('progressPct'),
+  progressLog: $('progressLog'),
+  cancelPdfBtn: $('cancelPdfBtn')
 };
+
+let cancelPdfGeneration = false;
 
 let state = { profiles: [], selectedProfileId: null, profile: {}, periods: [], creatingProfile: false };
 let activePeriodId = null;
 let activeActivityId = null;
 let editingActivityId = null;
 let previewFiles = [];
+let toastTimer = null;
 
-function setStatus(message) {
-  els.status.textContent = message || '';
+function showToast(message, duration = 3000) {
+  if (!message) {
+    els.statusToast.classList.remove('show');
+    return;
+  }
+
+  els.statusToast.textContent = message;
+  els.statusToast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => els.statusToast.classList.remove('show'), duration);
 }
 
 async function api(url, options = {}) {
@@ -86,79 +106,58 @@ function dateBoundsForMonth(month) {
 
 function formatActivityTime(value) {
   if (!value) return 'Waktu belum diisi';
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
-
-  const [year, month, day] = value.split('-').map(Number);
-  return new Intl.DateTimeFormat('id-ID', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric'
-  }).format(new Date(year, month - 1, day));
+  if (/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+    const [year, month, day] = value.split('-').map(Number);
+    return new Intl.DateTimeFormat('id-ID', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    }).format(new Date(year, month - 1, day));
+  }
+  return value;
 }
 
 function renderPeriodCalendar(period) {
-  els.calendarPanel.classList.toggle('hidden', !period);
-  if (!period) {
-    els.calendarSummary.textContent = '';
-    els.calendarGrid.innerHTML = '';
-    return;
-  }
-
+  els.calTitle.textContent = `Kalender ${period.label || period.month}`;
+  const activitiesByDate = new Set((period.activities || [])
+    .map(activity => activity.startDate || activity.waktu)
+    .filter(Boolean));
   const [year, month] = period.month.split('-').map(Number);
   const firstDay = new Date(year, month - 1, 1);
   const daysInMonth = new Date(year, month, 0).getDate();
   const startWeekday = firstDay.getDay();
-  const activitiesByDate = new Set((period.activities || [])
-    .map(activity => activity.waktu)
-    .filter(Boolean));
-  const occupiedDays = new Set([...activitiesByDate].map(date => date.slice(8, 10)));
-  const emptyDays = daysInMonth - occupiedDays.size;
+  const emptyDays = daysInMonth - new Set([...activitiesByDate]).size;
 
-  els.calendarSummary.textContent = `${emptyDays} hari kosong dari ${daysInMonth} hari di periode ini.`;
-  els.calendarGrid.innerHTML = '';
+  els.calGrid.innerHTML = '';
 
-  ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'].forEach(label => {
-    const cell = document.createElement('div');
-    cell.className = 'calendar-weekday';
-    cell.textContent = label;
-    els.calendarGrid.appendChild(cell);
+  ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'].forEach((label) => {
+    const labelCell = document.createElement('div');
+    labelCell.className = 'cal-wday';
+    labelCell.textContent = label;
+    els.calGrid.appendChild(labelCell);
   });
 
   for (let i = 0; i < startWeekday; i++) {
     const spacer = document.createElement('div');
-    spacer.className = 'calendar-day spacer';
-    els.calendarGrid.appendChild(spacer);
+    spacer.className = 'cal-day spacer';
+    els.calGrid.appendChild(spacer);
   }
 
   for (let day = 1; day <= daysInMonth; day++) {
     const dateKey = `${period.month}-${String(day).padStart(2, '0')}`;
     const hasActivity = activitiesByDate.has(dateKey);
     const cell = document.createElement('div');
-    cell.className = `calendar-day ${hasActivity ? 'filled' : 'empty'}`;
-    cell.setAttribute('data-date', dateKey);
+    cell.className = `cal-day ${hasActivity ? 'filled' : 'empty'}`;
     cell.innerHTML = `
-      <div class="calendar-number">${day}</div>
-      <div class="calendar-status">${hasActivity ? 'Isi' : 'Kosong'}</div>
+      <div class="day-num">${day}</div>
+      <div class="day-dot"></div>
     `;
-    cell.style.cursor = 'pointer';
-    cell.addEventListener('click', (event) => {
-      event.stopPropagation();
-      const date = event.currentTarget.getAttribute('data-date');
-      handleCalendarDateClick(date);
+    cell.addEventListener('click', () => {
+      els.startDate.value = dateKey;
+      els.startDate.focus();
     });
-    els.calendarGrid.appendChild(cell);
+    els.calGrid.appendChild(cell);
   }
-}
-
-function handleCalendarDateClick(dateKey) {
-  setActivityEditMode(null);
-  const waktuInput = document.getElementById('activityWaktu');
-  const formInput = document.getElementById('activityKegiatan');
-  const form = document.getElementById('activityForm');
-
-  if (waktuInput) waktuInput.value = dateKey;
-  if (form) form.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  if (formInput) formInput.focus();
 }
 
 function activePeriod() {
@@ -170,14 +169,9 @@ function activeActivity() {
   return period?.activities.find(activity => activity.id === activeActivityId) || null;
 }
 
-function evidenceFileCount(activity) {
+function evidenceCount(activity) {
   const evidence = activity.evidence || {};
   return (evidence.selectedDriveIds || []).length + (evidence.manualFiles || []).length;
-}
-
-function evidenceSupportCount(activity) {
-  const evidence = activity.evidence || {};
-  return Array.isArray(evidence.supportLinks) ? evidence.supportLinks.length : 0;
 }
 
 function formatBytes(bytes) {
@@ -189,9 +183,12 @@ function formatBytes(bytes) {
 function setActivityEditMode(activity = null) {
   editingActivityId = activity?.id || null;
   if (activity) {
-    els.activityKegiatan.value = activity.kegiatan || '';
-    els.activityWaktu.value = activity.waktu || '';
-    els.activityCatatan.value = activity.catatan || '';
+    els.kegiatanInput.value = activity.kegiatan || '';
+    els.startDate.value = activity.startDate || activity.waktu || '';
+    els.endDate.value = activity.endDate || '';
+    els.startTime.value = activity.startTime || '';
+    els.endTime.value = activity.endTime || '';
+    els.catatanInput.value = activity.catatan || '';
     els.activitySubmitBtn.textContent = 'Simpan Perubahan';
     els.activityCancelBtn.classList.remove('hidden');
   } else {
@@ -285,7 +282,7 @@ function renderProfileOptions() {
 
   const placeholder = document.createElement('option');
   placeholder.value = '';
-  placeholder.disabled = !state.creatingProfile && !!state.profiles.length;
+  placeholder.disabled = state.profiles.length > 0;
   placeholder.selected = state.creatingProfile || !state.selectedProfileId;
   placeholder.textContent = state.creatingProfile ? 'Profil baru' : 'Pilih profil';
   els.profileSelect.appendChild(placeholder);
@@ -297,17 +294,19 @@ function renderProfileOptions() {
     if (profile.id === state.selectedProfileId) option.selected = true;
     els.profileSelect.appendChild(option);
   });
+
+  els.nipDisplay.textContent = state.profile?.nip || '–';
 }
 
 function renderEvidencePanel() {
   const activity = activeActivity();
-  els.evidencePanel.classList.toggle('hidden', !activity);
+  els.evidenceOverlay.classList.toggle('open', !!activity);
+
   if (!activity) return;
 
-  els.evidenceTitle.textContent = activity.kegiatan;
+  els.evidenceTitle.textContent = activity.kegiatan || 'Pilih kegiatan';
   const evidence = activity.evidence || {};
   els.driveLinks.value = (evidence.driveLinks || []).join('\n');
-  els.supportLinks.value = (evidence.supportLinks || []).join('\n');
   renderDriveFiles(evidence.driveFiles || [], evidence.selectedDriveIds || []);
   renderManualFiles(activity);
 }
@@ -337,77 +336,86 @@ function renderPeriods() {
 function renderActivities() {
   const period = activePeriod();
   els.activityList.innerHTML = '';
-  els.activityForm.classList.toggle('hidden', !period);
+  els.activityFormWrapper.classList.toggle('hidden', !period);
   els.emptyState.classList.toggle('hidden', !!period);
   els.exportExcelBtn.classList.toggle('hidden', !period);
+  els.generateAllPdfBtn.classList.toggle('hidden', !period || !period.activities.length);
+  els.calendarContainer.classList.toggle('hidden', !period);
 
   if (!period) {
-    els.currentPeriodTitle.textContent = 'Belum ada periode';
-    els.periodSummary.textContent = '';
-    els.activityWaktu.min = '';
-    els.activityWaktu.max = '';
+    els.periodTitle.textContent = 'Belum ada periode';
+    els.periodStatText.textContent = '0 kegiatan';
+    els.startDate.min = '';
+    els.startDate.max = '';
+    els.endDate.min = '';
+    els.endDate.max = '';
     return;
   }
 
-  els.currentPeriodTitle.textContent = period.label || period.month;
-  els.periodSummary.textContent = `${period.activities.length} kegiatan`;
   const { min, max } = dateBoundsForMonth(period.month);
-  els.activityWaktu.min = min;
-  els.activityWaktu.max = max;
+  els.startDate.min = min;
+  els.startDate.max = max;
+  els.endDate.min = min;
+  els.endDate.max = max;
+  if (els.startDate.value && (els.startDate.value < min || els.startDate.value > max)) {
+    els.startDate.value = '';
+  }
+  if (els.endDate.value && (els.endDate.value < min || els.endDate.value > max)) {
+    els.endDate.value = '';
+  }
+
+  els.periodTitle.textContent = period.label || period.month;
+  els.periodStatText.textContent = `${period.activities.length} kegiatan`;
   renderPeriodCalendar(period);
 
-  const activities = [...period.activities].sort((a, b) => String(b.waktu || '').localeCompare(String(a.waktu || '')));
+  const activities = [...period.activities].sort((a, b) => String(b.startDate || b.waktu || '').localeCompare(String(a.startDate || a.waktu || '')));
+
   activities.forEach((activity) => {
-    const fileCount = evidenceFileCount(activity);
-    const supportCount = evidenceSupportCount(activity);
+    const count = evidenceCount(activity);
     const card = document.createElement('article');
     card.className = `activity-card ${activity.id === activeActivityId ? 'selected' : ''}`;
 
     const body = document.createElement('div');
+    body.className = 'activity-body';
+
     const title = document.createElement('p');
-    title.className = 'activity-title';
+    title.className = 'activity-name';
     title.textContent = activity.kegiatan;
 
     const meta = document.createElement('div');
-    meta.className = 'activity-meta';
-    const time = document.createElement('span');
-    time.textContent = formatActivityTime(activity.waktu);
-    const status = document.createElement('span');
-    const hasAnyEvidence = fileCount || supportCount;
-    let statusText = 'Menunggu bukti';
-    if (fileCount && supportCount) statusText = `${fileCount} bukti siap + ${supportCount} bukti dukung`;
-    else if (fileCount) statusText = `${fileCount} bukti siap`;
-    else if (supportCount) statusText = `${supportCount} bukti dukung`;
-    status.className = `pill ${hasAnyEvidence ? '' : 'pending'}`;
-    status.textContent = statusText;
-    meta.append(time, status);
+    meta.className = 'meta-row';
 
-    const lastPdf = activity.generatedPdfs?.[0];
-    if (lastPdf) {
-      const link = document.createElement('a');
-      link.href = lastPdf.url;
-      link.textContent = 'PDF terakhir';
-      link.target = '_blank';
-      meta.append(link);
+    const time = document.createElement('span');
+    time.className = 'meta-tag waktu';
+    time.textContent = formatActivityTime(activity.startDate || activity.waktu || '');
+
+    const status = document.createElement('span');
+    status.className = `meta-tag ${count ? 'bukti' : ''}`.trim();
+    status.textContent = count ? `${count} bukti siap` : 'Menunggu bukti';
+
+    meta.append(time, status);
+    if (activity.catatan) {
+      const note = document.createElement('span');
+      note.className = 'meta-tag';
+      note.textContent = activity.catatan;
+      meta.append(note);
     }
 
-    body.append(title, meta);
-
     const actions = document.createElement('div');
-    actions.className = 'activity-actions';
+    actions.className = 'actions-row';
+
     const evidenceBtn = document.createElement('button');
     evidenceBtn.type = 'button';
-    evidenceBtn.className = 'secondary';
+    evidenceBtn.className = 'act-btn';
     evidenceBtn.textContent = 'Bukti';
     evidenceBtn.addEventListener('click', () => {
       activeActivityId = activity.id;
       render();
-      els.evidencePanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 
     const editBtn = document.createElement('button');
     editBtn.type = 'button';
-    editBtn.className = 'secondary';
+    editBtn.className = 'act-btn';
     editBtn.textContent = 'Edit';
     editBtn.addEventListener('click', () => {
       setActivityEditMode(activity);
@@ -418,14 +426,14 @@ function renderActivities() {
 
     const duplicateBtn = document.createElement('button');
     duplicateBtn.type = 'button';
-    duplicateBtn.className = 'secondary';
+    duplicateBtn.className = 'act-btn';
     duplicateBtn.textContent = 'Duplikat';
     duplicateBtn.addEventListener('click', async () => {
-      const defaultDate = activity.waktu || todayMonth() + '-01';
+      const defaultDate = activity.startDate || activity.waktu || `${todayMonth()}-01`;
       const newDate = window.prompt('Pilih tanggal duplikat (YYYY-MM-DD):', defaultDate);
       if (!newDate) return;
       if (!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(newDate)) {
-        setStatus('Tanggal tidak valid. Gunakan format YYYY-MM-DD.');
+        showToast('Tanggal tidak valid. Gunakan format YYYY-MM-DD.');
         return;
       }
       await duplicateActivity(activity.id, newDate);
@@ -433,43 +441,45 @@ function renderActivities() {
 
     const deleteBtn = document.createElement('button');
     deleteBtn.type = 'button';
-    deleteBtn.className = 'secondary secondary-mini';
+    deleteBtn.className = 'act-btn danger';
     deleteBtn.textContent = 'Hapus';
     deleteBtn.addEventListener('click', async () => {
       if (!confirm('Hapus kegiatan ini? Tindakan tidak bisa dibatalkan.')) return;
-      setStatus('Menghapus kegiatan...');
+      showToast('Menghapus kegiatan...');
       try {
         await api(`/api/periods/${period.id}/activities/${activity.id}`, { method: 'DELETE' });
         if (activeActivityId === activity.id) activeActivityId = null;
         setActivityEditMode(null);
         await loadState('Kegiatan dihapus.');
       } catch (err) {
-        setStatus(err.message);
+        showToast(err.message);
       }
     });
 
     const generateBtn = document.createElement('button');
     generateBtn.type = 'button';
+    generateBtn.className = 'act-btn primary';
     generateBtn.textContent = 'Generate PDF';
-    generateBtn.disabled = fileCount === 0;
+    generateBtn.disabled = count === 0;
     generateBtn.addEventListener('click', () => generatePdf(activity.id));
-    actions.append(evidenceBtn, editBtn, duplicateBtn, deleteBtn, generateBtn);
 
-    card.append(body, actions);
+    actions.append(evidenceBtn, editBtn, duplicateBtn, deleteBtn, generateBtn);
+    body.append(title, meta, actions);
+    card.append(body);
     els.activityList.appendChild(card);
   });
 }
 
 function render() {
   renderProfileOptions();
+
   if (!state.creatingProfile && !state.selectedProfileId && state.profiles.length) {
     state.selectedProfileId = state.profiles[0].id;
   }
   if (!activePeriodId && state.periods.length) activePeriodId = state.periods[0].id;
   if (activePeriodId && !activePeriod()) activePeriodId = state.periods[0]?.id || null;
   if (activeActivityId && !activeActivity()) activeActivityId = null;
-  els.namaInput.value = state.profile?.nama || '';
-  els.nipInput.value = state.profile?.nip || '';
+
   renderPeriods();
   renderActivities();
   renderEvidencePanel();
@@ -484,123 +494,249 @@ async function loadState(message) {
   state.creatingProfile = false;
   setActivityEditMode(null);
   render();
-  if (message) setStatus(message);
+  if (message) showToast(message);
 }
 
 async function removeManualFile(fileId) {
   const period = activePeriod();
   const activity = activeActivity();
   if (!period || !activity) return;
-  setStatus('Menghapus bukti...');
+  showToast('Menghapus bukti...');
   await api(`/api/periods/${period.id}/activities/${activity.id}/manual-evidence/${fileId}`, { method: 'DELETE' });
   await loadState('Bukti manual dihapus.');
 }
 
 async function generatePdf(activityId) {
   const period = activePeriod();
-  if (!period) return;
+  if (!period) {
+    showToast('Periode tidak ditemukan');
+    return;
+  }
 
-  const modal = document.getElementById('progressModal');
-  const msgEl = document.getElementById('progressMessage');
-  const barEl = document.getElementById('progressBar');
-  const percentEl = document.getElementById('progressPercent');
-  const logEl = document.getElementById('progressLog');
+  // Find activity by the passed activityId, not by activeActivityId
+  const activity = period.activities.find(act => act.id === activityId);
+  if (!activity) {
+    showToast('Kegiatan tidak ditemukan');
+    return;
+  }
 
-  modal.classList.remove('hidden');
-  logEl.innerHTML = '';
-  let step = 0;
-  const steps = [
-    'Mempersiapkan file...',
-    'Mengunduh dari Google Drive...',
-    'Memproses gambar...',
-    'Mengonversi HEIC (jika ada)...',
-    'Membuat PDF...',
-    'Menyimpan hasil...'
-  ];
+  cancelPdfGeneration = false;
+  els.progressOverlay.classList.add('open');
+  els.cancelPdfBtn.style.display = 'block';
+  els.cancelPdfBtn.disabled = false;
+  els.progressMsg.textContent = `Membuat PDF: ${activity.kegiatan}...`;
+  els.progressLog.innerHTML = '';
+  els.progressBar.style.width = '0%';
+  els.progressPct.textContent = '0%';
 
-  const updateProgress = (index, percent) => {
-    barEl.style.width = Math.min(percent, 95) + '%';
-    percentEl.textContent = Math.min(percent, 95) + '%';
-    if (index < steps.length) msgEl.textContent = steps[index];
-  };
-
-  const addLog = (msg) => {
-    const entry = document.createElement('div');
-    entry.className = 'log-entry';
-    entry.textContent = new Date().toLocaleTimeString() + ' - ' + msg;
-    logEl.appendChild(entry);
-    logEl.scrollTop = logEl.scrollHeight;
-  };
-
-  setStatus('Membuat PDF A4...');
   try {
-    addLog('Mengirim permintaan generate...');
-    updateProgress(0, 10);
+    // Progress: preparing
+    els.progressBar.style.width = '25%';
+    els.progressPct.textContent = '25%';
+    els.progressMsg.textContent = `Mempersiapkan: ${activity.kegiatan}`;
+    await new Promise(resolve => setTimeout(resolve, 300));
 
-    const response = await fetch(`/api/periods/${period.id}/activities/${activityId}/generate`, {
-      method: 'POST'
-    });
+    if (cancelPdfGeneration) throw new Error('Generate PDF dibatalkan.');
 
-    updateProgress(1, 25);
-    addLog('Response diterima, memproses...');
+    // Progress: generating
+    els.progressBar.style.width = '50%';
+    els.progressPct.textContent = '50%';
+    els.progressMsg.textContent = `Membuat dokumen: ${activity.kegiatan}`;
+    console.log('Calling API:', `/api/periods/${period.id}/activities/${activityId}/generate`);
+    const data = await api(`/api/periods/${period.id}/activities/${activityId}/generate`, { method: 'POST' });
+    console.log('API Response:', data);
+    
+    if (cancelPdfGeneration) throw new Error('Generate PDF dibatalkan.');
 
-    if (!response.ok) {
-      const err = await response.json().catch(() => ({}));
-      throw new Error(err.error || `Gagal membuat PDF (${response.status})`);
+    // Progress: downloading
+    els.progressBar.style.width = '75%';
+    els.progressPct.textContent = '75%';
+    els.progressMsg.textContent = `Mengunduh file: ${activity.kegiatan}`;
+    await new Promise(resolve => setTimeout(resolve, 200));
+
+    if (cancelPdfGeneration) throw new Error('Generate PDF dibatalkan.');
+
+    if (!data.url) {
+      throw new Error('URL PDF tidak diterima dari server.');
     }
-
-    updateProgress(4, 80);
-    addLog('PDF berhasil dibuat di server');
-
-    const data = await response.json();
-
-    updateProgress(5, 95);
-    addLog('Mengunduh file PDF...');
 
     const a = document.createElement('a');
     a.href = data.url;
-    a.download = data.filename;
+    a.download = data.filename || 'document.pdf';
     document.body.appendChild(a);
     a.click();
     a.remove();
 
-    updateProgress(5, 100);
-    barEl.style.width = '100%';
-    percentEl.textContent = '100%';
-    addLog('PDF berhasil diunduh!');
+    // Progress: complete
+    els.progressBar.style.width = '100%';
+    els.progressPct.textContent = '100%';
+    els.progressMsg.textContent = `PDF berhasil dibuat: ${activity.kegiatan}`;
+
+    const logEntry = document.createElement('div');
+    logEntry.textContent = `✓ ${activity.kegiatan}`;
+    logEntry.style.color = 'var(--accent2)';
+    els.progressLog.appendChild(logEntry);
 
     setTimeout(() => {
-      modal.classList.add('hidden');
-      loadState('PDF berhasil dibuat.');
-    }, 800);
+      els.progressOverlay.classList.remove('open');
+      els.cancelPdfBtn.style.display = 'none';
+    }, 1500);
+
+    showToast('PDF berhasil dibuat.');
   } catch (err) {
-    addLog('ERROR: ' + err.message);
-    console.error(err);
-    setStatus(err.message);
+    console.error('PDF Generation Error:', err);
+    if (err.message.includes('dibatalkan')) {
+      els.progressMsg.textContent = 'Generate PDF dibatalkan';
+      const logEntry = document.createElement('div');
+      logEntry.textContent = '✗ Dibatalkan oleh pengguna';
+      logEntry.style.color = 'var(--danger)';
+      els.progressLog.appendChild(logEntry);
+    } else {
+      els.progressMsg.textContent = `Gagal: ${err.message}`;
+      const logEntry = document.createElement('div');
+      logEntry.textContent = `✗ ${err.message}`;
+      logEntry.style.color = 'var(--danger)';
+      els.progressLog.appendChild(logEntry);
+    }
     setTimeout(() => {
-      modal.classList.add('hidden');
-    }, 3000);
+      els.progressOverlay.classList.remove('open');
+      els.cancelPdfBtn.style.display = 'none';
+    }, 2000);
+    showToast(err.message);
   }
+}
+
+async function generateAllPdf() {
+  const period = activePeriod();
+  if (!period || !period.activities.length) return;
+
+  const activitiesWithEvidence = period.activities.filter(act => {
+    const evidence = act.evidence || {};
+    return (evidence.selectedDriveIds || []).length + (evidence.manualFiles || []).length > 0;
+  });
+
+  if (!activitiesWithEvidence.length) {
+    showToast('Tidak ada kegiatan dengan bukti untuk dikonversi.');
+    return;
+  }
+
+  // Show progress overlay
+  cancelPdfGeneration = false;
+  els.progressOverlay.classList.add('open');
+  els.cancelPdfBtn.style.display = 'block';
+  els.cancelPdfBtn.disabled = false;
+  els.progressLog.innerHTML = '';
+  els.progressBar.style.width = '0%';
+  els.progressPct.textContent = '0%';
+  els.progressMsg.textContent = `Mempersiapkan ${activitiesWithEvidence.length} dokumen...`;
+
+  let success = 0;
+  let failed = 0;
+  const failedList = [];
+
+  for (let i = 0; i < activitiesWithEvidence.length; i++) {
+    if (cancelPdfGeneration) break;
+    
+    const activity = activitiesWithEvidence[i];
+    const progress = Math.round(((i) / activitiesWithEvidence.length) * 100);
+    
+    try {
+      els.progressMsg.textContent = `Membuat PDF: ${activity.kegiatan}`;
+      els.progressBar.style.width = progress + '%';
+      els.progressPct.textContent = progress + '%';
+      
+      const logEntry = document.createElement('div');
+      logEntry.textContent = `⏳ ${activity.kegiatan}...`;
+      els.progressLog.appendChild(logEntry);
+      els.progressLog.scrollTop = els.progressLog.scrollHeight;
+
+      const data = await api(`/api/periods/${period.id}/activities/${activity.id}/generate`, { method: 'POST' });
+      
+      if (cancelPdfGeneration) throw new Error('Dibatalkan oleh pengguna');
+      
+      const a = document.createElement('a');
+      a.href = data.url;
+      a.download = data.filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      success++;
+      
+      logEntry.textContent = `✓ ${activity.kegiatan}`;
+      logEntry.style.color = 'var(--accent2)';
+      
+      await new Promise(resolve => setTimeout(resolve, 300));
+    } catch (err) {
+      if (err.message.includes('Dibatalkan')) {
+        failed++;
+        const logEntry = document.createElement('div');
+        logEntry.textContent = `✗ ${activity.kegiatan} - Dibatalkan`;
+        logEntry.style.color = 'var(--danger)';
+        els.progressLog.appendChild(logEntry);
+        break;
+      } else {
+        failed++;
+        failedList.push(activity.kegiatan);
+        
+        const logEntry = document.createElement('div');
+        logEntry.textContent = `✗ ${activity.kegiatan} - ${err.message}`;
+        logEntry.style.color = 'var(--danger)';
+        els.progressLog.appendChild(logEntry);
+        els.progressLog.scrollTop = els.progressLog.scrollHeight;
+      }
+    }
+  }
+
+  // Final progress update
+  const finalProgress = cancelPdfGeneration ? Math.round(((success + failed) / activitiesWithEvidence.length) * 100) : 100;
+  els.progressBar.style.width = finalProgress + '%';
+  els.progressPct.textContent = finalProgress + '%';
+  
+  let message = `${success} PDF berhasil dibuat`;
+  if (failed > 0) {
+    message += ` | ${failed} gagal/dibatalkan`;
+  }
+  if (cancelPdfGeneration) {
+    message += ' (dibatalkan)';
+  }
+  els.progressMsg.textContent = message;
+  
+  // Add final summary to log
+  const summary = document.createElement('div');
+  summary.style.marginTop = '8px';
+  summary.style.paddingTop = '8px';
+  summary.style.borderTop = '1px solid var(--border)';
+  summary.style.fontWeight = '600';
+  summary.textContent = message;
+  els.progressLog.appendChild(summary);
+  els.progressLog.scrollTop = els.progressLog.scrollHeight;
+  
+  setTimeout(() => {
+    els.progressOverlay.classList.remove('open');
+    els.cancelPdfBtn.style.display = 'none';
+  }, cancelPdfGeneration ? 1500 : 2000);
+  
+  showToast(message, 3000);
 }
 
 async function duplicateActivity(activityId, waktu) {
   const period = activePeriod();
   if (!period) return;
-  setStatus('Menduplikasi kegiatan...');
+  showToast('Menduplikasi kegiatan...');
   try {
     const data = await api(`/api/periods/${period.id}/activities/${activityId}/duplicate`, jsonOptions('POST', { waktu }));
     activePeriodId = data.period.id;
     activeActivityId = data.activity.id;
     await loadState('Kegiatan berhasil diduplikasi.');
   } catch (err) {
-    setStatus(err.message);
+    showToast(err.message);
   }
 }
 
 async function exportPeriodExcel() {
   const period = activePeriod();
   if (!period) return;
-  setStatus('Membuat file Excel...');
+  showToast('Membuat file Excel...');
 
   try {
     const response = await fetch(`/api/periods/${period.id}/export`);
@@ -619,43 +755,42 @@ async function exportPeriodExcel() {
     link.click();
     link.remove();
     URL.revokeObjectURL(url);
-    setStatus('Ekspor Excel selesai.');
+    showToast('Ekspor Excel selesai.');
   } catch (err) {
-    setStatus(err.message);
+    showToast(err.message);
   }
 }
 
-els.profileForm.addEventListener('submit', async (event) => {
-  event.preventDefault();
-  setStatus('Menyimpan profil...');
+els.saveProfileBtn.addEventListener('click', async () => {
+  const currentName = state.profile?.nama || '';
+  const currentNip = state.profile?.nip || '';
+  const nama = window.prompt('Nama profil:', currentName);
+  if (nama === null) return;
+  const nip = window.prompt('NIP:', currentNip);
+  if (nip === null) return;
+
+  showToast(state.creatingProfile ? 'Membuat profil...' : 'Menyimpan profil...');
   try {
-    const profileId = state.creatingProfile ? null : state.selectedProfileId;
-    if (profileId) {
-      await api(`/api/profiles/${profileId}`, jsonOptions('PUT', {
-        nama: els.namaInput.value,
-        nip: els.nipInput.value
-      }));
+    if (state.creatingProfile || !state.selectedProfileId) {
+      await api('/api/profiles', jsonOptions('POST', { nama, nip }));
     } else {
-      await api('/api/profiles', jsonOptions('POST', {
-        nama: els.namaInput.value,
-        nip: els.nipInput.value
-      }));
+      await api(`/api/profiles/${state.selectedProfileId}`, jsonOptions('PUT', { nama, nip }));
     }
-    await loadState('Profil disimpan.');
+    await loadState(state.creatingProfile ? 'Profil dibuat.' : 'Profil disimpan.');
   } catch (err) {
-    setStatus(err.message);
+    showToast(err.message);
   }
 });
 
 els.profileSelect.addEventListener('change', async () => {
   const profileId = els.profileSelect.value;
   if (!profileId) return;
-  setStatus('Memilih profil...');
+  showToast('Memilih profil...');
   try {
     await api(`/api/profiles/${profileId}/select`, jsonOptions('PUT', {}));
     await loadState('Profil dipilih.');
   } catch (err) {
-    setStatus(err.message);
+    showToast(err.message);
   }
 });
 
@@ -671,14 +806,14 @@ els.newProfileBtn.addEventListener('click', () => {
 
 els.periodForm.addEventListener('submit', async (event) => {
   event.preventDefault();
-  setStatus('Membuat periode...');
+  showToast('Membuat periode...');
   try {
     const data = await api('/api/periods', jsonOptions('POST', { month: els.periodMonth.value }));
     activePeriodId = data.period.id;
     activeActivityId = null;
     await loadState('Periode siap digunakan.');
   } catch (err) {
-    setStatus(err.message);
+    showToast(err.message);
   }
 });
 
@@ -686,12 +821,33 @@ els.activityForm.addEventListener('submit', async (event) => {
   event.preventDefault();
   const period = activePeriod();
   if (!period) return;
-  setStatus(editingActivityId ? 'Menyimpan perubahan kegiatan...' : 'Menambahkan kegiatan...');
+
+  const { min, max } = dateBoundsForMonth(period.month);
+  const startDate = els.startDate.value;
+  const endDate = els.endDate.value;
+
+  if (startDate && (startDate < min || startDate > max)) {
+    showToast(`Tanggal mulai harus berada pada bulan periode ${period.month}.`);
+    return;
+  }
+  if (endDate && (endDate < min || endDate > max)) {
+    showToast(`Tanggal selesai harus berada pada bulan periode ${period.month}.`);
+    return;
+  }
+  if (startDate && endDate && startDate > endDate) {
+    showToast('Tanggal selesai harus setelah atau sama dengan tanggal mulai.');
+    return;
+  }
+
+  showToast(editingActivityId ? 'Menyimpan perubahan kegiatan...' : 'Menambahkan kegiatan...');
   try {
     const payload = {
-      kegiatan: els.activityKegiatan.value,
-      waktu: els.activityWaktu.value,
-      catatan: els.activityCatatan.value
+      kegiatan: els.kegiatanInput.value,
+      startDate,
+      endDate,
+      startTime: els.startTime.value,
+      endTime: els.endTime.value,
+      catatan: els.catatanInput.value
     };
     const url = editingActivityId
       ? `/api/periods/${period.id}/activities/${editingActivityId}`
@@ -702,13 +858,21 @@ els.activityForm.addEventListener('submit', async (event) => {
     setActivityEditMode(null);
     await loadState(editingActivityId ? 'Perubahan kegiatan disimpan.' : 'Kegiatan ditambahkan. Bukti bisa diisi sekarang atau nanti.');
   } catch (err) {
-    setStatus(err.message);
+    showToast(err.message);
   }
 });
 
 els.activityCancelBtn.addEventListener('click', () => {
   setActivityEditMode(null);
 });
+
+els.cancelPdfBtn.addEventListener('click', () => {
+  cancelPdfGeneration = true;
+  els.cancelPdfBtn.disabled = true;
+  showToast('Membatalkan generate PDF...');
+});
+
+els.generateAllPdfBtn.addEventListener('click', generateAllPdf);
 
 els.exportExcelBtn.addEventListener('click', exportPeriodExcel);
 
@@ -717,15 +881,15 @@ els.previewBtn.addEventListener('click', async () => {
   const activity = activeActivity();
   if (!period || !activity) return;
   els.previewBtn.disabled = true;
-  setStatus('Membaca Google Drive...');
+  showToast('Membaca Google Drive...');
   try {
     const data = await api(`/api/periods/${period.id}/activities/${activity.id}/drive-preview`, jsonOptions('POST', {
       driveLinks: els.driveLinks.value
     }));
     renderDriveFiles(data.files || []);
-    setStatus(data.files?.length ? `${data.files.length} file ditemukan.` : 'Tidak ada gambar/PDF yang ditemukan.');
+    showToast(data.files?.length ? `${data.files.length} file ditemukan.` : 'Tidak ada gambar/PDF yang ditemukan.');
   } catch (err) {
-    setStatus(err.message);
+    showToast(err.message);
   } finally {
     els.previewBtn.disabled = false;
   }
@@ -736,17 +900,16 @@ els.driveForm.addEventListener('submit', async (event) => {
   const period = activePeriod();
   const activity = activeActivity();
   if (!period || !activity) return;
-  setStatus('Menyimpan bukti Drive...');
+  showToast('Menyimpan bukti Drive...');
   try {
     await api(`/api/periods/${period.id}/activities/${activity.id}/drive-evidence`, jsonOptions('PUT', {
       driveLinks: els.driveLinks.value,
-      supportLinks: els.supportLinks.value,
       selectedDriveIds: selectedDriveIds(),
       driveFiles: previewFiles
     }));
     await loadState('Bukti Drive disimpan.');
   } catch (err) {
-    setStatus(err.message);
+    showToast(err.message);
   }
 });
 
@@ -755,7 +918,7 @@ els.manualForm.addEventListener('submit', async (event) => {
   const period = activePeriod();
   const activity = activeActivity();
   if (!period || !activity || !els.manualFiles.files.length) return;
-  setStatus('Mengupload bukti manual...');
+  showToast('Mengupload bukti manual...');
   try {
     const fd = new FormData();
     [...els.manualFiles.files].forEach(file => fd.append('manualFiles', file));
@@ -766,7 +929,7 @@ els.manualForm.addEventListener('submit', async (event) => {
     els.manualForm.reset();
     await loadState('Bukti manual tersimpan.');
   } catch (err) {
-    setStatus(err.message);
+    showToast(err.message);
   }
 });
 
@@ -784,4 +947,4 @@ els.closeEvidenceBtn.addEventListener('click', () => {
 });
 
 els.periodMonth.value = todayMonth();
-loadState().catch(err => setStatus(err.message));
+loadState().catch(err => showToast(err.message));
