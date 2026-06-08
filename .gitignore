@@ -39,6 +39,7 @@ dist/
 # Local environment files
 .env
 .env.*
+service-account.json
 
 # SQLite
 *.sqlite
