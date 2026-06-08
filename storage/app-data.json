@@ -17,7 +17,27 @@
           "id": "6483a43e-dcbf-4a24-9a13-a1ba9757aaa6",
           "month": "2026-06",
           "label": "Juni 2026",
-          "activities": [],
+          "activities": [
+            {
+              "id": "bc70a6dd-f059-4347-9b24-852b624a67ab",
+              "kegiatan": "Menengahi",
+              "startDate": "2026-06-01",
+              "endDate": "2026-06-03",
+              "startTime": "",
+              "endTime": "",
+              "waktu": "2026-06-01",
+              "catatan": "",
+              "createdAt": "2026-06-08T14:21:14.570Z",
+              "evidence": {
+                "driveLinks": [],
+                "driveFiles": [],
+                "selectedDriveIds": [],
+                "manualFiles": [],
+                "supportLinks": []
+              },
+              "generatedPdfs": []
+            }
+          ],
           "createdAt": "2026-06-08T07:12:34.728Z"
         },
         {

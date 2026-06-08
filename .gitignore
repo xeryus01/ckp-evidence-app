@@ -59,3 +59,5 @@ storage/app-data.json
 storage/evidence/
 storage/output/
 storage/tmp/
+.vercel
+.env*.local

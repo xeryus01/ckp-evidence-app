@@ -420,28 +420,35 @@ app.get('/api/periods/:periodId/export', async (req, res) => {
     const period = findPeriod(data, req.params.periodId);
     if (!period) return res.status(404).json({ error: 'Periode tidak ditemukan.' });
 
+    // Format time to HH:MM (remove seconds if present)
+    const formatTime = (timeStr) => {
+      if (!timeStr) return '';
+      const match = timeStr.match(/^(\d{2}):(\d{2})(?::\d{2})?/);
+      return match ? `${match[1]}:${match[2]}` : '';
+    };
+
     const parseActivityTime = (value) => {
       const raw = String(value || '').trim();
       if (!raw) return { date: '', startTime: '', endTime: '' };
 
       const dateOnlyMatch = raw.match(/^(\d{4}-\d{2}-\d{2})$/);
       if (dateOnlyMatch) {
-        return { date: activityTimeLabel(dateOnlyMatch[1]), startTime: '', endTime: '' };
+        return { date: dateOnlyMatch[1], startTime: '', endTime: '' };
       }
 
       const dateTimeMatch = raw.match(/^(\d{4}-\d{2}-\d{2})[ T]+(.+)$/);
       if (dateTimeMatch) {
-        const dateLabel = activityTimeLabel(dateTimeMatch[1]);
+        const datePart = dateTimeMatch[1];
         const timePart = dateTimeMatch[2].trim();
         const rangeMatch = timePart.match(/^(\d{2}:\d{2}(?::\d{2})?)\s*[-–—]\s*(\d{2}:\d{2}(?::\d{2})?)$/);
         if (rangeMatch) {
-          return { date: dateLabel, startTime: rangeMatch[1], endTime: rangeMatch[2] };
+          return { date: datePart, startTime: formatTime(rangeMatch[1]), endTime: formatTime(rangeMatch[2]) };
         }
         const singleTimeMatch = timePart.match(/^(\d{2}:\d{2}(?::\d{2})?)$/);
         if (singleTimeMatch) {
-          return { date: dateLabel, startTime: singleTimeMatch[1], endTime: '' };
+          return { date: datePart, startTime: formatTime(singleTimeMatch[1]), endTime: '' };
         }
-        return { date: dateLabel, startTime: '', endTime: '' };
+        return { date: datePart, startTime: '', endTime: '' };
       }
 
       return { date: raw, startTime: '', endTime: '' };
@@ -449,14 +456,14 @@ app.get('/api/periods/:periodId/export', async (req, res) => {
 
     const rows = (Array.isArray(period.activities) ? period.activities : []).map((activity, index) => {
       const parsed = parseActivityTime(activity.waktu);
-      const dateLabel = activity.startDate ? activityTimeLabel(activity.startDate) : parsed.date;
-      const startTime = activity.startTime || parsed.startTime;
-      const endTime = activity.endTime || parsed.endTime;
+      const dateLabel = activity.startDate || parsed.date;
+      const startTime = activity.startTime ? formatTime(activity.startTime) : parsed.startTime;
+      const endTime = activity.endTime ? formatTime(activity.endTime) : parsed.endTime;
       return {
         No: index + 1,
         Tanggal: dateLabel,
-        'Tanggal Mulai': activity.startDate ? activityTimeLabel(activity.startDate) : '',
-        'Tanggal Selesai': activity.endDate ? activityTimeLabel(activity.endDate) : '',
+        'Tanggal Mulai': activity.startDate || '',
+        'Tanggal Selesai': activity.endDate || '',
         'Jam Mulai': startTime,
         'Jam Selesai': endTime,
         Kegiatan: activity.kegiatan || '',
